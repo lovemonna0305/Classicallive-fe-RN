@@ -19,30 +19,41 @@ import themeContext from "../../theme/themeContex";
 import { Colors } from "../../theme/color";
 import style from "../../theme/style";
 import { useNavigation } from "@react-navigation/native";
-import StarRating, {StarRatingDisplay} from 'react-native-star-rating-widget';
-import { useDispatch, useSelector } from "react-redux";
+import StarRating, { StarRatingDisplay } from 'react-native-star-rating-widget';
 import { AppBar, HStack } from "@react-native-material/core";
 import { Avatar } from "react-native-paper";
 import { useTranslation } from "react-i18next";
-import Icon from "react-native-vector-icons/FontAwesome";
 
-import { getReviewsByPost } from "../../actions/common";
+import { getReviewsByPost, } from "../../actions/common";
 
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
-import { server } from "../../constants";
+import { images, server } from "../../constants";
+import { useStore } from "../../store/store";
+import { err } from "react-native-svg";
+import Spinner from "../../components/Spinner";
 
 export default function CustomerReviewList() {
+  const { changeStore, store } = useStore();
   const { t } = useTranslation();
   const theme = useContext(themeContext);
   const navigation = useNavigation();
-  const dispatch = useDispatch();
+  const program = store.program;
+  const currentUser = store.currentUser;
+  const [reviews, setReviews] = useState({});
 
-  const { program } = useSelector((state) => state.customer);
-  const { users, reviews } = useSelector((state) => state.common);
 
   useEffect(() => {
-
+    changeStore({ ...store, isLoading: true });
+    (async () => {
+      await getReviewsByPost(program.id)
+        .then(res => {
+          setReviews(res)
+          changeStore({ ...store, isLoading: false });
+        }).catch(err => {
+          changeStore({ ...store, isLoading: false });
+        })
+    })();
   }, []);
 
   const layout = useWindowDimensions();
@@ -52,6 +63,49 @@ export default function CustomerReviewList() {
     // dispatch(setProgram(item));
     // navigation.navigate("CustomerReviewDetail")
   };
+
+  const renderItem = ({ item, index }) => {
+    const selectProgram = (item) => {
+      changeStore({ ...store, program: item });
+      navigation.navigate("CustomerPostDetail");
+    };
+    return (
+      <>
+        <TouchableOpacity key={`customer-review-${item.id}`}
+          style={{ height: 90, padding: 5, backgroundColor: theme.box, borderRadius: 5, marginBottom: 5 }}
+          onPress={() => selectReview(item)}>
+          <View style={[style.row, { paddingTop: 5, paddingHorizontal: 10 }]}>
+            <View style={{ flex: 1 }}>
+              <Image
+                source={{ uri: server.media_url + item.customer.image_file }}
+                style={{ width: 70, height: 70, borderRadius: 5 }}
+              />
+            </View>
+            <View style={{ flex: 4 }}>
+              <View style={[style.row, { alignContent: "center", justifyContent: "space-between", marginHorizontal: 5, marginBottom: 7 }]}>
+                <View style={{ paddingLeft: 10 }}>
+                  <Text numberOfLines={1} style={[style.activetext, { width: width / 2 - 50 }]}>{item.customer.name}</Text>
+                </View>
+                <View style={{ paddingTop: 5 }}>
+                  <StarRatingDisplay
+                    rating={item.rating}
+                    starSize={12}
+                    starStyle={{ paddingHorizontal: 1, marginHorizontal: 0 }}
+                  />
+                </View>
+              </View>
+              <View style={[style.row, { alignContent: "center", justifyContent: "space-between", marginHorizontal: 5, marginBottom: 8 }]}>
+                <View style={{ paddingLeft: 10 }}>
+                  <Text numberOfLines={2} style={[style.secondarytext, { fontSize: 12, width: width / 2 + 50 }]}>{item.description}</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </TouchableOpacity>
+      </>
+    )
+  };
+
 
   return (
     <SafeAreaView
@@ -64,7 +118,7 @@ export default function CustomerReviewList() {
         centerTitle={true}
         elevation={0}
         leading={
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => navigation.navigate("CustomerHistoryDetail")}>
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
@@ -74,62 +128,55 @@ export default function CustomerReviewList() {
           </TouchableOpacity>
         }
       />
-      <ScrollView style={{ flex: 1, marginHorizontal: 20 , marginBottom:5}}>
-        
-        {reviews&&(reviews.length>0)&&reviews.map((item, index)=>(
-          <>
-          <TouchableOpacity key={`customer-review-${item.id}`} 
-            style={{height:90,padding:5,backgroundColor:theme.box, borderRadius:5,marginBottom:5}}
-            onPress={() =>selectReview(item)}>
-            <View style={[style.row,{paddingTop:5, paddingHorizontal:10}]}>
-              <View style ={{flex:1}}>
-                <Image
-                  source={{ uri: server.media_url + users[item.customer_id]['image_file'] }}
-                  style={{width:70,height:70,borderRadius:5}}
-                />
-              </View>
-              <View style={{flex:4}}>
-                <View style={[style.row,{alignContent:"center", justifyContent:"space-between",marginHorizontal:5, marginBottom:7}]}>
-                  <View style={{paddingLeft:10}}>
-                    <Text numberOfLines={1} style={[style.activetext,{width:width/2-50}]}>{users[item.customer_id]['name']}</Text>
-                  </View>
-                  <View style={{paddingTop:5}}>
-                    <StarRatingDisplay
-                        rating={item.rating}
-                        starSize={12}
-                        starStyle={{paddingHorizontal:1,marginHorizontal:0}}
-                      />
-                  </View>
-                </View>
-                <View style={[style.row,{alignContent:"center", justifyContent:"space-between",marginHorizontal:5, marginBottom:8}]}>
-                  <View style={{paddingLeft:10}}>
-                    <Text numberOfLines={2} style={[style.secondarytext,{fontSize:12,width:width/2+50}]}>{item.description}</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </TouchableOpacity>
-         </>
-        ))}
-      </ScrollView>
+      {store.isLoading && <Spinner />}
+      
+        {reviews && (reviews.length > 0) ? (
+          <ScrollView style={{ flex: 1, marginHorizontal: 20, marginBottom: 5 }}>
+            <FlatList
+              key={"review-list"}
+              data={reviews}
+              programs={(item, index) => {
+                return index;
+              }}
+              showsVerticalScrollIndicator={false}
+              renderItem={renderItem}
+              scrollEnabled={false}
+            />
+          </ScrollView>
+        ) : (
+          <View style={{ flex: 1, justifyContent: "center" }}>
+            <Text
+              style={{
+                marginVertical: 8,
+                fontWeight: 800,
+                color: "white",
+                fontSize: 14,
+                textAlign: "center",
+                opacity: 0.4,
+              }}
+            >
+              {t("no_review_exists")}
+            </Text>
+          </View>
+        )}
       <View
-          style={{
-            backgroundColor: "transparent",
-            position: "absolute",
-            bottom: 0,
-            right: 0,
-          }}
+        style={{
+          backgroundColor: "transparent",
+          position: "absolute",
+          bottom: 0,
+          right: 0,
+        }}
+      >
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Review")}
         >
-          <TouchableOpacity
-            onPress={()=>navigation.navigate("CustomerReview")}
-          >
-            <Avatar.Image
-              // source={require("../../../assets/image/plus.png")}
-              style={{ backgroundColor: "" }}
-              size={130}
-            ></Avatar.Image>
-          </TouchableOpacity>
-        </View>
+          <Avatar.Image
+            source={images.plus}
+            style={{ backgroundColor: "" }}
+            size={130}
+          ></Avatar.Image>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 }

@@ -188,23 +188,14 @@ import { storage } from "../utils/storage";
 //   }
 // };
 
-// export const updateUser = (ids, data) => async (dispatch) => {
-//   global.isLoading=true;
-//   try {
+// export const updateUser = async (ids, data) => {
 //     // only update Interesting Categories
 //     const res = await api.updateInterCategory(ids);
-//     dispatch({ type: UPDATE_USER, payload: data });
-//   } catch (err) {
-//     Toast.show({
-//       type: "error",
-//       text1: "Server error",
-//       text2: err.response.data.message,
-//     });
-//     dispatch({
-//       type: SET_COMMON_STATUS,
-//       payload: [false, true, err.response.data.message],
-//     });
-//   }
+//     if(res.data.success){
+
+//     } else {
+
+//     }
 // };
 
 // export const setNumNotification = (numMessages, friendRequests) => async (dispatch) => {

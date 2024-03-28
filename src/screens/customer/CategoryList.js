@@ -20,15 +20,35 @@ const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
 import { server } from "../../constants";
 import Spinner from "../../components/Spinner";
-import { getSubCategory, setCategory, setLoading } from "../../actions/common";
+import { useStore } from "../../store/store";
+
+import { getAllCategories, getAllParentCategories, getCategoryArray, getPopularCategories, getSubCategory, setCategory, setLoading } from "../../actions/common";
+import Footer from "../../components/Footer";
 
 export default function CustomerCategoryList() {
+  const { changeStore, store } = useStore();
   const navigation = useNavigation();
   const { t } = useTranslation();
   const ref = React.useRef(null);
   const theme = useContext(themeContext);
 
-  const currentUser = global.currentUser;
+  useEffect(() => {
+    changeStore({...store, isLoading:true});
+    (async () => {
+      await getAllParentCategories()
+      await getPopularCategories()
+      await getAllCategories()
+      await getCategoryArray()
+      .then(res=>{
+        setPrograms(res);
+        changeStore({...store, isLoading:false});
+      }).catch(err=>{
+        changeStore({...store, isLoading:false});
+      });
+    })();
+  }, []);
+
+
   const allparentcategories = global.allparentcategories;
   const popularcategories = global.popularcategories;
 
@@ -67,7 +87,6 @@ export default function CustomerCategoryList() {
       formdata.append("category", item.id);
       getSubCategory(formdata);
       setCategory(item);
-      setLoading(true);
       navigation.navigate("CustomerCategory",{
         id: item.id,
       });
@@ -96,6 +115,7 @@ export default function CustomerCategoryList() {
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.bg }}>
       {/* <StatusBar backgroundColor="transparent" translucent={true} /> */}
       <View style={{ flex: 1 }}>
+        {store.isLoading && <Spinner />}
         <Header />
         <View style={{ marginTop: 10 }}>
           <Text
@@ -186,6 +206,7 @@ export default function CustomerCategoryList() {
           )}
         </View>
       </View>
+      <Footer />
     </SafeAreaView>
   );
 }

@@ -214,7 +214,7 @@ export default function FlatPage({ items, title = "default" }) {
   };
 
   return (
-    <View style={{ flex: 1, marginHorizontal: 20, marginBottom: 60 }}>
+    <View style={{ flex: 1, marginHorizontal: 20, }}>
       {items && items.length > 0 ? (
         <>
           <FlatList

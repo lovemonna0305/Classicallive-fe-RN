@@ -30,25 +30,32 @@ import FlatPage from "../../components/FlatPage";
 import { completeProgram, getCProgramsByCategory } from "../../actions/customer";
 import { server } from "../../constants";
 import Spinner from "../../components/Spinner";
+import { useStore } from "../../store/store";
 
 export default function CustomerCategory({ route }) {
+  const { changeStore, store } = useStore();
   const { t } = useTranslation();
   const theme = useContext(themeContext);
   const navigation = useNavigation();
 
-  const currentUser = global.currentUser;
-  const [cCPrograms, setCCPrograms] = useState(global.cCPrograms);
+  const currentUser = store.currentUser;
+  const [cCPrograms, setCCPrograms] = useState({});
   const { id } = route.params;
 
   useEffect(() => {
-    global.isLoading&&(async () => {
-      const data = await getCProgramsByCategory(id);
-      setCCPrograms(data);
+    changeStore({...store, isLoading:true});
+    (async () => {
+      await getCProgramsByCategory(id)
+      .then(res=>{
+        setCCPrograms(res);
+        changeStore({...store, isLoading:false});
+      }).catch(err=>{
+        changeStore({...store, isLoading:false});
+      });
     })();
-    global.isLoading&&(async () => {
-      global.isLoading = false;
-    })();
-  }, [global.isLoading]);
+  }, []);
+
+  
 
   const layout = useWindowDimensions();
 
@@ -132,7 +139,7 @@ export default function CustomerCategory({ route }) {
         )}
       />
       <View style={{ flex: 1 }}>
-        {global.isLoading && <Spinner />}
+        {store.isLoading && <Spinner />}
         <TabView
           navigationState={{ index, routes }}
           renderScene={renderScene}

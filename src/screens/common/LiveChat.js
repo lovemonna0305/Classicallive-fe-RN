@@ -191,8 +191,7 @@ export default function CustomerLiveChat({ route }) {
             <View style={{ display: "flex", flexDirection: "row" }}>
               <TouchableOpacity
                 onPress={async () => {
-                  await getChats();
-                  navigation.replace("Message");
+                  navigation.goBack();
                 }}
               >
                 <Avatar.Icon
@@ -222,7 +221,7 @@ export default function CustomerLiveChat({ route }) {
                 <Text style={{ fontSize: 14, fontWeight: 700, color: "white" }}>
                   {member.name}{" "}
                 </Text>
-                <Text style={{ fontSize: 14, color: "white" }}>Online </Text>
+                {/* <Text style={{ fontSize: 14, color: "white" }}>Online </Text> */}
               </View>
               {/* <TouchableOpacity>
                 <Icon name="create-outline" size={30} style={{ marginTop: 30, marginLeft: 100 }}></Icon>

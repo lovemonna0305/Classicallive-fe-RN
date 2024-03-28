@@ -42,9 +42,6 @@ export default function CustomerHomepage() {
   const [darkMode, setDarkMode] = useState(false);
   const [Programs, setPrograms] = useState({});
 
-  useEffect(() => {
-    changeStore({...store,  isLoading:true});
-  }, []);
 
   useEffect(() => {
     changeStore({...store, isLoading:true});
@@ -56,10 +53,6 @@ export default function CustomerHomepage() {
       }).catch(err=>{
         changeStore({...store, isLoading:false});
       });
-      // await getAllParentCategories();
-      // await getPopularCategories();
-      // await getAllCategories();
-      // await getCategoryArray();
     })();
   }, []);
 

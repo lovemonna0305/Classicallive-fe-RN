@@ -20,7 +20,6 @@ import { Colors } from "../../theme/color";
 import style from "../../theme/style";
 import { useNavigation } from "@react-navigation/native";
 import StarRating, { StarRatingDisplay } from "react-native-star-rating-widget";
-import { useDispatch, useSelector } from "react-redux";
 import { AppBar, HStack } from "@react-native-material/core";
 import { Avatar } from "react-native-paper";
 import { useTranslation } from "react-i18next";
@@ -40,41 +39,31 @@ import { getChat } from "../../actions/common";
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
 import { server } from "../../constants";
+import { useStore } from "../../store/store";
 
 export default function CustomerProgramEnter() {
+  const { changeStore, store } = useStore();
   const { t } = useTranslation();
   const theme = useContext(themeContext);
   const navigation = useNavigation();
-  const dispatch = useDispatch();
 
-  const { currentUser } = useSelector((state) => state.auth);
-  const { program, cType, index, cHistories, cNReservs } = useSelector(
-    (state) => state.customer
-  );
+  const program = store.program;
+  const currentUser = store.currentUser;
+
   const [modalVisible, setModalVisible] = useState(false);
   const [modalCancelProgram, setModalCancelProgram] = useState(false);
 
   useEffect(() => {
+    changeStore({...store, isLoading:true});
     (async () => {
-      dispatch(completeProgram(program.id));
-      dispatch(getPrograms(1));
-      dispatch(getPrograms(2));
+      (completeProgram(program.id))
+      .then(res=>{
+        changeStore({...store, isLoading:false});
+      }).catch(res=>{
+        changeStore({...store, isLoading:false});
+      })
     })();
   }, []);
-
-  const handlefollow = () => {
-    dispatch(followuser(program));
-  };
-
-  const handlelikepost = () => {
-    dispatch(likepost(program));
-  };
-  const handleuppost = () => {
-    dispatch(uppost(program));
-  };
-  const handledownpost = () => {
-    dispatch(downpost(program));
-  };
 
   const handleReview = () => {
     navigation.navigate("CustomerReviewList");
@@ -97,7 +86,7 @@ export default function CustomerProgramEnter() {
       {/* <StatusBar backgroundColor={darkMode === true ? '#000':'#fff'} barStyle={darkMode === true  ? 'light-content' : 'dark-content'} translucent={false}/> */}
       <AppBar
         color={theme.bg}
-        title={t("detail")}
+        title={t("completed")}
         titleStyle={{ color: theme.txt, fontFamily: "Plus Jakarta Sans" }}
         centerTitle={true}
         elevation={0}

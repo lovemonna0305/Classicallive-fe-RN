@@ -4,17 +4,17 @@ import { storage } from "../utils/storage";
 import Toast from "react-native-toast-message";
 
 export const setProgram = (data) => {
-  global.isLoading=true;
+  global.isLoading = true;
   global.program = data;
 };
 
 export const setLoading = (data) => {
-  global.isLoading=true;
+  global.isLoading = true;
   global.isLoading = data;
 };
 
 export const setMessageNotification = async (numMessages) => {
-  global.isLoading=true;
+  global.isLoading = true;
   try {
     let numNotification = 0;
     for await (let numMessage of numMessages) {
@@ -27,7 +27,7 @@ export const setMessageNotification = async (numMessages) => {
 };
 
 export const setNumMessages = async () => {
-  global.isLoading=true;
+  global.isLoading = true;
   try {
     const res = await api.unreadNumMessage();
     // console.log('Current Message Num->', numMessages)
@@ -43,7 +43,7 @@ export const setNumMessages = async () => {
 };
 
 export const getChats = async () => {
-  global.isLoading=true;
+  global.isLoading = true;
   try {
     const res = await api.getChats();
     if (res.data.success) {
@@ -58,7 +58,7 @@ export const getChats = async () => {
 };
 
 export const getNotifications = async () => {
-  global.isLoading=true;
+  global.isLoading = true;
   try {
     const res = await api.getNotifications();
     if (res.data.success) {
@@ -73,11 +73,11 @@ export const getNotifications = async () => {
 };
 
 export const getChat = async (id, post_id) => {
-  global.isLoading=true;
+  global.isLoading = true;
   try {
     const res = await api.getChat(id, post_id);
     // if (res.data.success) {
-      
+
     //   dispatch({ type: GET_CHAT, payload: res.data.data });
     // } else {
     //   dispatch({
@@ -90,31 +90,17 @@ export const getChat = async (id, post_id) => {
   }
 };
 
-// export const getusers = () => {
-//   global.isLoading=true;
-//   try {
-//     const res = await api.getusers();
-//     if (res.data.success) {
-//         dispatch({ type: GET_USERS, payload: res.data.data });
-      
-//     } else {
-//       // dispatch({ type: LOGIN_FALIED });
-//       dispatch({
-//         type: SET_COMMON_STATUS,
-//         payload: [false, true, "server_error"],
-//       });
-//     }
-//   } catch (err) {
-//     // dispatch({ type: LOGIN_FALIED });
-//     dispatch({
-//       type: SET_COMMON_STATUS,
-//       payload: [false, true, "server_error"],
-//     });
-//   }
-// };
+export const getusers = async () => {
+  const res = await api.getusers();
+  if (res.data.success) {
+    return res.data.data;
+  } else {
+    return [];
+  }
+};
 
 export const getAllCategories = async () => {
-  global.isLoading=true;
+  global.isLoading = true;
   try {
     const res = await api.getAllCategories();
     if (res.data.success) {
@@ -128,7 +114,7 @@ export const getAllCategories = async () => {
 };
 
 export const getAllParentCategories = async () => {
-  global.isLoading=true;
+  global.isLoading = true;
   try {
     const res = await api.getAllParentCategories();
     if (res.data.success) {
@@ -142,7 +128,7 @@ export const getAllParentCategories = async () => {
 };
 
 export const getPopularCategories = async () => {
-  global.isLoading=true;
+  global.isLoading = true;
   try {
     const res = await api.getPopularCategories();
     if (res.data.success) {
@@ -156,21 +142,20 @@ export const getPopularCategories = async () => {
 };
 
 export const getCategoryArray = async (data) => {
-    global.isLoading=true;
-    try {
-      const res = await api.getCategoryArray();
-      if (res.data.success) {
-        global.categoryArray = res.data.data;
-      } else {
-        console.log(res.data.success);
-      }
-    } catch (err) {
-      console.log(err);
+  try {
+    const res = await api.getCategoryArray();
+    if (res.data.success) {
+      return res.data.data;
+    } else {
+      return [];
     }
-  };
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 export const getSubCategory = async (id) => {
-  global.isLoading=true;
+  global.isLoading = true;
   try {
     const res = await api.getSubCategories(id);
     if (res.data.success) {
@@ -184,21 +169,16 @@ export const getSubCategory = async (id) => {
 };
 
 export const getReviewsByPost = async (id) => {
-  global.isLoading=true;
-  try {
-    const res = await api.getReviewsByPost(id);
-    if (res.data.success) {
-      global.reviews = res.data.data;
-    } else {
-      console.log(res.data.success);
-    }
-  } catch (err) {
-    console.log(err);
+  const res = await api.getReviewsByPost(id);
+  if (res.data.success) {
+    return res.data.data;
+  } else {
+    return [];
   }
 };
 
 export const setCategory = async (data) => {
-  global.isLoading=true;
+  global.isLoading = true;
   try {
     global.pCategory = data;
   } catch (err) {

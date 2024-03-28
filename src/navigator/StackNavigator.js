@@ -46,13 +46,13 @@ import Otp from "../screens/loginscreens/Otp";
 import CustomerHomepage from "../screens/customer/Homepage";
 import CustomerPoints from "../screens/customer/Points";
 import CustomerCategory from "../screens/customer/Category";
-// import CustomerPostList from "../screens/customer/PostList";
-// import CustomerReview from "../screens/customer/Review";
+import CustomerPostList from "../screens/customer/PostList";
+import CustomerReview from "../screens/customer/Review";
 import CustomerHistoryDetail from "../screens/customer/HistoryDetail";
-// import CustomerInterCategoryList from "../screens/customer/InterCategoryList";
-// import CustomerReviewList from "../screens/customer/ReviewList";
+import CustomerInterCategoryList from "../screens/customer/InterCategoryList";
+import CustomerReviewList from "../screens/customer/ReviewList";
 import CustomerPostDetail from "../screens/customer/PostDetail";
-// import CustomerProgramEnter from "../screens/customer/ProgramEnter";
+import CustomerProgramEnter from "../screens/customer/ProgramEnter";
 // import CustomerPayment from "../screens/customer/Payment";
 import CustomerHistoryList from "../screens/customer/HistoryList";
 
@@ -88,6 +88,7 @@ import '../utils/global';
 import { useStore } from "../store/store";
 import PerformerHomepage from "../screens/Performer/Homepage";
 import Message from "../screens/common/Message";
+import CustomerCategoryList from "../screens/customer/CategoryList";
 
 const Stack = createNativeStackNavigator();
 
@@ -173,6 +174,11 @@ export default function StackNavigator() {
                     options={{ headerShown: false }}
                   />
                   <Stack.Screen
+                    name="CategoryList"
+                    component={CustomerCategoryList}
+                    options={{ headerShown: false }}
+                  />
+                  <Stack.Screen
                     name="HistoryList"
                     component={CustomerHistoryList}
                     options={{ headerShown: false }}
@@ -184,12 +190,12 @@ export default function StackNavigator() {
                     options={{ headerShown: false }}
                   />
                   
-                 {/* <Stack.Screen
+                 <Stack.Screen
                     name="CustomerPostList"
                     component={CustomerPostList}
                     options={{ headerShown: false }}
                   />
-                  */}
+                 
 
                   <Stack.Screen
                     name="CustomerHistoryDetail"
@@ -201,29 +207,30 @@ export default function StackNavigator() {
                     component={CustomerPoints}
                     options={{ headerShown: false }}
                   />
-                   {/* <Stack.Screen
-                    name="CustomerReview"
+                  <Stack.Screen
+                    name="ReviewList"
+                    component={CustomerReviewList}
+                    options={{ headerShown: false }}
+                  />
+                    <Stack.Screen
+                    name="Review"
                     component={CustomerReview}
                     options={{ headerShown: false }}
                   />
 
                   <Stack.Screen
-                    name="CustomerInterCategoryList"
+                    name="InterCategoryList"
                     component={CustomerInterCategoryList}
                     options={{ headerShown: false }}
                   />
 
+                  
                   <Stack.Screen
-                    name="CustomerReviewList"
-                    component={CustomerReviewList}
-                    options={{ headerShown: false }}
-                  />
-                  <Stack.Screen
-                    name="CustomerProgramEnter"
+                    name="ProgramEnter"
                     component={CustomerProgramEnter}
                     options={{ headerShown: false }}
                   />
-                  <Stack.Screen
+                  {/*<Stack.Screen
                     name="CustomerPayment"
                     component={CustomerPayment}
                     options={{ headerShown: false }}

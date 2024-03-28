@@ -72,7 +72,7 @@ export default function CustomerPostDetail() {
       }).catch((err) => {
         console.log(err);
       });
-    navigation.navigate("CustomerHistoryList");
+    navigation.navigate("HistoryList");
   };
 
   const handlechat = () => {
@@ -110,7 +110,6 @@ export default function CustomerPostDetail() {
       ;
     changeStore({ ...store, isLoading: false });
   };
-
   const handlelikepost = async () => {
     changeStore({ ...store, isLoading: true });
     await likepost(program)

@@ -34,13 +34,14 @@ const height = Dimensions.get("screen").height;
 import { server } from "../../constants";
 import Spinner from "../../components/Spinner";
 import { useStore } from "../../store/store";
+import Footer from "../../components/Footer";
 
 export default function CustomerHistoryList() {
   const { changeStore, store } = useStore();
   const { t } = useTranslation();
   const theme = useContext(themeContext);
   const navigation = useNavigation();
-  
+
   const [Programs, setPrograms] = useState({});
 
   const currentUser = store.currentUser;
@@ -52,23 +53,23 @@ export default function CustomerHistoryList() {
 
   useEffect(() => {
     // store.isLoading = true;
-    changeStore({...store, isLoading:true});
+    changeStore({ ...store, isLoading: true });
     const getData = async () => {
       await getPrograms(2)
-      .then(res=>{
-        setPrograms(res);
-        // store.isLoading = false;
-        changeStore({...store, isLoading:false});
-      }).catch(err=>{
-        console.log(err);
-        changeStore({...store, isLoading:false});
-        // store.isLoading = false;
-      })
+        .then(res => {
+          setPrograms(res);
+          // store.isLoading = false;
+          changeStore({ ...store, isLoading: false });
+        }).catch(err => {
+          console.log(err);
+          changeStore({ ...store, isLoading: false });
+          // store.isLoading = false;
+        })
     };
     getData();
   }, []);
 
-  
+
 
   const layout = useWindowDimensions();
 
@@ -101,9 +102,9 @@ export default function CustomerHistoryList() {
 
   const ThirdRoute = () => (
     <>
-      <FlatPage items={Programs["completed"]} title="completed"/>
+      <FlatPage items={Programs["completed"]} title="completed" />
     </>
-  );       
+  );
 
   const renderScene = SceneMap({
     first: FirstRoute,
@@ -121,14 +122,16 @@ export default function CustomerHistoryList() {
         centerTitle={true}
         elevation={0}
         leading={
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Avatar.Icon
-              icon="arrow-left"
-              style={{ backgroundColor: theme.bg }}
-              color="white"
-              size={40}
-            />
-          </TouchableOpacity>
+          <>
+            {/* <TouchableOpacity onPress={() => navigation.goBack()}>
+              <Avatar.Icon
+                icon="arrow-left"
+                style={{ backgroundColor: theme.bg }}
+                color="white"
+                size={40}
+              />
+            </TouchableOpacity> */}
+          </>
         }
         trailing={(props) => (
           <HStack
@@ -157,6 +160,7 @@ export default function CustomerHistoryList() {
         initialLayout={{ width: layout.width }}
         renderTabBar={renderTabBar}
       />
+      <Footer />
     </SafeAreaView>
   );
 }

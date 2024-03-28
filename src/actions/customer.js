@@ -63,17 +63,13 @@ export const reservProgram = async (data, coins) => {
 };
 
 export const cancelProgram = async (id) => {
-    global.isLoading = true;
-    try {
-        const res = await api.cancelProgram(id);
-        if (res.data.success) {
-            return true;
-        } else {
-            return false;
-        }
-
-    } catch (error) {
+    const res = await api.cancelProgram(id);
+    if (res.data.success) {
+        return true;
+    } else {
+        return false;
     }
+
 };
 export const completeProgram = async (id) => {
     global.isLoading = true;
@@ -100,15 +96,8 @@ export const buycoins = async (data, coins) => {
 };
 
 export const commitReview = async (data, program) => {
-    global.isLoading = true;
-    try {
-        const res = await api.commitreview(data);
-        if (res.data.success) {
-        } else {
-        }
-
-    } catch (error) {
-    }
+    const res = await api.commitreview(data);
+    return res.data.success;
 };
 
 export const getCProgramsByCategory = async (id) => {
@@ -164,4 +153,9 @@ export const downpost = async (data) => {
     } else {
         return data;
     }
+};
+
+export const updateInterCategory = async (ids, data) => {
+    const res = await api.updateInterCategory(ids);
+    return res.data.success;
 };

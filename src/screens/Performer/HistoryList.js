@@ -33,6 +33,7 @@ const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
 import { server } from "../../constants";
 import Spinner from "../../components/Spinner";
+import Footer from "../../components/Footer";
 // global.isLoading = true;
 
 export default function PerformerHistoryList() {
@@ -117,6 +118,7 @@ export default function PerformerHistoryList() {
         initialLayout={{ width: layout.width }}
         renderTabBar={renderTabBar}
       />
+      <Footer />
     </SafeAreaView>
   );
 }

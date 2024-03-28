@@ -278,6 +278,7 @@
   "no_post_exists": "This post does not exist.",
   "no_category_exists": "This category does not exist.",
   "no_notification_exists": "This Notifications does not exist.",
+  "no_review_exists": "This Review does not exist.",
   "vchat_not_allowed": "Performer not allowed chat.",
   "tip_sent": "Tip was sent to the performer.",
   "tip_failed": "Failed to send tip.",
@@ -309,7 +310,7 @@
   "all_list": "All",
   "today_list": "Today",
   "active_list": "Active",
-  "completed_list": "Completed",
+  "completed_list": "Completed List",
   "expired_list": "Expired",
   "subcategory": "Subcategory",
   "type_subcategory": "Type subcategory",
@@ -499,6 +500,16 @@
   
   "opt_is_incorrect":"OTP is incorrect",
   "provide_correct_4_digits":"Please provide correct 4 digits.",
+  "user_follow":"User follow as this performer",
+  "not_user_follow":"User not follow as this performer",
+  "post_like":"Like post.",
+  "not_post_like":"Not like post.",
+  "post_up":"thumbup post.",
+  "not_post_up":"Not thumbup post.",
+  "post_down":"Down post.",
+  "not_post_down":"Not down post.",
+  "reserve_success":"Reserve success.",
+  "cancel_success":"Cancel Successfully",
 
 
   

@@ -20,31 +20,30 @@ import style from "../../theme/style";
 import { useTranslation } from "react-i18next";
 
 import { useNavigation } from "@react-navigation/native";
-import { getSubCategory, setCategory, setLoading } from "../../actions/common";
-import { updateUser } from "../../actions/auth";
-import SubCategoryItem from "../../components/SubCategoryItem";
+import { getCategoryArray, getSubCategory, setCategory, setLoading } from "../../actions/common";
 import { AppBar } from "@react-native-material/core";
 import { Avatar } from "react-native-paper";
-// import {Avatar} from 'react-native-elements';
 import Icons from "react-native-vector-icons/FontAwesome";
-import { api } from "../../api";
+
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
 import { server } from "../../constants";
 import Spinner from "../../components/Spinner";
+import { useStore } from "../../store/store";
+import { updateInterCategory } from "../../actions/customer";
+
+
 export default function CustomerInterCategoryList() {
+  const { changeStore, store } = useStore();
   const navigation = useNavigation();
   const { t } = useTranslation();
   const ref = React.useRef(null);
   const theme = useContext(themeContext);
 
-  const dispatch = useDispatch();
-  const { currentUser } = useSelector((state) => state.auth);
+  const currentUser = store.currentUser;
+
   const [darkMode, setDarkMode] = useState(false);
-  
-  const { categoryArray, isLoading } = useSelector(
-    (state) => state.common
-  );
+  const [categoryArray, setCategoryArray] = useState({});
 
   const [select, setSelect] = useState([]);
 
@@ -62,18 +61,36 @@ export default function CustomerInterCategoryList() {
     }
   };
  
-  const updateInterCategory = async ()=>{
+  const handleupdateInterCategory = async ()=>{
     let formdata = new FormData();
     formdata.append("inter_category", select.toString());
     let update_user = currentUser;
     update_user.interesting_category = select.toString();
-    dispatch(updateUser(formdata, update_user));
-    dispatch(setLoading(false));
+    changeStore({...store, isLoading:true});
+    (async () => {
+      await updateInterCategory(formdata)
+      .then(res=>{
+        changeStore({ ...store, currentUser: update_user });
+        changeStore({...store, isLoading:false});
+      }).catch(err=>{
+        changeStore({...store, isLoading:false});
+      });
+    })();
   }
 
   useEffect(() => {
-    let categories = currentUser.interesting_category?currentUser.interesting_category.split(',').map(Number):[];
-    setSelect(categories);
+    changeStore({...store, isLoading:true});
+    (async () => {
+      await getCategoryArray()
+      .then(res=>{
+        setCategoryArray(res);
+        let categories = currentUser.interesting_category?currentUser.interesting_category.split(',').map(Number):[];
+        setSelect(categories);
+        changeStore({...store, isLoading:false});
+      }).catch(err=>{
+        changeStore({...store, isLoading:false});
+      });
+    })();
   }, []);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.bg }}>
@@ -98,7 +115,7 @@ export default function CustomerInterCategoryList() {
         }
       />
       <View style={{flex:1}}>
-        {isLoading && <Spinner />}
+        {store.isLoading && <Spinner />}
         <ScrollView style={{flex:1}}>
           <View style={{flex:1, flexDirection:'row',alignItems:"center", justifyContent:"space-between", marginTop: 10, }}>
             <Text
@@ -120,7 +137,7 @@ export default function CustomerInterCategoryList() {
                 borderRadius: 20,
                 marginRight: 10,
               }}
-              onPress={()=>updateInterCategory()}
+              onPress={()=>handleupdateInterCategory()}
             >
               <Text
                 style={{

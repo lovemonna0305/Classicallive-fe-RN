@@ -277,6 +277,7 @@
   "comment" : "コメント",
   "reschedule" : "スケジュールを変更する",
   "no_post_exists" : "この投稿は存在しません。",
+  "no_review_exists": "このレビューは存在しません。",
   "no_category_exists": "このカテゴリは存在しません。",
   "no_notification_exists": "この通知は存在しません。",
   "vchat_not_allowed" : "演奏者はチャットを許可されていません。",
@@ -491,6 +492,17 @@
   
   "opt_is_incorrect": "OTPが間違っています",
   "provide_correct_4_digits": "正しい4桁を入力してください",
+  "user_follow": "このパフォーマーをフォローする",
+  "not_user_follow": "このパフォーマーをフォローしていません",
+  "post_like": "投稿をいいねする",
+  "not_post_like": "投稿をいいねしていません",
+  "post_up": "投稿を高く評価する",
+  "not_post_up": "投稿を高く評価していません",
+  "post_down": "投稿を低く評価する",
+  "not_post_down": "投稿を低く評価していません",
+  "reserve_success": "予約が成功しました",
+  "cancel_success":"正常にキャンセルされました",
+
 
   "default":"default",
   "amount":"Amount"

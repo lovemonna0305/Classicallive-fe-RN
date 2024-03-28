@@ -36,16 +36,15 @@ export default function Message() {
   const [chats, setChats] = useState(global.chats);
 
   useEffect(() => {
+    changeStore({...store, isLoading:true});
     (async () => {
-      try {
-        const data = await getChats();
-        setChats(data);
-      } catch (err) {
-        console.log(err)
-      }
-    })();
-    (async () => {
-      global.isLoading = false;
+        await getChats()
+        .then(res=>{
+          setChats(res);
+          changeStore({...store, isLoading:false});
+        }).catch(err=>{
+          changeStore({...store, isLoading:false});
+        });
     })();
   }, []);
 
@@ -57,19 +56,19 @@ export default function Message() {
         titleStyle={{ color: theme.txt }}
         centerTitle={true}
         elevation={0}
-        leading={
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Avatar.Icon
-              icon="arrow-left"
-              style={{ backgroundColor: theme.bg }}
-              color="white"
-              size={40}
-            />
-          </TouchableOpacity>
-        }
+        // leading={
+        //   <TouchableOpacity onPress={() => navigation.goBack()}>
+        //     <Avatar.Icon
+        //       icon="arrow-left"
+        //       style={{ backgroundColor: theme.bg }}
+        //       color="white"
+        //       size={40}
+        //     />
+        //   </TouchableOpacity>
+        // }
       />
       <View style={{ flex: 1 }}>
-        {global.isLoading && (
+        {store.isLoading && (
           <Spinner />
         )}
         {chats && chats.length > 0 ? (

@@ -34,6 +34,7 @@ import {
   cancelProgram,
   getPrograms,
   getProgramsByPerformer,
+  reservProgram,
 } from "../../actions/customer";
 import { getChat, getReviewsByPost, setLoading } from "../../actions/common";
 const width = Dimensions.get("screen").width;
@@ -51,9 +52,11 @@ export default function CustomerHistoryDetail({ route }) {
   const program = store.program;
   const currentUser = store.currentUser;
   const [modalVisible, setModalVisible] = useState(false);
+  const [status, setStatus] = useState(program.reserv_status);
   const [modalCancelProgram, setModalCancelProgram] = useState(false);
-  const { status } = route.params;
-useEffect(() => {}, []);
+  const [modalReserve, setModalReserve] = useState(false);
+  // const { status } = route.params;
+  useEffect(() => { }, []);
 
   const handlechat = () => {
     navigation.navigate("LiveChat", {
@@ -62,28 +65,75 @@ useEffect(() => {}, []);
     });
   };
 
+  const reserve = async () => {
+    changeStore({ ...store, isLoading: true });
+    setModalReserve(!modalReserve);
+    await reservProgram(program)
+      .then((res) => {
+        currentUser.points -= program.points;
+        changeStore({ ...store, currentUser: currentUser });
+        setStatus("reserved")
+        Toast.show({
+          type: "success",
+          text1: "Success",
+          text2: t("reserve_success"),
+        });
+      }).catch((err) => {
+        console.log(err);
+      });
+  };
+
   const handlefollow = async () => {
 
-    console.log("data.member.id", program.member.id);
     changeStore({ ...store, isLoading: true });
     await followuser(program)
       .then(res => {
-        console.log(res);
-        // changeStore({...store, program:res});
+        if (res.includes("yes")) {
+          Toast.show({
+            type: "success",
+            text1: "Success",
+            text2: t('user_follow'),
+          });
+        } else {
+          Toast.show({
+            type: "success",
+            text1: "Success",
+            text2: t('not_user_follow'),
+          });
+        }
       }).catch(err => {
-        console.log(err);
+        Toast.show({
+          type: "error",
+          text1: "Error",
+          text2: t('server_error'),
+        });
       })
       ;
     changeStore({ ...store, isLoading: false });
   };
-
   const handlelikepost = async () => {
     changeStore({ ...store, isLoading: true });
     await likepost(program)
       .then(res => {
-        console.log(res)
+        if (res.includes("yes")) {
+          Toast.show({
+            type: "success",
+            text1: "Success",
+            text2: t('post_like'),
+          });
+        } else {
+          Toast.show({
+            type: "success",
+            text1: "Success",
+            text2: t('not_post_like'),
+          });
+        }
       }).catch(err => {
-        console.log(err)
+        Toast.show({
+          type: "error",
+          text1: "Error",
+          text2: t('server_error'),
+        });
       });
     changeStore({ ...store, isLoading: false });
   };
@@ -91,9 +141,25 @@ useEffect(() => {}, []);
     changeStore({ ...store, isLoading: true });
     await uppost(program)
       .then(res => {
-        console.log(res)
+        if (res.includes("yes")) {
+          Toast.show({
+            type: "success",
+            text1: "Success",
+            text2: t('post_up'),
+          });
+        } else {
+          Toast.show({
+            type: "success",
+            text1: "Success",
+            text2: t('not_post_up'),
+          });
+        }
       }).catch(err => {
-        console.log(err)
+        Toast.show({
+          type: "error",
+          text1: "Error",
+          text2: t('server_error'),
+        });
       });
     changeStore({ ...store, isLoading: false });
   };
@@ -101,22 +167,35 @@ useEffect(() => {}, []);
     changeStore({ ...store, isLoading: true });
     await downpost(program)
       .then(res => {
-        console.log(res)
+        if (res.includes("yes")) {
+          Toast.show({
+            type: "success",
+            text1: "Success",
+            text2: t('post_down'),
+          });
+        } else {
+          Toast.show({
+            ttype: "success",
+            text1: "Success",
+            text2: t('not_post_down'),
+          });
+        }
       }).catch(err => {
-        console.log(err)
+        Toast.show({
+          type: "error",
+          text1: "Error",
+          text2: t('server_error'),
+        });
       });
     changeStore({ ...store, isLoading: false });
   };
 
   const handleReview = () => {
-    (async () => {
-      await getReviewsByPost(program.id);
-    })();
-    navigation.navigate("CustomerReviewList");
+    navigation.navigate("ReviewList");
   };
 
   const watchprogram = () => {
-    // navigation.navigate("CustomerProgramEnter");
+    navigation.navigate("ProgramEnter");
 
     var start_time = program.date + " " + program.start_time;
     var end_time = program.date + " " + program.end_time;
@@ -138,29 +217,30 @@ useEffect(() => {}, []);
     }
   };
 
-  const handleCancel = async() => {
+  const handleCancel = async () => {
     setModalCancelProgram(false);
     await cancelProgram(program.id)
-      .then(res=>{
-        if(res){
+      .then(res => {
+        if (res) {
           Toast.show({
             type: "success",
             text1: "Success",
-            text2: "Success",
+            text2: t("cancel_success"),
           });
-          navigation.replace("CustomerHistoryList");
+
+          setStatus("canceled")
         }
         else {
           Toast.show({
             type: "error",
             text1: "Error",
             text2: "Error",
-          });          
+          });
         }
       })
-    ;
+      ;
     // changeStore({...store, isLoading:true});
-    
+
   };
   const cancelprogram = () => {
     setModalCancelProgram(true);
@@ -200,14 +280,85 @@ useEffect(() => {}, []);
             </View>
             <View style={{ paddingRight: 20 }}>
               <Text style={{ color: "white", fontSize: 15 }}>
-                {program.points}
+                {currentUser.points}
               </Text>
             </View>
           </HStack>
         )}
       />
-      <View style={{flex:1}}>
+      <View style={{ flex: 1 }}>
         {store.isLoading && <Spinner />}
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalReserve}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalReserve(!modalReserve);
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              width: width,
+              backgroundColor: "#000000aa",
+            }}
+          >
+            <View
+              style={[
+                style.modalcontainer,
+                {
+                  backgroundColor: theme.bg,
+                  width: width - 30,
+                  marginVertical: 170,
+                },
+              ]}
+            >
+              <View style={{ paddingHorizontal: 20, marginBottom: 10 }}>
+                <View style={{ paddingTop: 10, alignSelf: "center" }}>
+                  <Avatar.Icon
+                    icon="help"
+                    color="#FF4747"
+                    size={80}
+                    style={{
+                      borderWidth: 5,
+                      borderColor: "#FF4747",
+                      backgroundColor: theme.bg,
+                    }}
+                  />
+                </View>
+                <View style={{ paddingTop: 20 }}>
+                  <Text
+                    style={[
+                      style.subtxt,
+                      { color: Colors.disable, textAlign: "center" },
+                    ]}
+                  >
+                    {t("reserv_sure")}
+                  </Text>
+                </View>
+                <View style={style.modalbtn_container}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      reserve();
+                    }}
+                    style={[style.modalbtn_confirm, { marginRight: 5 }]}
+                  >
+                    <Text style={style.modalbtn_text}>
+                      {t("reservation")}
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[style.modalbtn_cancel, { marginLeft: 5 }]}
+                    onPress={() => setModalReserve(false)}
+                  >
+                    <Text style={style.modalbtn_text}>{t("cancel")}</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </View>
+        </Modal>
         <ScrollView showsVerticalScrollIndicator={false} style={{}}>
           <View style={{ flex: 1, marginHorizontal: 20, marginBottom: 60 }}>
             <Modal
@@ -563,7 +714,7 @@ useEffect(() => {}, []);
                     { justifyContent: "center", alignItems: "center" },
                   ]}
                 >
-                  <View style={{ flex: 1, justifyContent: "center" }}>
+                  {(status.includes("reserv")) && <View style={{ flex: 1, justifyContent: "center" }}>
                     <TouchableOpacity onPress={() => watchprogram()}>
                       <View
                         style={{
@@ -578,23 +729,79 @@ useEffect(() => {}, []);
                         </Text>
                       </View>
                     </TouchableOpacity>
-                  </View>
-                  <View style={{ flex: 1 }}>
-                    <TouchableOpacity onPress={() => cancelprogram()}>
+                  </View>}
+                  {(status.includes("approved")) && <View style={{ flex: 1, justifyContent: "center" }}>
+                    <TouchableOpacity onPress={() => watchprogram()}>
                       <View
                         style={{
-                          backgroundColor: Colors.cancel,
+                          backgroundColor: Colors.green,
                           borderRadius: 5,
                           padding: 10,
-                          marginLeft: 10,
+                          marginRight: 10,
                         }}
                       >
                         <Text style={[style.activetext, { textAlign: "center" }]}>
-                          {t("cancel")}
+                          {t("watch")}
                         </Text>
                       </View>
                     </TouchableOpacity>
-                  </View>
+                  </View>}
+                  {(status.includes("canceled")) && <View style={{ flex: 1, justifyContent: "center" }}>
+                    <TouchableOpacity onPress={() => watchprogram()} disabled={true}>
+                      <View
+                        style={{
+                          backgroundColor: Colors.disable,
+                          borderRadius: 5,
+                          padding: 10,
+                          marginRight: 10,
+                        }}
+                      >
+                        <Text style={[style.activetext, { textAlign: "center" }]}>
+                          {t("watch")}
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>}
+
+
+                  {(status.includes("canceled")) ?
+                    <View style={{ flex: 1 }}>
+                      <TouchableOpacity onPress={() => setModalReserve(true)}
+                      >
+                        <View
+                          style={{
+                            backgroundColor: Colors.green,
+                            borderRadius: 5,
+                            padding: 10,
+                            marginLeft: 10,
+                          }}
+                        >
+                          <Text style={[style.activetext, { textAlign: "center" }]}>
+                            {t("reserve")}
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                    :
+                    <View style={{ flex: 1 }}>
+                      <TouchableOpacity onPress={() => cancelprogram()}
+                        disabled={status.includes("canceled") ? true : false}
+                      >
+                        <View
+                          style={{
+                            backgroundColor: status.includes("canceled") ? Colors.disable : Colors.cancel,
+                            borderRadius: 5,
+                            padding: 10,
+                            marginLeft: 10,
+                          }}
+                        >
+                          <Text style={[style.activetext, { textAlign: "center" }]}>
+                            {t("cancel")}
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                  }
                 </View>
               </View>
             )}
@@ -607,7 +814,7 @@ useEffect(() => {}, []);
             onPress={() => handlechat()}
           >
             {!status.includes("complete") &&
-            program.is_chat.includes("yes") ? (
+              program.is_chat.includes("yes") ? (
               <>
                 <Icon name="envelope" size={20} color="white" />
                 <Text style={style.activetext}>{t("message")}</Text>

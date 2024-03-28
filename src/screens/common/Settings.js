@@ -19,7 +19,6 @@ import { Colors } from "../../theme/color";
 import Icon from "react-native-vector-icons/Ionicons";
 import { AppBar } from "@react-native-material/core";
 import { Avatar } from "react-native-paper";
-// import {Avatar} from 'react-native-elements';
 import Icons from "react-native-vector-icons/FontAwesome";
 import { List } from "react-native-paper";
 import Icon1 from "react-native-vector-icons/MaterialCommunityIcons";
@@ -148,7 +147,7 @@ export default function Settings() {
               </Text>
 
               <TouchableOpacity
-                onPress={() => navigation.navigate("CustomerInterCategoryList")}
+                onPress={() => navigation.navigate("InterCategoryList")}
               >
                 <List.Item
                   title={t("interest_category")}

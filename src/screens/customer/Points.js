@@ -25,13 +25,14 @@ import { Avatar } from "react-native-paper";
 import { useTranslation } from "react-i18next";
 import { color } from "@rneui/base";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { buycoins } from "../../actions/customer";
+import { buycoins, fetchPaymentIntentClientSecret } from "../../actions/customer";
 import { server } from "../../constants";
 import { setLoading } from "../../actions/common";
 import Spinner from "../../components/Spinner";
-import { CardField, useStripe, CardForm } from "@stripe/stripe-react-native";
+import { CardField, useStripe, CardForm, Googlepay, PlatformPayButton, PlatformPay, createPlatformPayPaymentMethod, isPlatformPaySupported, usePlatformPay } from "@stripe/stripe-react-native";
 import { useStore } from "../../store/store";
 import Toast from "react-native-toast-message";
+
 
 
 const width = Dimensions.get("screen").width;
@@ -45,6 +46,11 @@ export default function CustomerPoints() {
   const keyExtractor = (item) => item.key;
   const { confirmPayment, handleCardAction } = useStripe();
 
+  const {
+    isPlatformPaySupported,
+    confirmPlatformPayPayment,
+  } = usePlatformPay();
+
   // const { program } = useSelector((state) => state.customer);
   const currentUser = store.currentUser;
   // const { isLoading } = useSelector((state) => state.common);
@@ -57,6 +63,7 @@ export default function CustomerPoints() {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalPayment, setModalPayment] = useState(false);
   const [formCompleted, setFormCompleted] = useState(false);
+  const [clientSecret, setClientSecret] = useState();
   const [cardDetails, setCardDetails] = useState({
     amount: '',
     number: '',
@@ -83,9 +90,55 @@ export default function CustomerPoints() {
       "amount": Math.floor(1000 * 1.1),
     },
   ];
-  const handlePay = async () => {
-    // Logic to handle payment
-    setModalPayment(false);
+
+  useEffect(() => {
+    (async function () {
+      if (!(await isPlatformPaySupported({ googlePay: { testEnv: true } }))) {
+        Alert.alert('Google Pay is not supported.');
+        return;
+      }
+    })();
+  }, []);
+
+  useEffect(()=> {
+    const confirmPayment = async() => {
+      const { error } = await confirmPlatformPayPayment(
+        clientSecret,
+        {
+          googlePay: {
+            testEnv: true,
+            merchantName: 'My merchant name',
+            merchantCountryCode: 'US',
+            currencyCode: 'USD',
+            // billingAddressConfig: {
+            //   format: PlatformPay.BillingAddressFormat.Full,
+            //   isPhoneNumberRequired: true,
+            //   isRequired: true,
+            // },
+          },
+        }
+      );
+  
+      if (error) {
+        Toast.show({
+          type: "success",
+          text1: "Success",
+          text2: t("buy_coins_error"),
+        });
+        return;
+      }
+      Toast.show({
+        type: "success",
+        text1: "Success",
+        text2: t("buy_coins_success"),
+      });
+    }
+    confirmPayment();
+
+  }, [clientSecret])
+
+  const createPaymentMethod = async () => {
+
     changeStore({ ...store, isLoading: true });
     let formdata = new FormData();
     formdata.append("amount", selectitem.amount);
@@ -93,65 +146,18 @@ export default function CustomerPoints() {
     formdata.append("cardNumber", cardNumber);
     formdata.append("expiryDate", expiryDate);
     formdata.append("cvv", cvv);
-    await buycoins(formdata)
+    await fetchPaymentIntentClientSecret(formdata)
       .then(res => {
-        if (res) {
-          currentUser.points += selectitem.points;
-          changeStore({ ...store, currentUser: currentUser });
-          Toast.show({
-            type: "success",
-            text1: "Success",
-            text2: t("buy_coins_success"),
-          });
-        } else {
-          Toast.show({
-            type: "error",
-            text1: "Error",
-            text2: t("buy_coins_error"),
-          });
-        }
+        setClientSecret(res.data.data.client_secret);
+        currentUser.points += selectitem.points;
+        changeStore({ ...store, currentUser: currentUser });
+
         changeStore({ ...store, isLoading: false });
       }).catch(err => {
         changeStore({ ...store, isLoading: false });
       });
-
-    // console.log(formCompleted)
-    // if(formCompleted){
-    //   try {
-    //     const { paymentMethod, error } = await confirmPayment({
-    //       type: 'Card',
-    //       billingDetails: {
-    //         email: 'admin@gmail.com',
-    //       },
-    //       card: {
-    //         number:'4111 1111 1111 1111',
-    //         cvc:123,
-    //         expMonth:'12',
-    //         expYear:'2024'
-    //       },
-    //       amount:110,
-    //     });
-    //     if (error) {
-    //       // setPaymentError(error.message);
-    //       console.log(error)
-    //     } else if (paymentMethod) {
-    //       console.log(paymentMethod);
-    //       // Payment successful, you can handle the success here
-    //       // setPaymentSuccess(true);
-    //     }
-    //   } catch (e) {
-    //     console.log(e)
-    //     // setPaymentError('An error occurred while processing the payment');
-    //   } finally {
-    //     // setPaymentLoading(false);
-    //     console.log('final')
-    //   }
-    // }
-    // else{
-    //   Alert.alert('Error', "Invalid Card Form")
-    // };
+    setModalPayment(false);
   };
-
 
   const renderItem = ({ item, index }) => {
     const selectcoins = async (item) => {
@@ -182,16 +188,10 @@ export default function CustomerPoints() {
     )
   }
 
-  const handleFormComplete = (event) => {
-    setFormCompleted(true);
-    setCardDetails({ ...event, amount: selectitem.amount })
-  }
-
   return (
-    // <SafeAreaView
-    //   style={[style.area, { backgroundColor: theme.bg, paddingTop: 40, position:'relative' }]}
-    // >
-    <>
+    <SafeAreaView
+      style={[style.area, { backgroundColor: theme.bg, paddingTop: 40, position: 'relative' }]}
+    >
       {/* <StatusBar backgroundColor={darkMode === true ? '#000':'#fff'} barStyle={darkMode === true  ? 'light-content' : 'dark-content'} translucent={false}/> */}
       <AppBar
         color={theme.bg}
@@ -213,57 +213,57 @@ export default function CustomerPoints() {
       <View style={{ flex: 1, marginHorizontal: 20 }}>
         {store.isLoading && <Spinner />}
         <View style={{ flex: 1 }}>
-          {/* <Modal
-              animationType="fade"
-              transparent={true}
-              visible={modalPayment}
-              onRequestClose={() => {
-                Alert.alert("Modal has been closed.");
-                setModalPayment(!modalPayment);
+          <Modal
+            animationType="fade"
+            transparent={true}
+            visible={modalPayment}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+              setModalPayment(!modalPayment);
+            }}
+          >
+            <View
+              style={{
+                flex: 1,
+                width: width,
+                backgroundColor: "#000000aa",
               }}
             >
               <View
-                style={{
-                  flex: 1,
-                  width: width,
-                  backgroundColor: "#000000aa",
-                }}
+                style={[
+                  style.modalcontainer,
+                  {
+                    backgroundColor: theme.bg,
+                    width: width - 30,
+                    marginVertical: 170,
+                  },
+                ]}
               >
-                <View
-                  style={[
-                    style.modalcontainer,
-                    {
-                      backgroundColor: theme.bg,
-                      width: width - 30,
-                      marginVertical: 170,
-                    },
-                  ]}
-                >
-                  <View style={{ paddingHorizontal: 20, marginBottom: 10 }}>
-                      <View style={{ paddingTop: 10, alignSelf: "center" }}>
-                      <Avatar.Icon
-                        icon="help"
-                        color="#FF4747"
-                        size={80}
-                        style={{
-                          borderWidth: 5,
-                          borderColor: "#FF4747",
-                          backgroundColor: theme.bg,
-                        }}
-                      />
-                    </View>
-                    <View style={{ paddingTop: 20 }}>
-                      <Text
-                        style={[
-                          style.subtxt,
-                          { color: Colors.disable, textAlign: "center" },
-                        ]}
-                      >
-                        {t("pay_sure")}
-                      </Text>
-                    </View>
+                <View style={{ paddingHorizontal: 20, marginBottom: 10 }}>
+                  <View style={{ paddingTop: 10, alignSelf: "center" }}>
+                    <Avatar.Icon
+                      icon="help"
+                      color="#FF4747"
+                      size={80}
+                      style={{
+                        borderWidth: 5,
+                        borderColor: "#FF4747",
+                        backgroundColor: theme.bg,
+                      }}
+                    />
+                  </View>
+                  <View style={{ paddingTop: 20 }}>
+                    <Text
+                      style={[
+                        style.subtxt,
+                        { color: Colors.disable, textAlign: "center" },
+                      ]}
+                    >
+                      {t("pay_sure")}
+                    </Text>
+                  </View>
 
-                    <View style={{ paddingTop: 5 }}>
+                  {/* <View style={{ paddingTop: 5 }}>
                       <Text
                         style={{
                           color: theme.txt,
@@ -334,54 +334,30 @@ export default function CustomerPoints() {
                           // onChangeText={}
                         />
                       </View>
-                    </View>
-                    <View style={style.modalbtn_container}>
-                      <TouchableOpacity
-                        onPress={() => {
-                          handlePay();
-                        }}
-                        style={[style.modalbtn_confirm, { marginRight: 5 }]}
-                      >
-                        <Text style={style.modalbtn_text}>
-                          {t("pay_now")}
-                        </Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                        style={[style.modalbtn_cancel, { marginLeft: 5 }]}
-                        onPress={() => setModalPayment(false)}
-                      >
-                        <Text style={style.modalbtn_text}>{t("cancel")}</Text>
-                      </TouchableOpacity>
-                    </View> 
-                    
+                    </View> */}
+                  <View style={style.modalbtn_container}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        createPaymentMethod();
+                      }}
+                      style={[style.modalbtn_confirm, { marginRight: 5 }]}
+                    >
+                      <Text style={style.modalbtn_text}>
+                        {t("pay_now")}
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={[style.modalbtn_cancel, { marginLeft: 5 }]}
+                      onPress={() => setModalPayment(false)}
+                    >
+                      <Text style={style.modalbtn_text}>{t("cancel")}</Text>
+                    </TouchableOpacity>
                   </View>
+
                 </View>
               </View>
-              
-              
-            </Modal> */}
-          {/* <CardField
-              postalCodeEnabled={true}
-              placeholders={{
-                number: '4242 4242 4242 4242',
-              }}
-              cardStyle={{
-                backgroundColor: '#FFFFFF',
-                textColor: '#000000',
-              }}
-              style={{
-                width: '100%',
-                height: 50,
-                marginVertical: 30,
-              }}
-              onCardChange={(cardDetails) => {
-                console.log('cardDetails', cardDetails);
-              }}
-              onFocus={(focusedField) => {
-                console.log('focusField', focusedField);
-              }}
-            /> */}
-
+            </View>
+          </Modal>
           <View style={{ paddingTop: 10 }}>
             <Text style={[style.secondarytext, { fontSize: 14, textAlign: "center" }]}>{t("purchase_points_desc")}</Text>
           </View>
@@ -402,78 +378,7 @@ export default function CustomerPoints() {
           />
         </View>
       </View>
-      {modalPayment &&
-        <View style={styles.paymentContainer}>
-          <View style={styles.modalContainer}>
-            <Icon
-              name="times"
-              size={20}
-              style={{ marginLeft: 'auto' }}
-              onPress={() => setModalPayment(false)}
-            // color={focused ? theme.icon : Colors.disable} 
-            />
-            <View style={styles.priceView}>
-              <View style={[styles.priceText, { borderRightColor: '#d9d9d9', borderRightWidth: 1 }]}>
-                <Text >{t("amount")}</Text>
-                <Text >{selectitem.amount}</Text>
-              </View>
-              <View style={styles.priceText}>
-                <Text >{t("point")}</Text>
-                <Text >{selectitem.points}</Text>
-              </View>
-              {/* <Text style={{flex:1}}>{selectitem.points}</Text> */}
-            </View>
-            <CardForm
-              onFormComplete={(event) => handleFormComplete(event)}
-              postalCodeEnabled={true}
-              placeholders={{
-                number: '4242 4242 4242 4242',
-                // expiryMonth:'01',
-                // expiryYear:'24',
-                expiryDate: '2024-12',
-                cvc: '123',
-                countryCode: 'JP',
-                brand: 'master'
-              }}
-              cardStyle={{
-                backgroundColor: '#FFFFFF',
-                textColor: '#000000',
-              }}
-              defaultValues={{
-                countryCode: 'JP',
-                number: '4111 1111 1111 1111'
-              }}
-              style={[{
-                height: 250,
-                // marginVertical: 30,              
-                // position:'absolute',
-                // bottom:-250 ,
-
-              }, modalPayment && { bottom: 0 }]}
-            />
-            <View style={style.modalbtn_container}>
-              <TouchableOpacity
-                onPress={() => {
-                  handlePay();
-                }}
-                style={[style.modalbtn_confirm, { marginRight: 5 }]}
-              >
-                <Text style={style.modalbtn_text}>
-                  {t("pay_now")}
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[style.modalbtn_cancel, { marginLeft: 5 }]}
-                onPress={() => setModalPayment(false)}
-              >
-                <Text style={style.modalbtn_text}>{t("cancel")}</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      }
-    </>
-    // </SafeAreaView>
+    </SafeAreaView>
   );
 }
 

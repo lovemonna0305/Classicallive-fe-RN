@@ -30,8 +30,9 @@ const height = Dimensions.get("screen").height;
 import { server } from "../../constants";
 import Spinner from "../../components/Spinner";
 import { api } from "../../api";
-import { getReservations } from "../../actions/performer";
+import { deleteProgram } from "../../actions/performer";
 import { useStore } from "../../store/store";
+import Toast from "react-native-toast-message";
 
 export default function PerformerCustomerList() {
   const { changeStore, store } = useStore();
@@ -46,27 +47,41 @@ export default function PerformerCustomerList() {
   const [modalDeleteVisible, setModalDeleteVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const handledeleteProgram = () => {
-    // dispatch(deleteProgram(program.id));
     setModalDeleteVisible(false);
-    (async () => {
-      // await dispatch(getPrograms(2));
-    })();
-    // dispatch(setLoading(false));
-    navigation.goBack();
+    changeStore({...store, isLoading:true});
+    deleteProgram(program.id)
+    .then(res=>{
+      if(res){
+        Toast.show({
+          type: "success",
+          text1: "Success",
+          text2: t('delete_success'),
+        });
+      } else {
+        Toast.show({
+          type: "info",
+          text1: "Infor",
+          text2: t('delete_already'),
+        });
+      }
+      changeStore({...store, isLoading:false});
+    }).catch(err=>{
+      changeStore({...store, isLoading:false});
+    });
+    navigation.replace('HistoryList');
   };
 
   const enterProgram = () => {
-    navigation.navigate("PerformerProgramEnter");
-    // // check
-    // var start_time = program.date +" "+ program.start_time;
-    // var end_time = program.date +" "+ program.end_time;
-    // var five_diff = Math.abs(new Date() - new Date(start_time.replace(/-/g,'/')));
-    // var end_diff = Math.abs(new Date() - new Date(end_time.replace(/-/g,'/')));
-    // if((program.status=="reserv")&&(program.status!="completed")&&(five_diff< 5 * 60 * 1000)&&(end_diff<0)) {
-
-    // } else {
-    //   setModalVisible(true)
-    // }
+    // check
+    var start_time = program.date +" "+ program.start_time;
+    var end_time = program.date +" "+ program.end_time;
+    var five_diff = Math.abs(new Date() - new Date(start_time.replace(/-/g,'/')));
+    var end_diff = Math.abs(new Date() - new Date(end_time.replace(/-/g,'/')));
+    if((program.status=="reserv")&&(program.status!="completed")&&(five_diff< 5 * 60 * 1000)&&(end_diff<0)) {
+      navigation.navigate("PerformerProgramEnter");
+    } else {
+      setModalVisible(true)
+    }
   };
 
   return (

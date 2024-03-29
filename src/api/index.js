@@ -3,7 +3,7 @@ import { storage } from "../utils/storage";
 import { server } from "../constants";
 
 const prefix = "/api";
-export const SERVER_URL = server.url+prefix;
+export const SERVER_URL = server.url + prefix;
 
 const jwtInterceoptor = axios.create({});
 
@@ -44,8 +44,8 @@ jwtInterceoptor.interceptors.response.use(
         return Promise.reject(error);
       }
     } catch (e) {
-      if (error.response.status == 401) 
-      console.log("error",e);
+      if (error.response.status == 401)
+        console.log("error", e);
     }
   }
 );
@@ -107,15 +107,15 @@ const getCProgramsByCategory = (id) => {
   return jwtInterceoptor.get(`${SERVER_URL}/customer/programsByCategory/${id}`);
 };
 
-const buycoins = (data) =>{
-  return jwtInterceoptor.post(`${SERVER_URL}/customer/buycoins`, data, {
+const createpaymentintent = (data) => {
+  return jwtInterceoptor.post(`${SERVER_URL}/customer/create-payment-intent`, data, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
   });
 }
 
-const commitreview = (data) =>{
+const commitreview = (data) => {
   return jwtInterceoptor.post(`${SERVER_URL}/customer/commitreview`, data, {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -125,7 +125,7 @@ const commitreview = (data) =>{
 
 
 
-const getPerformer = (data) =>{
+const getPerformer = (data) => {
   return jwtInterceoptor.post(`${SERVER_URL}/upostowner`, data, {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -133,7 +133,7 @@ const getPerformer = (data) =>{
   });
 }
 
-const updateInterCategory = (data) =>{
+const updateInterCategory = (data) => {
   return jwtInterceoptor.post(`${SERVER_URL}/customer/updateInterCategory`, data, {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -142,17 +142,17 @@ const updateInterCategory = (data) =>{
 }
 
 
-const follow = (id) =>{
+const follow = (id) => {
   return jwtInterceoptor.get(`${SERVER_URL}/customer/follow/${id}`)
 }
 
-const likepost = (id) =>{
+const likepost = (id) => {
   return jwtInterceoptor.get(`${SERVER_URL}/customer/likepost/${id}`)
 }
-const uppost = (id) =>{
+const uppost = (id) => {
   return jwtInterceoptor.get(`${SERVER_URL}/customer/uppost/${id}`)
 }
-const downpost = (id) =>{
+const downpost = (id) => {
   return jwtInterceoptor.get(`${SERVER_URL}/customer/downpost/${id}`)
 }
 
@@ -205,19 +205,19 @@ const deleteProgram = (id) => {
   return jwtInterceoptor.get(`${SERVER_URL}/performer/deleteProgram/${id}`);
 };
 
-const getReservations = (id) =>{
+const getReservations = (id) => {
   return jwtInterceoptor.get(`${SERVER_URL}/performer/reservusers/${id}`);
 }
 
-const completePProgram = (id) =>{
+const completePProgram = (id) => {
   return jwtInterceoptor.get(`${SERVER_URL}/performer/complete/${id}`);
 }
 
-const approveReservation = (id) =>{
+const approveReservation = (id) => {
   return jwtInterceoptor.get(`${SERVER_URL}/performer/approve/${id}`);
 }
 
-const rejectionReservation = (id) =>{
+const rejectionReservation = (id) => {
   return jwtInterceoptor.get(`${SERVER_URL}/performer/cancel/${id}`);
 }
 
@@ -242,22 +242,22 @@ const getMessage = (id) => {
 // }
 
 
-const unreadNumMessage = () =>{
+const unreadNumMessage = () => {
   return jwtInterceoptor.get(`${SERVER_URL}/message/unread`);
 }
-  
+
 
 // chats
 
-const getChats = () =>{
+const getChats = () => {
   return jwtInterceoptor.get(`${SERVER_URL}/chats`);
 }
 
-const getNotifications = () =>{
+const getNotifications = () => {
   return jwtInterceoptor.get(`${SERVER_URL}/notifications`);
 }
-  
-const getChat = (id,post_id) => jwtInterceoptor.get(`${SERVER_URL}/chat/?id=${id}&post_id=${post_id}`);
+
+const getChat = (id, post_id) => jwtInterceoptor.get(`${SERVER_URL}/chat/?id=${id}&post_id=${post_id}`);
 
 
 
@@ -281,10 +281,19 @@ const signupGoogle = (data) =>
   jwtInterceoptor.post(`${SERVER_URL}/api/auth/registerGoogle`, data);
 
 const verifyOtp = (otpCode) =>
-  axios.put(`${SERVER_URL}/api/auth/verify-otp/${otpCode}`);
-  
+  axios.get(`${SERVER_URL}/auth/verify-otp/${otpCode}`);
+
 const resendOtpEmail = (email) =>
-  axios.put(`${SERVER_URL}/api/auth/resend-otp-email/${email}`);
+  axios.get(`${SERVER_URL}/auth/resend-otp-email/${email}`);
+
+const newpassword = (data) => {
+  return axios.post(`${SERVER_URL}/auth/new-password`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
 const updateUser = (id, data) =>
   jwtInterceoptor.post(`${SERVER_URL}/api/user/${id}`, data);
 const updateProfile = (data) =>
@@ -344,11 +353,11 @@ export const api = {
   getCategoryArray,
   getReviewsByPost,
 
-  buycoins,
+  createpaymentintent,
   commitreview,
   updateInterCategory,
-  
-  
+
+
   follow,
   likepost,
   uppost,
@@ -363,7 +372,7 @@ export const api = {
   approveReservation,
   rejectionReservation,
 
-  
+
 
   getPerformerPrograms,
   getPProgramsByCategory,
@@ -372,7 +381,7 @@ export const api = {
   deleteProgram,
   completePProgram,
 
-  
+
 
 
 
@@ -382,6 +391,7 @@ export const api = {
   signup,
   signupGoogle,
   verifyOtp,
+  newpassword,
   resendOtpEmail,
   updateProfile,
   updateUser,

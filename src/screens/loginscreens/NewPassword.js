@@ -5,22 +5,87 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
-import React, { useState, useContext } from "react";
-import style from "../theme/style";
-import { Colors } from "../theme/color";
+import React, { useState, useContext, useEffect } from "react";
+import style from "../../theme/style";
+import { Colors } from "../../theme/color";
 import Icons from "react-native-vector-icons/MaterialCommunityIcons";
 import { AppBar } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/native";
 import { Avatar } from "react-native-paper";
-import theme from "../theme/theme";
-import themeContext from "../theme/themeContex";
+import theme from "../../theme/theme";
+import themeContext from "../../theme/themeContex";
+import { t } from "i18next";
+import { useStore } from "../../store/store";
+import Spinner from "../../components/Spinner";
+import Toast from "react-native-toast-message";
+import { api } from "../../api";
 
-export default function NewPassword() {
+
+export default function NewPassword({ route }) {
+  const { changeStore, store } = useStore();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const navigation = useNavigation();
   const theme = useContext(themeContext);
   const [darkMode, setDarkMode] = useState(false);
+
+  const { email } = route.params;
+
+  const [data, setData] = useState({
+    password: "123123",
+    confirmPassword: "123123",
+  });
+  useEffect(() => {
+    changeStore({ ...store, isLoading: false });
+  }, [])
+
+  const createPassword = async () => {
+    if (data.password.length < 6) {
+      Toast.show({
+        type: "error",
+        text1: t("error"),
+        text2: t("password_length_6"),
+      });
+      return;
+    } else if (data.password !== data.confirmPassword) {
+      Toast.show({
+        type: "error",
+        text1: t("error"),
+        text2: t("confirm_password_incorrect"),
+      });
+      return;
+    } else {
+
+      let formdata = new FormData();
+      formdata.append("email", email);
+      formdata.append("password", data.password);
+      changeStore({ ...store, isLoading: true });
+      console.log(formdata);
+      await api.newpassword(formdata)
+        .then(res => {
+          console.log(res.data)
+          if (res.data.success) {
+            Toast.show({
+              type: "success",
+              text1: t("success"),
+              text2: t('create_password_success'),
+            });
+            changeStore({ ...store, isLoading: false });
+            navigation.navigate("Login");
+          } else {
+            Toast.show({
+              type: "error",
+              text1: t("error"),
+              text2: t('create_password_failed'),
+            });
+          }
+          changeStore({ ...store, isLoading: false });
+        }).catch(err => {
+          console.log(err)
+          changeStore({ ...store, isLoading: false });
+        });
+    }
+  }
 
   return (
     <SafeAreaView
@@ -29,40 +94,41 @@ export default function NewPassword() {
       {/* <StatusBar backgroundColor={darkMode === true ? '#000':'#fff'} barStyle={darkMode === true ? 'light-content' : 'dark-content'} translucent={false}/> */}
       <AppBar
         color={theme.bg}
-        title="Create a New Password"
+        title={t('create_new_password')}
         titleStyle={{ fontFamily: "Plus Jakarta Sans" }}
         centerTitle={true}
         elevation={0}
         leading={
-          <TouchableOpacity onPress={() => navigation.navigate("Forgotpass")}>
+          <TouchableOpacity onPress={() => navigation.navigate("Otp")}>
             <Avatar.Icon
               icon="arrow-left"
-              style={{ backgroundColor: Colors.secondary }}
-              color="black"
+              style={{ backgroundColor: theme.bg }}
+              color="white"
               size={40}
             />
           </TouchableOpacity>
         }
       />
       <View style={[style.main, { backgroundColor: theme.bg }]}>
+        {store.isLoading && <Spinner />}
         <View style={{ paddingTop: 20 }}>
           <Text
             style={[style.title, { textAlign: "center", color: theme.txt }]}
           >
-            Create a{" "}
+            {/* Create a{" "} */}
           </Text>
           <Text
             style={[style.title, { textAlign: "center", color: theme.txt }]}
           >
-            New Password
+            {/* New Password */}
           </Text>
           <Text style={[style.txt1, { textAlign: "center" }]}>
-            Enter your new password
+            {t('enter_new_password')}
           </Text>
         </View>
         <View style={{ paddingTop: 15 }}>
           <Text style={[style.txt1, { fontWeight: "500", color: theme.txt }]}>
-            Password
+            {t('password')}
           </Text>
           <View
             style={[
@@ -76,10 +142,12 @@ export default function NewPassword() {
             ]}
           >
             <TextInput
-              placeholder="Create a password"
+              placeholder={t('create_password')}
               secureTextEntry={!isPasswordVisible}
               placeholderTextColor={Colors.disable}
               style={{ color: Colors.disable, fontFamily: "Plus Jakarta Sans" }}
+              value={data.password}
+              onChangeText={(e) => setData({ ...data, password: e })}
             ></TextInput>
             <TouchableOpacity
               onPress={() => setIsPasswordVisible(!isPasswordVisible)}
@@ -97,7 +165,7 @@ export default function NewPassword() {
               { fontWeight: "500", color: theme.txt, paddingVertical: 10 },
             ]}
           >
-            Confirm Password
+            {t('confirm_password')}
           </Text>
           <View
             style={[
@@ -110,10 +178,12 @@ export default function NewPassword() {
             ]}
           >
             <TextInput
-              placeholder="Confirm Password"
+              placeholder={t('confirm_password')}
               secureTextEntry={!isPassword}
               placeholderTextColor={Colors.disable}
               style={{ color: Colors.disable, fontFamily: "Plus Jakarta Sans" }}
+              value={data.confirmPassword}
+              onChangeText={(e) => setData({ ...data, confirmPassword: e })}
             />
             <TouchableOpacity onPress={() => setIsPassword(!isPassword)}>
               <Icons
@@ -125,10 +195,10 @@ export default function NewPassword() {
           </View>
           <View style={{ paddingTop: 30 }}>
             <TouchableOpacity
-              onPress={() => navigation.navigate("Login")}
+              onPress={() => createPassword()}
               style={style.btn}
             >
-              <Text style={style.btntxt}>Continue</Text>
+              <Text style={style.btntxt}>{t('continue')}</Text>
             </TouchableOpacity>
           </View>
         </View>

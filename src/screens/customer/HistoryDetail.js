@@ -242,6 +242,7 @@ export default function CustomerHistoryDetail({ route }) {
     // changeStore({...store, isLoading:true});
 
   };
+  
   const cancelprogram = () => {
     setModalCancelProgram(true);
   };

@@ -47,7 +47,6 @@ export default function Login() {
   const [password, setPassword] = useState();
   const [check, setCheck] = useState();
 
-
   const handleLogin = async () => {
     let formdata = new FormData();
     formdata.append("email", email);
@@ -84,7 +83,7 @@ export default function Login() {
   };
 
   useEffect(() => {
-    setEmail("performer@gmail.com");
+    setEmail("customer@gmail.com");
     setPassword("123456");
     // console.log("global.isRemember",global.isRemember);
     // console.log("global.tokens",global.tokens);

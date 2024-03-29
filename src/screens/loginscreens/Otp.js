@@ -19,28 +19,24 @@ import { api } from "../../api";
 import Toast from "react-native-toast-message";
 import { storage } from "../../utils/storage";
 import { t } from "i18next";
-// import { setLoading } from "../../actions/common";
 import { images } from "../../constants";
 
 const height = Dimensions.get("screen").height;
 const width = Dimensions.get("screen").width;
+import { useStore } from "../../store/store";
+import Spinner from "../../components/Spinner";
 
 export default function Otp({ route, navigation }) {
- 
-  
-  const { isLoggedin } = useSelector((state) => state.auth);
+  const { changeStore, store } = useStore();
+
   const theme = useContext(themeContext);
   const [visible, setVisible] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [otp, setOtp] = useState("");
 
-  useEffect(() => {
-    if (isLoggedin) setVisible(true);
-  }, [isLoggedin]);
+  const { email, isforgot } = route.params;
 
   const handleVerifyOtp = async () => {
-    console.log(otp, otp.length, route.params.email);
-    if (isLoading) return;
     if (otp.length < 4) {
       Toast.show({
         type: "error",
@@ -49,25 +45,58 @@ export default function Otp({ route, navigation }) {
       });
       return;
     }
-    store.dispatch(setLoading(true))
-    store.dispatch(verifyOtp(otp, setVisible));
-    store.dispatch(setLoading(false))
+    changeStore({ ...store, isLoading: true });
+    await api.verifyOtp(otp)
+      .then(res => {
+        console.log(res);
+        if (res.data.success) {
+          Toast.show({
+            type: "success",
+            text1: t('verify_success'),
+            text2: t('verify_success'),
+            position: "top",
+          });
+          if (isforgot) {
+            navigation.navigate('NewPassword', { email: email });
+          } else {
+            navigation.navigate('Login')
+          }
+        } else {
+          Toast.show({
+            type: "error",
+            text1: t('verify_failed'),
+            text2: t('verify_failed'),
+            position: "top",
+          });
+        }
+        changeStore({ ...store, isLoading: false });
+      }).catch(err => {
+        console.log(err);
+        Toast.show({
+          type: "error",
+          text1: t('verify_failed'),
+          text2: t('verify_failed'),
+          position: "top",
+        });
+        changeStore({ ...store, isLoading: false });
+      });
   };
 
   const resendOtp = async () => {
-    try {
-      const res = await api.resendOtpEmail(route.params.email);
-    } catch (e) {
-      Toast.show({
-        type: "error",
-        text1: t('opt_is_incorrect'),
-        text2: t('provide_correct_4_digits'),
-        position: "bottom",
+    changeStore({ ...store, isLoading: true });
+    await api.resendOtpEmail(email)
+      .then(res => {
+        changeStore({ ...store, isLoading: false });
+      }).catch(err => {
+        Toast.show({
+          type: "error",
+          text1: t('opt_is_incorrect'),
+          text2: t('provide_correct_4_digits'),
+          position: "top",
+        });
+        changeStore({ ...store, isLoading: false });
       });
-      console.log(e);
-    }
   };
-
   const handleContinue = async () => {
     try {
       setVisible(false);
@@ -91,15 +120,15 @@ export default function Otp({ route, navigation }) {
           <TouchableOpacity onPress={() => navigation.navigate("Login")}>
             <Avatar.Icon
               icon="arrow-left"
-              style={{ backgroundColor: Colors.secondary }}
-              color="black"
+              style={{ backgroundColor: theme.bg }}
+              color="white"
               size={40}
             />
           </TouchableOpacity>
         }
       />
-
       <View style={{ flex: 1, paddingTop: 50, marginHorizontal: 20 }}>
+        {store.isLoading && <Spinner />}
         <Text style={[style.title, { color: theme.txt, textAlign: "center" }]}>
           {t('enter_opt')}
         </Text>

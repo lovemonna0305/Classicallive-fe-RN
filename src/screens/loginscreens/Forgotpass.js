@@ -13,19 +13,58 @@ import { AppBar } from "@react-native-material/core";
 import { Avatar } from "react-native-paper";
 import theme from "../../theme/theme";
 import themeContext from "../../theme/themeContex";
+import { t } from "i18next";
+import { useStore } from "../../store/store";
+import Spinner from "../../components/Spinner";
+import Toast from "react-native-toast-message";
+import { api } from "../../api";
 
 export default function Forgotpass() {
+  const { changeStore, store } = useStore();
   const navigation = useNavigation();
   const theme = useContext(themeContext);
   const [darkMode, setDarkMode] = useState(false);
+  const [email, setEmail] = useState('');
 
+  const gonext = async() => {
+    changeStore({ ...store, isLoading: true });
+    await api.resendOtpEmail(email)
+      .then(res => {
+        if(res.data.success){
+          Toast.show({
+            type: "success",
+            text1: t('success'),
+            text2: t('sent_otp_successfully'),
+          });
+          navigation.navigate("Otp", { email: email, isforgot: true });
+          changeStore({ ...store, isLoading: false });
+        } else {
+          Toast.show({
+            type: "error",
+            text1: t('success'),
+            text2: t('sent_otp_failed'),
+          });
+          changeStore({ ...store, isLoading: false });
+        }
+      }).catch(err => {
+        Toast.show({
+          type: "error",
+          text1: t('opt_is_incorrect'),
+          text2: t('provide_correct_4_digits'),
+          position: "top",
+        });
+        changeStore({ ...store, isLoading: false });
+      });
+
+    
+  }
   return (
     <SafeAreaView
       style={[style.area, { backgroundColor: theme.bg, paddingTop: 40 }]}
     >
       <AppBar
         color={theme.bg}
-        title="Forgot Password"
+        title={t('forgot_password')}
         titleStyle={{ fontFamily: "Plus Jakarta Sans" }}
         centerTitle={true}
         elevation={0}
@@ -33,41 +72,44 @@ export default function Forgotpass() {
           <TouchableOpacity onPress={() => navigation.navigate("Login")}>
             <Avatar.Icon
               icon="arrow-left"
-              style={{ backgroundColor: Colors.secondary }}
-              color="black"
+              style={{ backgroundColor: theme.bg }}
+              color="white"
               size={40}
             />
           </TouchableOpacity>
         }
       />
       <View style={[style.main, { backgroundColor: theme.bg }]}>
+      {store.isLoading && <Spinner />}
         <View style={{ paddingTop: 20 }}>
           <Text
             style={[style.title, { textAlign: "center", color: theme.txt }]}
           >
-            Forgot Password
+            {/* Forgot Password */}
           </Text>
           <Text style={[style.txt1, { textAlign: "center" }]}>
-            Enter your new password
+            {/* Enter your new password */}
           </Text>
         </View>
         <View style={{ paddingTop: 15 }}>
           <Text style={[style.txt1, { fontWeight: "500", color: theme.txt }]}>
-            Email
+            {/* Email */}
           </Text>
           <View style={{ paddingTop: 10 }}>
             <TextInput
-              placeholder="Enter your email address"
+              placeholder={t("enter_email")}
               placeholderTextColor={Colors.disable}
               style={[style.txtinput, { fontFamily: "Plus Jakarta Sans" }]}
+              onChangeText={(e) => setEmail(e)}
+              value={email}
             />
           </View>
           <View style={{ paddingTop: 20 }}>
             <TouchableOpacity
               style={style.btn}
-              onPress={() => navigation.navigate("NewPassword")}
+              onPress={() => gonext()}
             >
-              <Text style={style.btntxt}>Next</Text>
+              <Text style={style.btntxt}>{t("next")}</Text>
             </TouchableOpacity>
           </View>
         </View>

@@ -488,8 +488,20 @@
   "resend_code": "コードを再送信",
   
   "you_have_registered_in": "あなたは",
+  "register_success":"登録に成功しました",
+  "register_failed":"登録に失敗しました",
+  "verify_success":"検証に成功しました",
+  "verify_failed":"検証に失敗しました",
   "successfully": "に成功しました",
   "you_can_login": "ログインできます",
+
+  "sent_otp_successfully":"OTPを送信しました",
+  "sent_otp_failed":"OTPの送信に失敗しました",
+  "create_new_password":"新しいパスワードを作成する",
+  "enter_new_password":"新しいパスワードを入力してください",
+  "create_password":"パスワードを作成する",
+  "create_password_success":"パスワードの作成に成功しました",
+  "create_password_failed":"パスワードの作成に失敗しました",
   
   "opt_is_incorrect": "OTPが間違っています",
   "provide_correct_4_digits": "正しい4桁を入力してください",

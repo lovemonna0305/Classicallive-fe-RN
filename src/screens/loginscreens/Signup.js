@@ -36,8 +36,11 @@ import {
 import { images, server } from "../../constants";
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
+import { useStore } from "../../store/store";
+import Spinner from "../../components/Spinner";
 
 export default function Signup() {
+  const { changeStore, store } = useStore();
   const { t } = useTranslation();
   const theme = useContext(themeContext);
   const navigation = useNavigation();
@@ -63,7 +66,7 @@ export default function Signup() {
     { label: t("customer"), value: 4 },
   ]);
   const [selectedImage, setSelectedImage] = useState(
-    server.default_url+"profile.png"
+    server.default_url + "profile.png"
   );
   const [image, setImage] = useState(null);
   const openImagePicker = () => {
@@ -184,40 +187,41 @@ export default function Signup() {
         formdata.append("email", data.email);
         formdata.append("age", data.age);
         formdata.append("password", data.password);
-        
-        if(image){
+
+        if (image) {
           formdata.append("photo", {
             name: "image.fileName.jpg",
             uri: image.assets?.[0]?.uri,
             type: "image/jpg",
           });
         }
-        const res = await api.signup(formdata);
-        if(!res.data.success){
-          Toast.show({
-            type: "error",
-            text1: t("error"),
-            text2: res.data.message,
+        changeStore({ ...store, isLoading: true });
+        await api.signup(formdata)
+          .then(res => {
+            if (res.data.success) {
+              Toast.show({
+                type: "success",
+                text1: t("success"),
+                text2: t('register_success'),
+              });
+              changeStore({ ...store, isLoading: false });
+              navigation.navigate("Otp", { email: data.email,isforgot:false });
+            } else {
+              Toast.show({
+                type: "error",
+                text1: t("error"),
+                text2: t('register_failed'),
+              });
+            }
+            changeStore({ ...store, isLoading: false });
+          }).catch(err => {
+            changeStore({ ...store, isLoading: false });
           });
-          return;
-        } 
-        Toast.show({
-          type: "success",
-          text1: t("success"),
-          text2: res.data.message,
-        });
-        navigation.navigate("Otp", data);
-       
       }
     } catch (err) {
       console.log(err);
     }
   };
-
-  useEffect(() => {
-    
-  });
-
   return (
     <SafeAreaView
       style={[
@@ -258,6 +262,7 @@ export default function Signup() {
           },
         ]}
       >
+        {store.isLoading && <Spinner />}
         <ScrollView
           showsVerticalScrollIndicator={false}
           nestedScrollEnabled={true}
@@ -309,7 +314,7 @@ export default function Signup() {
                 width: "20%",
                 marginTop: 100,
                 alignItems: "center",
-                right: width/2-100,
+                right: width / 2 - 100,
               }}
             >
               <TouchableOpacity onPress={() => setVisible(true)}>

@@ -38,7 +38,7 @@
   "login": "Login",
   "register": "Register",
   "go_to_register": "Create a new account",
-  "forgot_password": "Forgot Password?",
+  "forgot_password": "Forgot Password",
   "login_another_account":"Log in with another account",
   "choose_picture": "Choose Picture",
   "camera": "Camera",
@@ -495,8 +495,20 @@
   "resend_code":"Resend Code",
   
   "you_have_registered_in":"You have registered in",
+  "register_success":"Register successfully",
+  "register_failed":"Register failed",
+  "verify_success":"Verify success",
+  "verify_failed":"Verify failed",
   "successfully":"successfully",
   "you_can_login":"You can login to system",
+  
+  "sent_otp_successfully":"Sent Otp Successfully",
+  "sent_otp_failed":"Sent Otp failed",
+  "create_new_password":"Create a New Password",
+  "enter_new_password":"Enter your new password",
+  "create_password":"Create a password",
+  "create_password_success":"Create a password Successfull",
+  "create_password_failed":"Create a password failed",
   
   
   "opt_is_incorrect":"OTP is incorrect",

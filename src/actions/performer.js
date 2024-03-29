@@ -113,14 +113,6 @@ export const updateProgram = async (data) => {
 };
 
 export const deleteProgram = async (id) => {
-  global.isLoading = true;
-  try {
     const res = await api.deleteProgram(id);
-    if (res.data.success) {
-    } else {
-
-    }
-  } catch (err) {
-
-  }
+    return res.data.success;
 };

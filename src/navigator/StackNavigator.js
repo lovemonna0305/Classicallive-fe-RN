@@ -22,7 +22,7 @@ import Forgot from "../screens/loginscreens/Forgot";
 
 import Languagelist from "../screens/Languagelist";
 import Forgotpass from "../screens/loginscreens/Forgotpass";
-import NewPassword from "../screens/NewPassword";
+import NewPassword from "../screens/loginscreens/NewPassword";
 import Otp from "../screens/loginscreens/Otp";
 
 // import Yourwallet from "../screens/Yourwallet";
@@ -539,6 +539,11 @@ export default function StackNavigator() {
               <Stack.Screen
                 name="NewPassword"
                 component={NewPassword}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="UpdatePassword"
+                component={UpdatePassword}
                 options={{ headerShown: false }}
               />
             </>

@@ -24,8 +24,10 @@ const height = Dimensions.get("screen").height;
 import { server } from "../constants";
 import { deleteProgram, getPProgramsByCategory } from "../actions/performer";
 import Spinner from "./Spinner";
+import { useStore } from "../store/store";
 
-export default function FlatPerformerPage1({ items, title }) {
+export default function FlatPerformerPage1({ id, items, title }) {
+  const { changeStore, store } = useStore();
   const { t } = useTranslation();
   const theme = useContext(themeContext);
   const navigation = useNavigation();
@@ -42,13 +44,15 @@ export default function FlatPerformerPage1({ items, title }) {
   }, []);
 
   const fetchdata = async ()=>{
+    changeStore({...store, isLoading:true});
     (async () => {
-      try {
-        let data = await getPProgramsByCategory(global.pCategory)
-        setpCPrograms(data);
-      } catch (err) {
-        console.log(err)
-      }
+      await getPProgramsByCategory(id)
+      .then(res=>{
+        setPrograms(res);
+        changeStore({...store, isLoading:false});
+      }).catch(err=>{
+        changeStore({...store, isLoading:false});
+      });
     })();
     return;
   }
@@ -68,15 +72,14 @@ export default function FlatPerformerPage1({ items, title }) {
     const selectProgram = (item) => {
       setEdit(item.id);
       if(title.includes("another")){
-        global.program = item
+        changeStore({...store, program:item});
           navigation.navigate("PerformerHistoryDetail");
       }
     };
     const editProgram = (item) => {
-      global.program = item
+      changeStore({...store, program:item});
       navigation.navigate("PerformerPostEdit");
     }
-    
     return (
       <TouchableOpacity
         key={`${title}-${index}`}
@@ -290,7 +293,7 @@ export default function FlatPerformerPage1({ items, title }) {
 
   return (
     <View style={{ flex: 1, marginHorizontal: 20, marginBottom: 60 }}>
-      {global.isLoading && <Spinner />}
+      {store.isLoading && <Spinner />}
       <Modal
             animationType="fade"
             transparent={true}

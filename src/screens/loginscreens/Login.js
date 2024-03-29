@@ -45,27 +45,33 @@ export default function Login() {
   const [darkMode, setDarkMode] = useState(false);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [check, setCheck] = useState(false);
+  const [check, setCheck] = useState();
 
 
   const handleLogin = async () => {
     let formdata = new FormData();
     formdata.append("email", email);
     formdata.append("password", password);
-    changeStore({ ...store, isLoading:true });
+    changeStore({ ...store, isLoading: true });
     try {
       const res = await api.login(formdata);
       if (res.data.success) {
         await storage.setItem("tokens", res.data.data.tokens);
-        global.currentUser = res.data.data.user;
-        changeStore({...store, currentUser: res.data.data.user, isLoggedin: true, role: res.data.data.user.role.name, isLoading:false});
+
+        // global.isRemember = true;
+        // global.tokens = res.data.data.tokens;
+        // global.currentUser = res.data.data.user;
+        // global.role = res.data.data.user.role.name;
+        // if (!check) {
+        // }
+        changeStore({ ...store, currentUser: res.data.data.user, isLoggedin: true, role: res.data.data.user.role.name, isLoading: false, page:"Home" });
       } else {
         Toast.show({
           type: "error",
           text1: "Error",
           text2: t(res.data.message),
         });
-        changeStore({...store, isLoading:false});
+        changeStore({ ...store, isLoading: false });
       }
     } catch (err) {
       Toast.show({
@@ -73,14 +79,21 @@ export default function Login() {
         text1: "Error",
         text2: "No Server!",
       });
-      changeStore({...store, isLoading:false});
+      changeStore({ ...store, isLoading: false });
     }
   };
 
   useEffect(() => {
-    setEmail("customer@gmail.com");
+    setEmail("performer@gmail.com");
     setPassword("123456");
-
+    // console.log("global.isRemember",global.isRemember);
+    // console.log("global.tokens",global.tokens);
+    // console.log("global.currentUser",global.currentUser);
+    // console.log("global.role", global.role);
+    // // console.log(storage.getItem('isRemember'));
+    // if (storage.getItem('isRemember') == 1) {
+    //   changeStore({ ...store, currentUser: storage.getItem('currentUser'), isLoggedin: true, role: storage.getItem('role'), isLoading: false });
+    // }
     GoogleSignin.configure({
       webClientId:
         "439003880186-ovf6uveql2sk5qmcq6vcp7ugekt3sqhp.apps.googleusercontent.com",

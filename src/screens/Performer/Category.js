@@ -42,7 +42,7 @@ export default function PerformerCategory({ route }) {
   const [postItem, setPostItem] = useState();
   const [pCPrograms, setpCPrograms] = useState(global.pCPrograms);
   const [allparentcategories, setAllparentcategories] = useState(global.allparentcategories);
-  const { id } = route.params;
+  const { id, slug } = route.params;
 
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function PerformerCategory({ route }) {
       }
     })();
     global.isLoading = false;
-    
+
   }, []);
 
   const layout = useWindowDimensions();
@@ -76,13 +76,13 @@ export default function PerformerCategory({ route }) {
 
   const FirstRoute = () => (
     <>
-      <FlatPerformerPage1 items={pCPrograms["my"]} title={"my"} />
+      <FlatPerformerPage1 id={id} items={pCPrograms["my"]} title={"my"} />
     </>
   );
 
   const SecondRoute = () => (
     <>
-      <FlatPerformerPage1 items={pCPrograms["another"]} title={"another"} />
+      <FlatPerformerPage1 id={id} items={pCPrograms["another"]} title={"another"} />
     </>
   );
 
@@ -98,11 +98,7 @@ export default function PerformerCategory({ route }) {
       {/* <StatusBar backgroundColor={darkMode === true ? '#000':'#fff'} barStyle={darkMode === true  ? 'light-content' : 'dark-content'} translucent={false}/> */}
       <AppBar
         color={theme.bg}
-        title={
-          t(allparentcategories.find((item) => {
-            return item.id === id;
-          })["slug"])
-        }
+        title={t(slug)}
         titleStyle={{ color: theme.txt, fontFamily: "Plus Jakarta Sans" }}
         centerTitle={true}
         elevation={0}
@@ -117,7 +113,7 @@ export default function PerformerCategory({ route }) {
           </TouchableOpacity>
         }
       />
-      <View style={{flex:1}}>
+      <View style={{ flex: 1 }}>
         {/* {global.isLoading && <Spinner />} */}
         <TabView
           navigationState={{ index, routes }}
@@ -248,7 +244,7 @@ export default function PerformerCategory({ route }) {
         }}
       >
         <TouchableOpacity
-          onPress={() => navigation.navigate("PerformerPostCreate")}
+          onPress={() => navigation.navigate("PostCreate")}
         >
           <Avatar.Image
             source={images.plus}

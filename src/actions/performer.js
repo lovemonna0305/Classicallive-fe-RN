@@ -38,10 +38,8 @@ export const getPProgramsByCategory = async (id) => {
 };
 
 export const getReservations = async (id) => {
-  global.isLoading = true;
   const res = await api.getReservations(id);
   if (res.data.success) {
-    global.pReservations = res.data.data;
     return res.data.data;
   } else {
     return [];
@@ -50,16 +48,12 @@ export const getReservations = async (id) => {
 };
 
 export const completeProgram = async (id) => {
-  global.isLoading = true;
-  try {
-    const res = await api.completePProgram(id);
-    if (res.data.success) {
-      global.pPendingPoints = res.data.data;
-    } else {
-      console.log(1)
-    }
-  } catch (err) {
-    console.log(2)
+  const res = await api.completePProgram(id);
+  if (res.data.success) {
+    global.pPendingPoints = res.data.data;
+    return res.data.data;
+  } else {
+    return 0;
   }
 };
 

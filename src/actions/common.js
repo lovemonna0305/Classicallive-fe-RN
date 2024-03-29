@@ -58,18 +58,11 @@ export const getChats = async () => {
 };
 
 export const getNotifications = async () => {
-  global.isLoading = true;
-  try {
-    const res = await api.getNotifications();
-    if (res.data.success) {
-      global.numMessages = res.data.data.numMsgs;
-      global.notifications = res.data.data.notifications;
-    } else {
-      console.log("getNotifications");
-    }
-  } catch (err) {
-    console.log(err);
-  }
+
+  const res = await api.getNotifications();
+  global.numMessages = res.data.data.numMsgs;
+  global.notifications = res.data.data.notifications;
+  return res.data.data;
 };
 
 export const getChat = async (id, post_id) => {
@@ -114,16 +107,11 @@ export const getAllCategories = async () => {
 };
 
 export const getAllParentCategories = async () => {
-  global.isLoading = true;
-  try {
-    const res = await api.getAllParentCategories();
-    if (res.data.success) {
-      global.allparentcategories = res.data.data;
-    } else {
-      console.log(res.data.success);
-    }
-  } catch (err) {
-    console.log(err);
+  const res = await api.getAllParentCategories();
+  if (res.data.success) {
+    return res.data.data;
+  } else {
+    return [];
   }
 };
 
@@ -142,15 +130,12 @@ export const getPopularCategories = async () => {
 };
 
 export const getCategoryArray = async (data) => {
-  try {
-    const res = await api.getCategoryArray();
-    if (res.data.success) {
-      return res.data.data;
-    } else {
-      return [];
-    }
-  } catch (err) {
-    console.log(err);
+  const res = await api.getCategoryArray();
+  if (res.data.success) {
+    global.categoryArray = res.data.data;
+    return res.data.data;
+  } else {
+    return [];
   }
 };
 

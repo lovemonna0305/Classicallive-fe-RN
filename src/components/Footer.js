@@ -27,7 +27,11 @@ export default function Footer() {
   const { t } = useTranslation();
   const ref = React.useRef(null);
   const theme = useContext(themeContext);
-  const [focused, setForcused] = useState(store.page);
+  const [focused, setForcused] = useState(store.page??"Home");
+
+  useEffect(()=>{
+    setForcused(store.page);
+  },[])
 
   const goto = (name) => {
     changeStore({ ...store, page: name });

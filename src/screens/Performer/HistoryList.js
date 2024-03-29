@@ -34,36 +34,27 @@ const height = Dimensions.get("screen").height;
 import { server } from "../../constants";
 import Spinner from "../../components/Spinner";
 import Footer from "../../components/Footer";
-// global.isLoading = true;
+import { useStore } from "../../store/store";
 
 export default function PerformerHistoryList() {
+  const { changeStore, store } = useStore();
   const { t } = useTranslation();
   const theme = useContext(themeContext);
   const navigation = useNavigation();
-  
-
-  const [pHPrograms, setPHPrograms] = useState(global.pHPrograms);
+  const [Programs, setPrograms] = useState({});
 
   useEffect(() => {
+    changeStore({ ...store, isLoading: true });
     (async () => {
-      const data = await getPrograms(2);
-      setPHPrograms(data);
+      await getPrograms(2)
+        .then(res => {
+          setPrograms(res);
+          changeStore({ ...store, isLoading: false });
+        }).catch(err => {
+          changeStore({ ...store, isLoading: false });
+        });
     })();
-    (async () => {
-      global.isLoading = false;
-    })();
-  }, [!global.isLoading]);
-  
-  useEffect(() => {
-    global.isLoading&&(async () => {
-      const data = await getPrograms(2);
-      setPHPrograms(data);
-    })();
-    global.isLoading&&(async () => {
-      global.isLoading = false;
-    })();
-  }, [global.isLoading]);
-
+  }, []);
 
   const layout = useWindowDimensions();
 
@@ -84,20 +75,20 @@ export default function PerformerHistoryList() {
 
   const FirstRoute = () => (
     <>
-      <FlatPerformerPage items={pHPrograms["reserv"]} title={"reserv"} />
+      <FlatPerformerPage items={Programs["reserv"]} title={"reserv"} />
     </>
   );
 
   const SecondRoute = () => (
     <>
-    <FlatPerformerPage items={pHPrograms["created"]} title={"created"} />
+      <FlatPerformerPage items={Programs["created"]} title={"created"} />
     </>
   );
-  
+
   const ThirdRoute = () => (
     <>
-    <FlatPerformerPage items={pHPrograms["completed"]} title={"completed"} />
-  </>
+      <FlatPerformerPage items={Programs["completed"]} title={"completed"} />
+    </>
   );
 
   const renderScene = SceneMap({
@@ -110,7 +101,7 @@ export default function PerformerHistoryList() {
     <SafeAreaView style={[style.area, { backgroundColor: theme.bg }]}>
       {/* <StatusBar backgroundColor={darkMode === true ? '#000':'#fff'} barStyle={darkMode === true  ? 'light-content' : 'dark-content'} translucent={false}/> */}
       <Header />
-      {global.isLoading && <Spinner />}
+      {store.isLoading && <Spinner />}
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}

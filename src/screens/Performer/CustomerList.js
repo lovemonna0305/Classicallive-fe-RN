@@ -31,28 +31,16 @@ import { server } from "../../constants";
 import Spinner from "../../components/Spinner";
 import { api } from "../../api";
 import { getReservations } from "../../actions/performer";
-
+import { useStore } from "../../store/store";
 
 export default function PerformerCustomerList() {
+  const { changeStore, store } = useStore();
   const navigation = useNavigation();
   const { t } = useTranslation();
   const ref = React.useRef(null);
   const theme = useContext(themeContext);
-  const [program, setProgram] = useState(global.program);
+  const program = store.program;
   const [reservations, setReservations] = useState();
-  useEffect(() => {
-    (async () => {
-      try {
-        const data = await getReservations(program.id);
-        setReservations(data);
-      } catch (err) {
-        console.log(err)
-      }
-    })();
-    (async () => { 
-      global.isLoading = false;
-    })();
-  }, []);
 
   const [darkMode, setDarkMode] = useState(false);
   const [modalDeleteVisible, setModalDeleteVisible] = useState(false);
@@ -92,7 +80,7 @@ export default function PerformerCustomerList() {
           centerTitle={true}
           elevation={0}
           leading={
-            <TouchableOpacity onPress={() => navigation.navigate('HomePage')}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
               <Avatar.Icon
                 icon="arrow-left"
                 style={{ backgroundColor: theme.bg }}
@@ -234,8 +222,8 @@ export default function PerformerCustomerList() {
             </View>
           </View>
         </Modal>
-        {global.isLoading && <Spinner />}            
-        <FlatPerformerPage2 items={reservations} title={"customer"}  />
+        {store.isLoading && <Spinner />}            
+        <FlatPerformerPage2 title={"customer"}  />
       </View>
       <View style={[style.row, style.bottompage_container]}>
         <TouchableOpacity

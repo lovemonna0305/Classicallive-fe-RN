@@ -54,12 +54,7 @@ export const getPerformer = async (data) => {
 
 export const reservProgram = async (data, coins) => {
     const res = await api.reservProgram(data.id);
-    if (res.data.success) {
-        return data;
-    } else {
-        return [];
-    }
-
+    return res.data.success;
 };
 
 export const cancelProgram = async (id) => {
@@ -83,16 +78,9 @@ export const completeProgram = async (id) => {
     }
 };
 
-export const buycoins = async (data, coins) => {
-    global.isLoading = true;
-    try {
-        const res = await api.buycoins(data);
-        if (res.data.success) {
-        } else {
-        }
-
-    } catch (error) {
-    }
+export const buycoins = async (data) => {
+    const res = await api.buycoins(data);
+    return res.data.success;
 };
 
 export const commitReview = async (data, program) => {

@@ -280,6 +280,7 @@
   "no_review_exists": "このレビューは存在しません。",
   "no_category_exists": "このカテゴリは存在しません。",
   "no_notification_exists": "この通知は存在しません。",
+  "no_customer_exists": "この顧客は存在しません。",
   "vchat_not_allowed" : "演奏者はチャットを許可されていません。",
   "tip_sent" : "チップは演奏者に送られました。",
   "tip_failed" : "チップの送信に失敗しました。",
@@ -502,6 +503,8 @@
   "not_post_down": "投稿を低く評価していません",
   "reserve_success": "予約が成功しました",
   "cancel_success":"正常にキャンセルされました",
+  "buy_coins_success":"コインの購入が成功しました。",
+  "buy_coins_error":"コイン購入エラー。",
 
 
   "default":"default",

@@ -66,9 +66,21 @@ export default function CustomerPostDetail() {
     setModalReserve(!modalReserve);
     await reservProgram(program)
       .then((res) => {
-        currentUser.points -= program.points;
-        changeStore({ ...store, currentUser: currentUser });
-        console.log(res);
+        if (res) {
+          currentUser.points -= program.points;
+          changeStore({ ...store, currentUser: currentUser, page: "HistoryList" });
+          Toast.show({
+            type: "success",
+            text1: "Success",
+            text2: t('reserve_success'),
+          });
+        } else {
+          Toast.show({
+            type: "info",
+            text1: "Success",
+            text2: t('you_already_reserved'),
+          });
+        }
       }).catch((err) => {
         console.log(err);
       });
@@ -87,7 +99,7 @@ export default function CustomerPostDetail() {
     changeStore({ ...store, isLoading: true });
     await followuser(program)
       .then(res => {
-        if(res.includes("yes")){
+        if (res.includes("yes")) {
           Toast.show({
             type: "success",
             text1: "Success",
@@ -114,7 +126,7 @@ export default function CustomerPostDetail() {
     changeStore({ ...store, isLoading: true });
     await likepost(program)
       .then(res => {
-        if(res.includes("yes")){
+        if (res.includes("yes")) {
           Toast.show({
             type: "success",
             text1: "Success",
@@ -140,7 +152,7 @@ export default function CustomerPostDetail() {
     changeStore({ ...store, isLoading: true });
     await uppost(program)
       .then(res => {
-        if(res.includes("yes")){
+        if (res.includes("yes")) {
           Toast.show({
             type: "success",
             text1: "Success",
@@ -166,7 +178,7 @@ export default function CustomerPostDetail() {
     changeStore({ ...store, isLoading: true });
     await downpost(program)
       .then(res => {
-        if(res.includes("yes")){
+        if (res.includes("yes")) {
           Toast.show({
             type: "success",
             text1: "Success",

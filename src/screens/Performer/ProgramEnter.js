@@ -16,7 +16,6 @@ import { Colors } from "../../theme/color";
 import style from "../../theme/style";
 import { useNavigation } from "@react-navigation/native";
 import StarRating, { StarRatingDisplay } from "react-native-star-rating-widget";
-import { useDispatch, useSelector } from "react-redux";
 import { AppBar, HStack } from "@react-native-material/core";
 import { Avatar } from "react-native-paper";
 import { useTranslation } from "react-i18next";
@@ -24,32 +23,36 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
 import { server } from "../../constants";
+import { useStore } from "../../store/store";
 
 import {
   completeProgram,
 } from "../../actions/performer";
 
 export default function PerformerProgramEnter() {
+  const { changeStore, store } = useStore();
   const { t } = useTranslation();
   const theme = useContext(themeContext);
   const [visible, setVisible] = useState(false);
   const navigation = useNavigation();
-  const dispatch = useDispatch();
 
-  const { program } = useSelector((state) => state.common);
-  const { pPendingPoints } = useSelector((state) => state.performer);
-  const { currentUser } = useSelector((state) => state.auth);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [modalEnter, setModalEnter] = useState(false);
+  const program = store.program;
+  const pPendingPoints = store.pPendingPoints;
 
   // const completeProgram = () => {
 
   // };
   useEffect(() => {
+    changeStore({ ...store, isLoading: true });
     (async () => {
-      dispatch(completeProgram(program.id));
+      completeProgram(program.id)
+        .then(points => {
+          currentUser.points += points;
+          changeStore({ ...store, isLoading: false, currentUser: currentUser, pPendingPoints: points });
+        }).catch(err => {
+          changeStore({ ...store, isLoading: false });
+        });
     })();
-    console.log(pPendingPoints);
   }, []);
 
   return (
@@ -193,7 +196,7 @@ export default function PerformerProgramEnter() {
           { justifyContent: "center" },
         ]}
       >
-        <TouchableOpacity onPress={() => navigation.navigate("HomePage")}>
+        <TouchableOpacity onPress={() => navigation.replace("Home")}>
           <View
             style={{
               backgroundColor: Colors.cancel,

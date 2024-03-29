@@ -55,15 +55,16 @@ import CustomerPostDetail from "../screens/customer/PostDetail";
 import CustomerProgramEnter from "../screens/customer/ProgramEnter";
 // import CustomerPayment from "../screens/customer/Payment";
 import CustomerHistoryList from "../screens/customer/HistoryList";
+import CustomerCategoryList from "../screens/customer/CategoryList";
 
 // // Performer
 import PerformerCategory from "../screens/Performer/Category";
 // import PerformerPostDetail from "../screens/Performer/PostDetail";
-// import PerformerHistoryDetail from "../screens/Performer/HistoryDetail";
+import PerformerHistoryDetail from "../screens/Performer/HistoryDetail";
 
 import PerformerPostCreate from "../screens/Performer/PostCreate";
 import PerformerPostEdit from "../screens/Performer/PostEdit";
-// import PerformerProgramEnter from "../screens/Performer/ProgramEnter";
+import PerformerProgramEnter from "../screens/Performer/ProgramEnter";
 // import PerformerCalendarDetail from "../screens/Performer/CalendarDetail";
 import PerformerCustomerList from "../screens/Performer/CustomerList";
 
@@ -88,7 +89,9 @@ import '../utils/global';
 import { useStore } from "../store/store";
 import PerformerHomepage from "../screens/Performer/Homepage";
 import Message from "../screens/common/Message";
-import CustomerCategoryList from "../screens/customer/CategoryList";
+
+import PerformerCategoryList from "../screens/Performer/CategoryList";
+import PerformerHistoryList from "../screens/Performer/HistoryList";
 
 const Stack = createNativeStackNavigator();
 
@@ -250,7 +253,7 @@ export default function StackNavigator() {
                   />
 
                   <Stack.Screen
-                    name="PerformerPostCreate"
+                    name="PostCreate"
                     component={PerformerPostCreate}
                     options={{ headerShown: false }}
                   />
@@ -259,6 +262,23 @@ export default function StackNavigator() {
                     component={PerformerPostEdit}
                     options={{ headerShown: false }}
                   />
+                  <Stack.Screen
+                    name="CategoryList"
+                    component={PerformerCategoryList}
+                    options={{ headerShown: false }}
+                  />
+                  <Stack.Screen
+                    name="PerformerHistoryDetail"
+                    component={PerformerHistoryDetail}
+                    options={{ headerShown: false }}
+                  />
+
+                  <Stack.Screen
+                    name="PerformerProgramEnter"
+                    component={PerformerProgramEnter}
+                    options={{ headerShown: false }}
+                  />
+
                   {/*<Stack.Screen
                     name="PerformerPostDetail"
                     component={PerformerPostDetail}
@@ -268,21 +288,16 @@ export default function StackNavigator() {
 
                   
                   <Stack.Screen
-                    name="PerformerProgramEnter"
-                    component={PerformerProgramEnter}
-                    options={{ headerShown: false }}
-                  />
-                  <Stack.Screen
-                    name="PerformerHistoryDetail"
-                    component={PerformerHistoryDetail}
-                    options={{ headerShown: false }}
-                  />
-                  <Stack.Screen
                     name="PerformerCalendarDetail"
                     component={PerformerCalendarDetail}
                     options={{ headerShown: false }}
                   />
                   */}
+                  <Stack.Screen
+                    name="HistoryList"
+                    component={PerformerHistoryList}
+                    options={{ headerShown: false }}
+                  /> 
                   <Stack.Screen
                     name="CustomerList"
                     component={PerformerCustomerList}

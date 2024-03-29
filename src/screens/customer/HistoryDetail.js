@@ -195,7 +195,7 @@ export default function CustomerHistoryDetail({ route }) {
   };
 
   const watchprogram = () => {
-    navigation.navigate("ProgramEnter");
+    
 
     var start_time = program.date + " " + program.start_time;
     var end_time = program.date + " " + program.end_time;
@@ -211,7 +211,7 @@ export default function CustomerHistoryDetail({ route }) {
       end_diff < 0
     ) {
       // Enter page
-      console.log("Enter Page");
+      navigation.navigate("ProgramEnter");
     } else {
       setModalVisible(true);
     }

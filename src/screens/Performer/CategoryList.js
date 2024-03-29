@@ -24,19 +24,34 @@ import Header from "../../components/Header";
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
 import { server } from "../../constants";
-import { setCategory } from "../../actions/common";
+import { getAllParentCategories, setCategory } from "../../actions/common";
+import Footer from "../../components/Footer";
+import { useStore } from "../../store/store";
 
 export default function PerformerCategoryList() {
+  const { changeStore, store } = useStore();
   const navigation = useNavigation();
   const { t } = useTranslation();
   const ref = React.useRef(null);
   const theme = useContext(themeContext);
- useEffect(()=>{
 
- },[])
+ 
 
-  const [allparentcategories, setAllparentcategories] = useState(global.allparentcategories);
+  const [allparentcategories, setAllparentcategories] = useState({});
   const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(()=>{
+    changeStore({...store, isLoading:true});
+    (async () => {
+      await getAllParentCategories()
+      .then(res=>{
+        setAllparentcategories(res);
+        changeStore({...store, isLoading:false});
+      }).catch(err=>{
+        changeStore({...store, isLoading:false});
+      });
+    })();
+  },[])
 
   const renderItem1 = ({item, index})=>{
     const lastItem = index === popularcategories.length - 1;
@@ -48,7 +63,7 @@ export default function PerformerCategoryList() {
     return(
       <TouchableOpacity
         style={[style.item1, { maxWidth: lastItem ? "47%" : "100%" }]}
-        onPress={() => global.pCategory = item}
+        // onPress={() => global.pCategory = item}
       >
         <View>
           <Image
@@ -65,11 +80,10 @@ export default function PerformerCategoryList() {
   };
   const renderItem2 = ({item, index})=>{
     const lastItem = index === allparentcategories.length - 1;
-    const selectCategory = async(item) => {
-      setCategory(item.id);
-      global.isLoading = true;
+    const selectCategory = (item) => {
       navigation.navigate("PerformerCategory", {
         id: item.id,
+        slug: item.slug,
       });
     };
     return(
@@ -143,6 +157,7 @@ export default function PerformerCategoryList() {
               />
           </View>
       </View>
+      <Footer />
     </SafeAreaView>
   );
 }

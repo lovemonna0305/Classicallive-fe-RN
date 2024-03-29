@@ -279,6 +279,7 @@
   "no_category_exists": "This category does not exist.",
   "no_notification_exists": "This Notifications does not exist.",
   "no_review_exists": "This Review does not exist.",
+  "no_customer_exists": "This Customer does not exist.",
   "vchat_not_allowed": "Performer not allowed chat.",
   "tip_sent": "Tip was sent to the performer.",
   "tip_failed": "Failed to send tip.",
@@ -509,6 +510,8 @@
   "post_down":"Down post.",
   "not_post_down":"Not down post.",
   "reserve_success":"Reserve success.",
+  "buy_coins_success":"buy coins success.",
+  "buy_coins_error":"buy coins error.",
   "cancel_success":"Cancel Successfully",
 
 

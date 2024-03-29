@@ -34,53 +34,55 @@ import StatusView from "./StatusView";
 import { api } from "../api";
 import { approveReservation, getReservations, rejectionReservation } from "../actions/performer";
 import Spinner from "./Spinner";
+import { useStore } from "../store/store";
 
 export default function FlatPerformerPage2({ items, title }) {
+  const { changeStore, store } = useStore();
   const { t } = useTranslation();
   const theme = useContext(themeContext);
   const navigation = useNavigation();
   const [edit, setEdit] = useState(0);
-  const [program, setProgram] = useState(global.program);
+  const program = store.program;
   const [isLoading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible1, setModalVisible1] = useState(false);
-  const [reservations, setReservations] = useState(items);
+  const [reservations, setReservations] = useState();
   const [item, setItem] = useState(false);
 
 
-  const fetchdata = async ()=>{
-    (async () => {
-      try {
-        const data = await getReservations(program.id);
-        setReservations(data);
-      } catch (err) {
-        console.log(err)
-      }
-    })();
-    return;
+  const fetchdata = async () => {
+    changeStore({ ...store, isLoading: true });
+    await getReservations(program.id)
+      .then(res => {
+        setReservations(res);
+        changeStore({ ...store, isLoading: false });
+      }).catch(err => {
+        changeStore({ ...store, isLoading: false });
+      });
   }
+  useEffect(()=>{
+    fetchdata();
+  },[]);
 
   const handleApproveProgram = async () => {
     try {
       await approveReservation(item.id);
-        fetchdata()
+      fetchdata()
+      
     } catch (err) {
       console.log(err)
     }
     setModalVisible(false);
-    global.isLoading=false;
   };
 
   const handleRejectionProgram = async () => {
-
     try {
       await rejectionReservation(item.id);
-        fetchdata()
+      fetchdata()
     } catch (err) {
       console.log(err)
     }
     setModalVisible1(false);
-    global.isLoading=false;
   };
 
   const renderItem = ({ item, index }) => {
@@ -165,7 +167,7 @@ export default function FlatPerformerPage2({ items, title }) {
                   { alignContent: "center", justifyContent: "space-between" },
                 ]}
               >
-                <StatusView status= {item.status} />
+                <StatusView status={item.status} />
               </View>
               {/* <View style={[style.row, { alignItems: "center" }]}>
                 <View>
@@ -264,176 +266,176 @@ export default function FlatPerformerPage2({ items, title }) {
 
   return (
     <>
-    {global.isLoading && <Spinner />}
-    <View style={{ flex: 1, marginHorizontal: 20, marginBottom: 60 }}>
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View
-          style={{
-            flex: 1,
-            width: width,
-            backgroundColor: "#000000aa",
+      {store.isLoading && <Spinner />}
+      <View style={{ flex: 1, marginHorizontal: 20, marginBottom: 60 }}>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
           }}
         >
           <View
-            style={[
-              style.modalcontainer,
-              {
-                backgroundColor: theme.bg,
-                width: width - 30,
-                marginVertical: 170,
-              },
-            ]}
-          >
-            <View style={{ paddingHorizontal: 20, paddingBottom: 10 }}>
-              <View style={{ paddingTop: 10, alignSelf: "center" }}>
-                <Avatar.Icon
-                  icon="help"
-                  color="#FF4747"
-                  size={80}
-                  style={{
-                    borderWidth: 5,
-                    borderColor: "#FF4747",
-                    backgroundColor: theme.bg,
-                  }}
-                />
-              </View>
-              <View style={{ paddingTop: 20 }}>
-                <Text
-                  style={[
-                    style.subtxt,
-                    { color: Colors.disable, textAlign: "center" },
-                  ]}
-                >
-                  {t("sure_approve")}
-                </Text>
-              </View>
-              <View style={style.modalbtn_container}>
-                <TouchableOpacity
-                  style={[style.modalbtn_confirm, { marginRight: 5 }]}
-                  onPress={() => {
-                    handleApproveProgram();
-                  }}
-                >
-                  <Text style={style.modalbtn_text}>{t("approval")}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[style.modalbtn_cancel, { marginLeft: 5 }]}
-                  onPress={() => setModalVisible(false)}
-                >
-                  <Text style={style.modalbtn_text}>{t("cancel")}</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        </View>
-      </Modal>
-
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible1}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible1(!modalVisible1);
-        }}
-      >
-        <View
-          style={{
-            flex: 1,
-            width: width,
-            backgroundColor: "#000000aa",
-          }}
-        >
-          <View
-            style={[
-              style.modalcontainer,
-              {
-                backgroundColor: theme.bg,
-                width: width - 30,
-                marginVertical: 170,
-              },
-            ]}
-          >
-            <View style={{ paddingHorizontal: 20, paddingBottom: 10 }}>
-              <View style={{ paddingTop: 10, alignSelf: "center" }}>
-                <Avatar.Icon
-                  icon="help"
-                  color="#FF4747"
-                  size={80}
-                  style={{
-                    borderWidth: 5,
-                    borderColor: "#FF4747",
-                    backgroundColor: theme.bg,
-                  }}
-                />
-              </View>
-              <View style={{ paddingTop: 20 }}>
-                <Text
-                  style={[
-                    style.subtxt,
-                    { color: Colors.disable, textAlign: "center" },
-                  ]}
-                >
-                  {t("sure_rejection")}
-                </Text>
-              </View>
-              <View style={style.modalbtn_container}>
-                <TouchableOpacity
-                  style={[style.modalbtn_confirm, { marginRight: 5 }]}
-                  onPress={() => {
-                    handleRejectionProgram();
-                  }}
-                >
-                  <Text style={style.modalbtn_text}>{t("rejection")}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[style.modalbtn_cancel, { marginLeft: 5 }]}
-                  onPress={() => setModalVisible1(false)}
-                >
-                  <Text style={style.modalbtn_text}>{t("cancel")}</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        </View>
-      </Modal>
-      {reservations && reservations.length > 0 ? (
-        <>
-          <FlatList
-            key={1}
-            data={reservations}
-            keyExtractor={(item, index) => {
-              return index;
-            }}
-            showsVerticalScrollIndicator={false}
-            renderItem={renderItem}
-          />
-        </>
-      ) : (
-        <View style={{ flex: 1, justifyContent: "center" }}>
-          <Text
             style={{
-              marginVertical: 8,
-              fontWeight: 800,
-              color: "white",
-              fontSize: 14,
-              textAlign: "center",
-              opacity: 0.4,
+              flex: 1,
+              width: width,
+              backgroundColor: "#000000aa",
             }}
           >
-            {t("no_post_exists")}
-          </Text>
-        </View>
-      )}
-    </View>
+            <View
+              style={[
+                style.modalcontainer,
+                {
+                  backgroundColor: theme.bg,
+                  width: width - 30,
+                  marginVertical: 170,
+                },
+              ]}
+            >
+              <View style={{ paddingHorizontal: 20, paddingBottom: 10 }}>
+                <View style={{ paddingTop: 10, alignSelf: "center" }}>
+                  <Avatar.Icon
+                    icon="help"
+                    color="#FF4747"
+                    size={80}
+                    style={{
+                      borderWidth: 5,
+                      borderColor: "#FF4747",
+                      backgroundColor: theme.bg,
+                    }}
+                  />
+                </View>
+                <View style={{ paddingTop: 20 }}>
+                  <Text
+                    style={[
+                      style.subtxt,
+                      { color: Colors.disable, textAlign: "center" },
+                    ]}
+                  >
+                    {t("sure_approve")}
+                  </Text>
+                </View>
+                <View style={style.modalbtn_container}>
+                  <TouchableOpacity
+                    style={[style.modalbtn_confirm, { marginRight: 5 }]}
+                    onPress={() => {
+                      handleApproveProgram();
+                    }}
+                  >
+                    <Text style={style.modalbtn_text}>{t("approval")}</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[style.modalbtn_cancel, { marginLeft: 5 }]}
+                    onPress={() => setModalVisible(false)}
+                  >
+                    <Text style={style.modalbtn_text}>{t("cancel")}</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </View>
+        </Modal>
+
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible1}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible1(!modalVisible1);
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              width: width,
+              backgroundColor: "#000000aa",
+            }}
+          >
+            <View
+              style={[
+                style.modalcontainer,
+                {
+                  backgroundColor: theme.bg,
+                  width: width - 30,
+                  marginVertical: 170,
+                },
+              ]}
+            >
+              <View style={{ paddingHorizontal: 20, paddingBottom: 10 }}>
+                <View style={{ paddingTop: 10, alignSelf: "center" }}>
+                  <Avatar.Icon
+                    icon="help"
+                    color="#FF4747"
+                    size={80}
+                    style={{
+                      borderWidth: 5,
+                      borderColor: "#FF4747",
+                      backgroundColor: theme.bg,
+                    }}
+                  />
+                </View>
+                <View style={{ paddingTop: 20 }}>
+                  <Text
+                    style={[
+                      style.subtxt,
+                      { color: Colors.disable, textAlign: "center" },
+                    ]}
+                  >
+                    {t("sure_rejection")}
+                  </Text>
+                </View>
+                <View style={style.modalbtn_container}>
+                  <TouchableOpacity
+                    style={[style.modalbtn_confirm, { marginRight: 5 }]}
+                    onPress={() => {
+                      handleRejectionProgram();
+                    }}
+                  >
+                    <Text style={style.modalbtn_text}>{t("rejection")}</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[style.modalbtn_cancel, { marginLeft: 5 }]}
+                    onPress={() => setModalVisible1(false)}
+                  >
+                    <Text style={style.modalbtn_text}>{t("cancel")}</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </View>
+        </Modal>
+        {reservations && reservations.length > 0 ? (
+          <>
+            <FlatList
+              key={1}
+              data={reservations}
+              keyExtractor={(item, index) => {
+                return index;
+              }}
+              showsVerticalScrollIndicator={false}
+              renderItem={renderItem}
+            />
+          </>
+        ) : (
+          <View style={{ flex: 1, justifyContent: "center" }}>
+            <Text
+              style={{
+                marginVertical: 8,
+                fontWeight: 800,
+                color: "white",
+                fontSize: 14,
+                textAlign: "center",
+                opacity: 0.4,
+              }}
+            >
+              {t("no_customer_exists")}
+            </Text>
+          </View>
+        )}
+      </View>
     </>
   );
 }

@@ -32,6 +32,7 @@ import { launchImageLibrary } from "react-native-image-picker";
 import { launchCamera } from "react-native-image-picker";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import CheckBox from "../../components/CheckBox";
+import { useStore } from "../../store/store";
 
 
 const width = Dimensions.get("screen").width;
@@ -41,13 +42,12 @@ import Spinner from "../../components/Spinner";
 import { createProgram, getPProgramsByCategory, getPrograms } from "../../actions/performer";
 
 export default function PerformerPostCreate() {
+  const { changeStore, store } = useStore();
   const { t } = useTranslation();
   const theme = useContext(themeContext);
   const navigation = useNavigation();
-  let currentUser = global.currentUser;
+  const currentUser = store.currentUser;
   let categoryArray = global.categoryArray; 
-  let pCategory = global.pCategory; 
-  let isLoading = global.isLoading;
 
   const [data, setData] = useState({
     photo: "",
@@ -287,14 +287,16 @@ export default function PerformerPostCreate() {
         }
         formdata.append("is_changeImage", is_changeImage);
 
-        createProgram(formdata);
-        getPrograms(1);
-        getPrograms(2);
-        getPProgramsByCategory(global.pCategory);
-
-        global.isLoading = false;
+        changeStore({...store, isLoading:true});
         (async () => {
-          navigation.goBack();
+          createProgram(formdata)
+          .then(res=>{
+            changeStore({...store, isLoading:false});
+            navigation.goBack();
+          }).catch(err=>{
+            changeStore({...store, isLoading:false});
+            navigation.goBack();
+          });
         })();
       }
     } catch (err) {

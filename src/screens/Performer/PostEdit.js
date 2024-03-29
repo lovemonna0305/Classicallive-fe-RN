@@ -40,19 +40,19 @@ import { images, server } from "../../constants";
 import Spinner from "../../components/Spinner";
 import { setLoading } from "../../actions/common";
 import CheckBox from "../../components/CheckBox";
+import { useStore } from "../../store/store";
 
 export default function PerformerPostEdit() {
+  const { changeStore, store } = useStore();
   const { t } = useTranslation();
   const theme = useContext(themeContext);
   const navigation = useNavigation();
   const [firsttime, setFirsttime] = useState();
 
 
-  let currentUser = global.currentUser;
-  let categoryArray = global.categoryArray; 
-  let pCategory = global.pCategory; 
-  let program = global.program; 
-  let isLoading = global.isLoading;
+  const program = store.program;
+  const currentUser = store.currentUser;
+  const categoryArray = global.categoryArray; 
 
 
   const [data, setData] = useState({
@@ -299,13 +299,16 @@ export default function PerformerPostEdit() {
           });
         }
         formdata.append("is_changeImage", is_changeImage);
-        updateProgram(formdata);
-        getPrograms(1);
-        getPrograms(2);
-        getPProgramsByCategory(global.pCategory);
-        setLoading(false);
+        changeStore({...store, isLoading:true});
         (async () => {
-          navigation.goBack();
+          updateProgram(formdata)
+          .then(res=>{
+            changeStore({...store, isLoading:false});
+            navigation.goBack();
+          }).catch(err=>{
+            changeStore({...store, isLoading:false});
+            navigation.goBack();
+          });
         })();
       }
     } catch (err) {

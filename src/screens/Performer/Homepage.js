@@ -25,7 +25,6 @@ const height = Dimensions.get("screen").height;
 import { server } from "../../constants";
 import Spinner from "../../components/Spinner";
 import { getPrograms } from "../../actions/performer";
-import { setProgram } from "../../actions/common";
 import {
   getAllCategories,
   getAllParentCategories,
@@ -33,9 +32,12 @@ import {
   getCategoryArray,
   setLoading,
 } from "../../actions/common";
+import Footer from "../../components/Footer";
+import { useStore } from "../../store/store";
 
 
 export default function PerformerHomepage() {
+  const { changeStore, store } = useStore();
   const navigation = useNavigation();
   const { t } = useTranslation();
   const ref = React.useRef(null);
@@ -45,25 +47,21 @@ export default function PerformerHomepage() {
 
 
   useEffect(() => {
+    changeStore({ ...store, isLoading: true });
     (async () => {
-      const data = await getPrograms(1);
-      setPrograms(data);
+      await getPrograms(1)
+        .then(res => {
+          setPrograms(res);
+        }).catch(err => {
+        });
     })();
     (async () => {
-      await getAllParentCategories();
-    })();
-    (async () => {
-      await getPopularCategories();
-    })();
-    (async () => {
-      await getAllCategories();
-    })();
-
-    (async () => {
-      await getCategoryArray();
-    })();
-    (async () => {
-      global.isLoading = false;
+      await getCategoryArray()
+        .then(res => {
+          changeStore({ ...store, isLoading: false });
+        }).catch(err => {
+          changeStore({ ...store, isLoading: false });
+        });
     })();
   }, []);
 
@@ -71,7 +69,7 @@ export default function PerformerHomepage() {
   const renderItem1 = ({ item, index }) => {
     const lastItem = index === programs["after"].length - 1;
     const selectProgram = (item) => {
-      setProgram(item)
+      changeStore({...store, program:item});
       navigation.navigate("CustomerList");
     };
     return (
@@ -102,7 +100,7 @@ export default function PerformerHomepage() {
 
   const renderItem2 = ({ item, index }) => {
     const selectProgram = (item) => {
-      setProgram(item)
+      changeStore({...store, program:item});
       navigation.navigate("CustomerList");
     };
     return (
@@ -166,7 +164,7 @@ export default function PerformerHomepage() {
   };
   const renderItem3 = ({ item, index }) => {
     const selectProgram = (item) => {
-      setProgram(item);
+      changeStore({...store, program:item});
       navigation.navigate("CustomerList");
     };
     return (
@@ -226,8 +224,8 @@ export default function PerformerHomepage() {
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.bg }}>
       {/* <StatusBar backgroundColor="transparent" translucent={true} /> */}
       <Header />
-      <View style={{flex:1}}>
-          {global.isLoading && <Spinner />}
+      <View style={{ flex: 1 }}>
+        {store.isLoading && <Spinner />}
         <ScrollView style={{ marginBottom: 60 }}>
           <View style={{ height: 270 }}>
             <View style={{ marginTop: 10 }}>
@@ -360,6 +358,7 @@ export default function PerformerHomepage() {
           </View>
         </ScrollView>
       </View>
+      <Footer />
     </SafeAreaView>
   );
 }

@@ -1,6 +1,8 @@
 global.isLoading = true;
-
+global.isRemember = false;
+global.tokens = "";
 global.currentUser = {};
+
 global.program = {};
 global.notifications = {};
 global.numNotification = 0;

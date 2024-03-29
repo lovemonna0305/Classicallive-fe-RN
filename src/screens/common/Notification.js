@@ -32,21 +32,21 @@ export default function Notification() {
   const navigation = useNavigation();
   const theme = useContext(themeContext);
   const [darkMode, setDarkMode] = useState(false);
-  const [notifications, setNotifications] = useState(global.notifications);
+  const [notifications, setNotifications] = useState({});
 
   useEffect(() => {
-    changeStore({ ...store, isLoading: true });
+    changeStore({...store, isLoading:true});
+    (async () => {
+      await getNotifications()
+      .then(res=>{
+        setNotifications(res.notifications);
+        changeStore({...store, isLoading:false});
+      }).catch(err=>{
+        changeStore({...store, isLoading:false});
+      });
+    })();
+ 
   }, []);
-
-  useEffect(() => {
-    store.isLoading && (async () => {
-      const data = await getNotifications();
-      setNotifications(data);
-    })();
-    store.isLoading && (async () => {
-      store.isLoading = false;
-    })();
-  }, [store.isLoading]);
 
   return (
     <SafeAreaView style={[style.area, { backgroundColor: theme.bg }]}>

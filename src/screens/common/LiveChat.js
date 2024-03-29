@@ -47,7 +47,7 @@ export default function CustomerLiveChat({ route }) {
   const [socketConnected, setSocketConnected] = useState(false);
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
-  const currentUser = global.currentUser;
+  const currentUser = store.currentUser;
 
 
   const scrollViewRef = useRef(null);
@@ -203,7 +203,7 @@ export default function CustomerLiveChat({ route }) {
               </TouchableOpacity>
               <TouchableOpacity onPress={() => console.log("friend profile")}>
                 <Avatar.Image
-                  source={{ uri: server.media_url + currentUser.image_file }}
+                  source={{ uri: server.member_url + currentUser.image_file }}
                   style={{
                     backgroundColor: Colors.secondary,
                     position: "relative",

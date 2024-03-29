@@ -3,13 +3,14 @@ import React, { createContext, useState, useContext } from 'react';
 const StoreContext = createContext();
 export const StoreProvider = ({ children }) => {
   const [store, setStore] = useState({
-    isLoggedin:false,
-    page:"Home",
-    showSplashScreen:true,
+    isLoggedin: false,
+    page: "Home",
+    showSplashScreen: true,
     role: '',
-    isLoading:false,
-    currentUser:{},
-    program:{}
+    isLoading: false,
+    currentUser: {},
+    program: {},
+    pPendingPoints: 0,
   });
 
   const changeStore = (newStore) => {

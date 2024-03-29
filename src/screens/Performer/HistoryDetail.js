@@ -20,7 +20,6 @@ import { Colors } from "../../theme/color";
 import style from "../../theme/style";
 import { useNavigation } from "@react-navigation/native";
 import StarRating, {StarRatingDisplay} from 'react-native-star-rating-widget';
-import { useDispatch, useSelector } from "react-redux";
 import { AppBar, HStack } from "@react-native-material/core";
 import { Avatar } from "react-native-paper";
 import { useTranslation } from "react-i18next";
@@ -32,20 +31,31 @@ const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
 import { server } from "../../constants";
 import Spinner from "../../components/Spinner";
+import { useStore } from "../../store/store";
 
 export default function PerformerHistoryDetail() {
+  const { changeStore, store } = useStore();
   const { t } = useTranslation();
   const theme = useContext(themeContext);
   const navigation = useNavigation();
-  const dispatch = useDispatch();
 
-  const { program,reviews,users,isLoading  } = useSelector((state) => state.common);
-  const { currentUser } = useSelector((state) => state.auth);
+  const program = store.program;
+  const [reviews, setReviews] = useState({});
+
   const [modalVisible, setModalVisible] = useState(false);
   const [modalEnter, setModalEnter] = useState(false);
 
   useEffect(() => {
-      dispatch(getReviewsByPost(program.id));
+    changeStore({ ...store, isLoading: true });
+    (async () => {
+      await getReviewsByPost(program.id)
+        .then(res => {
+          setReviews(res)
+          changeStore({ ...store, isLoading: false });
+        }).catch(err => {
+          changeStore({ ...store, isLoading: false });
+        })
+    })();
   }, []);
 
   return (
@@ -71,7 +81,7 @@ export default function PerformerHistoryDetail() {
         }
       />
       <View style={{flex:1}}>
-        {isLoading && <Spinner />}
+        {store.isLoading && <Spinner />}
         <ScrollView showsVerticalScrollIndicator={false} style={{marginBottom:10}}>
           <View style={{ flex: 1, marginHorizontal: 20 }}>
             <View style={{ paddingTop: 10 }}>
@@ -161,12 +171,12 @@ export default function PerformerHistoryDetail() {
                   <View style={style.row}>
                     <View style ={{}}>
                       <Image
-                        source={{ uri: server.media_url + users[item.customer_id]['image_file'] }}
+                        source={{ uri: server.media_url + item.customer.image_file }}
                         style={{width:70,height:70,borderRadius:5}}
                       />
                     </View>
                     <View style={{paddingLeft:10}}>
-                      <Text style={style.activetext}>{users[item.customer_id]['name']}</Text>
+                      <Text style={style.activetext}>{item.customer.name}</Text>
                       <StarRatingDisplay
                       // style={{paddingTop:10}}
                         rating={item.rating}

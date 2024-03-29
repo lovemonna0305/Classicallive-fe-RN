@@ -39,7 +39,6 @@ export default function CustomerReviewList() {
   const theme = useContext(themeContext);
   const navigation = useNavigation();
   const program = store.program;
-  const currentUser = store.currentUser;
   const [reviews, setReviews] = useState({});
 
 

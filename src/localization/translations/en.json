@@ -525,10 +525,21 @@
   "buy_coins_success":"buy coins success.",
   "buy_coins_error":"buy coins error.",
   "cancel_success":"Cancel Successfully",
+  "delete_success":"Delete Successfully",
+  "delete_failed":"Delete failed",
 
-
+  "info":"information",
+  "valid_email":"Valid email format",
+  "invalid_email":"Invalid email format",
+  "invalid_email_password":"Invalid email or password",
+  "doesnt_exist_user":"Sorry, this user does not exist",
+  "email_already_exists":"Email already exists",
   
-
+  
+  "current_password_isnt_correct":"Current password is not correct. Please try again.",
+  "new_password_cant_same_current_password":"New Password cannot be same as your current password. Please choose a different password.",
+  "doesnt_match_password":"Conform password doesn't match.",
+  "password_updated_successfully":"Password updated Successfully.",
 
   "default":"default",
 

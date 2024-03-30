@@ -24,8 +24,6 @@ export default function SubCategoryItem({ items }) {
   const ref = React.useRef(null);
   const theme = useContext(themeContext);
 
-  const currentUser = global.currentUser;
-
   const [darkMode, setDarkMode] = useState(false);
 
   const [select, setSelect] = useState(false);

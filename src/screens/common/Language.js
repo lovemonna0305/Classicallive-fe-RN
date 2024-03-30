@@ -53,7 +53,7 @@ export default function Language() {
           centerTitle={true}
           elevation={0}
           leading={
-            <TouchableOpacity onPress={() => navigation.navigate("HomePage")}>
+            <TouchableOpacity onPress={() => navigation.replace("Home")}>
               <Avatar.Icon
                 icon="arrow-left"
                 style={{ backgroundColor: theme.bg }}

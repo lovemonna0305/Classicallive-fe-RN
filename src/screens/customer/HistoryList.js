@@ -52,7 +52,6 @@ export default function CustomerHistoryList() {
   // }, [true]);
 
   useEffect(() => {
-    // store.isLoading = true;
     changeStore({ ...store, isLoading: true });
     const getData = async () => {
       await getPrograms(2)

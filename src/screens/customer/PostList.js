@@ -61,7 +61,11 @@ export default function CustomerPostList() {
   const renderItem = ({ item, index }) => {
     const selectProgram = (item) => {
       changeStore({ ...store, program: item });
-      navigation.navigate("CustomerPostDetail");
+      if (item.reserv_status.includes('canceled')) {
+        navigation.navigate("CustomerPostDetail");
+      } else {
+        navigation.navigate("CustomerHistoryDetail");
+      }
     };
     return (
       <View key={`post-performer--${index}`}>

@@ -71,13 +71,13 @@ export default function CustomerPostDetail() {
           changeStore({ ...store, currentUser: currentUser, page: "HistoryList" });
           Toast.show({
             type: "success",
-            text1: "Success",
+            text1: t('success'),
             text2: t('reserve_success'),
           });
         } else {
           Toast.show({
             type: "info",
-            text1: "Success",
+            text1: t('info'),
             text2: t('you_already_reserved'),
           });
         }

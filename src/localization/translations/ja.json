@@ -518,6 +518,21 @@
   "buy_coins_success":"コインの購入が成功しました。",
   "buy_coins_error":"コイン購入エラー。",
 
+  "delete_success": "削除が成功しました",
+  "delete_failed": "削除に失敗しました",
+
+  "info": "情報",
+  "valid_email": "有効なメール形式",
+  "invalid_email": "無効なメール形式",
+  "invalid_email_password": "無効なメールアドレスまたはパスワード",
+  "doesnt_exist_user": "申し訳ありませんが、このユーザーは存在しません",
+  "email_already_exists": "メールアドレスはすでに存在します",
+
+  "current_password_isnt_correct": "現在のパスワードが正しくありません。もう一度お試しください。",
+  "new_password_cant_same_current_password": "新しいパスワードは現在のパスワードと同じにすることはできません。別のパスワードを選択してください。",
+  "doesnt_match_password": "パスワードが一致しません。",
+  "password_updated_successfully": "パスワードが正常に更新されました。",
+
 
   "default":"default",
   "amount":"Amount"

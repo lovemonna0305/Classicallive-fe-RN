@@ -294,6 +294,9 @@ const verifyOtp = (otpCode) =>
 const resendOtpEmail = (email) =>
   axios.get(`${SERVER_URL}/auth/resend-otp-email/${email}`);
 
+const forgot = (email) =>
+  axios.get(`${SERVER_URL}/auth/forgot-password/${email}`);
+
 const newpassword = (data) => {
   return axios.post(`${SERVER_URL}/auth/new-password`, data, {
     headers: {
@@ -304,6 +307,14 @@ const newpassword = (data) => {
 
 const updateUser = (data) => {
   return jwtInterceoptor.post(`${SERVER_URL}/user`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+}
+
+const updatePassword = (data) => {
+  return jwtInterceoptor.post(`${SERVER_URL}/update-password`, data, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -410,8 +421,10 @@ export const api = {
   verifyOtp,
   newpassword,
   resendOtpEmail,
+  forgot,
   updateProfile,
   updateUser,
+  updatePassword,
   getQuestions,
   getUser,
   getUsers,

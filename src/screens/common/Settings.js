@@ -79,7 +79,7 @@ export default function Settings() {
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
-              color="white"
+              color={theme.txt}
               size={40}
             />
           </TouchableOpacity>
@@ -100,7 +100,7 @@ export default function Settings() {
             }}
           >
             <Image
-              source={{ uri: server.media_url + currentUser.image_file }}
+              source={{ uri: server.member_url + currentUser.image_file }}
               resizeMode="stretch"
               style={{
                 width: width / 7,

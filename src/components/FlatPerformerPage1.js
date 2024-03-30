@@ -25,6 +25,7 @@ import { server } from "../constants";
 import { deleteProgram, getPProgramsByCategory } from "../actions/performer";
 import Spinner from "./Spinner";
 import { useStore } from "../store/store";
+import Toast from "react-native-toast-message";
 
 export default function FlatPerformerPage1({ id, items, title }) {
   const { changeStore, store } = useStore();
@@ -37,54 +38,64 @@ export default function FlatPerformerPage1({ id, items, title }) {
   //   (state) => state.common
   // );
   const [modalVisible, setModalVisible] = useState(false);
-  const [pCPrograms, setpCPrograms] = useState(items);
+  const [programs, setPrograms] = useState(items);
   const [item, setItem] = useState(false);
-  useEffect(() => {
-    // fetchdata();
-  }, []);
 
-  const fetchdata = async ()=>{
-    changeStore({...store, isLoading:true});
+  const fetchdata = async () => {
+    changeStore({ ...store, isLoading: true });
     (async () => {
       await getPProgramsByCategory(id)
-      .then(res=>{
-        setPrograms(res);
-        changeStore({...store, isLoading:false});
-      }).catch(err=>{
-        changeStore({...store, isLoading:false});
-      });
+        .then(res => {
+          setPrograms(res);
+          changeStore({ ...store, isLoading: false });
+        }).catch(err => {
+          changeStore({ ...store, isLoading: false });
+        });
     })();
     return;
   }
 
   const handledeleteProgram = async () => {
-
-    try {
-      await deleteProgram(item.id);
-      fetchdata()
-    } catch (err) {
-      console.log(err)
-    }
     setModalVisible(false);
-    global.isLoading=false;
+    changeStore({ ...store, isLoading: true });
+    await deleteProgram(item.id)
+      .then(res => {
+        if (res) {
+          Toast.show({
+            type: "success",
+            text1: t('success'),
+            text2: t('delete_success'),
+          });
+        } else {
+          Toast.show({
+            type: "error",
+            text1: t('error'),
+            text2: t("delete_failed"),
+          });
+        }
+        fetchdata();
+        changeStore({ ...store, isLoading: false });
+      }).catch(err => {
+        changeStore({ ...store, isLoading: false });
+      });
   }
   const renderItem = ({ item, index }) => {
     const selectProgram = (item) => {
       setEdit(item.id);
-      if(title.includes("another")){
-        changeStore({...store, program:item});
-          navigation.navigate("PerformerHistoryDetail");
+      if (title.includes("another")) {
+        changeStore({ ...store, program: item });
+        navigation.navigate("PerformerHistoryDetail");
       }
     };
     const editProgram = (item) => {
-      changeStore({...store, program:item});
+      changeStore({ ...store, program: item });
       navigation.navigate("PerformerPostEdit");
     }
     return (
       <TouchableOpacity
         key={`${title}-${index}`}
         style={{
-          height: (title.includes("my"))&&(edit===item.id)?130:90, ///
+          height: (title.includes("my")) && (edit === item.id) ? 130 : 90, ///
           padding: 5,
           backgroundColor: theme.box,
           borderRadius: 5,
@@ -244,13 +255,13 @@ export default function FlatPerformerPage1({ id, items, title }) {
             </View>
           </View>
         </View>
-        {(title.includes("my"))&&(edit===item.id)?(<View style={[style.row, { paddingTop: 5, paddingHorizontal: 10,alignItems:"center", justifyContent:"space-between"}]}>
-        <Text
+        {(title.includes("my")) && (edit === item.id) ? (<View style={[style.row, { paddingTop: 5, paddingHorizontal: 10, alignItems: "center", justifyContent: "space-between" }]}>
+          <Text
             numberOfLines={2}
             style={[style.activetext, { fontSize: 11 }]}
           >{t("edit_cancel")}
           </Text>
-          <View style={[style.row, { paddingTop: 5, alignItems:"center", justifyContent:"space-between"}]}>
+          <View style={[style.row, { paddingTop: 5, alignItems: "center", justifyContent: "space-between" }]}>
             <TouchableOpacity onPress={() => editProgram(item)}>
               <View
                 style={{
@@ -258,7 +269,7 @@ export default function FlatPerformerPage1({ id, items, title }) {
                   borderRadius: 5,
                   paddingHorizontal: 10,
                   marginRight: 5,
-                  width:80,
+                  width: 80,
                 }}
               >
                 <Text style={[style.activetext, { textAlign: "center" }]}>
@@ -266,14 +277,14 @@ export default function FlatPerformerPage1({ id, items, title }) {
                 </Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => {setItem(item); setModalVisible(true)}}>
+            <TouchableOpacity onPress={() => { setItem(item); setModalVisible(true) }}>
               <View
                 style={{
                   backgroundColor: Colors.cancel,
                   borderRadius: 5,
                   paddingHorizontal: 10,
                   marginRight: 5,
-                  width:80,
+                  width: 80,
                 }}
               >
                 <Text style={[style.activetext, { textAlign: "center" }]}>
@@ -281,11 +292,11 @@ export default function FlatPerformerPage1({ id, items, title }) {
                 </Text>
               </View>
             </TouchableOpacity>
-          </View>      
+          </View>
         </View>
-        ):
-        (null)}              
-        
+        ) :
+          (null)}
+
 
       </TouchableOpacity>
     );
@@ -295,79 +306,79 @@ export default function FlatPerformerPage1({ id, items, title }) {
     <View style={{ flex: 1, marginHorizontal: 20, marginBottom: 60 }}>
       {store.isLoading && <Spinner />}
       <Modal
-            animationType="fade"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
-              setModalVisible(!modalVisible);
-            }}
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View
+          style={{
+            flex: 1,
+            width: width,
+            backgroundColor: "#000000aa",
+          }}
+        >
+          <View
+            style={[
+              style.modalcontainer,
+              {
+                backgroundColor: theme.bg,
+                width: width - 30,
+                marginVertical: 170,
+              },
+            ]}
           >
-            <View
-              style={{
-                flex: 1,
-                width: width,
-                backgroundColor: "#000000aa",
-              }}
-            >
-              <View
-                style={[
-                  style.modalcontainer,
-                  {
+            <View style={{ paddingHorizontal: 20, paddingBottom: 10 }}>
+              <View style={{ paddingTop: 10, alignSelf: "center" }}>
+                <Avatar.Icon
+                  icon="help"
+                  color="#FF4747"
+                  size={80}
+                  style={{
+                    borderWidth: 5,
+                    borderColor: "#FF4747",
                     backgroundColor: theme.bg,
-                    width: width - 30,
-                    marginVertical: 170,
-                  },
-                ]}
-              >
-                <View style={{ paddingHorizontal: 20, paddingBottom: 10 }}>
-                  <View style={{ paddingTop: 10, alignSelf: "center" }}>
-                    <Avatar.Icon
-                      icon="help"
-                      color="#FF4747"
-                      size={80}
-                      style={{
-                        borderWidth: 5,
-                        borderColor: "#FF4747",
-                        backgroundColor: theme.bg,
-                      }}
-                    />
-                  </View>
-                  <View style={{ paddingTop: 20 }}>
-                    <Text
-                      style={[
-                        style.subtxt,
-                        { color: Colors.disable, textAlign: "center" },
-                      ]}
-                    >
-                      {t("sure_delete")}
-                    </Text>
-                  </View>
-                  <View style={style.modalbtn_container}>
-                    <TouchableOpacity
-                      style={[style.modalbtn_confirm, { marginRight: 5 }]}
-                      onPress={() => {handledeleteProgram()}}
-                    >
-                      <Text style={style.modalbtn_text}>
-                        {t("delete")}
-                      </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={[style.modalbtn_cancel, { marginLeft: 5 }]}
-                      onPress={() => setModalVisible(false)}
-                    >
-                      <Text style={style.modalbtn_text}>{t("cancel")}</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
+                  }}
+                />
+              </View>
+              <View style={{ paddingTop: 20 }}>
+                <Text
+                  style={[
+                    style.subtxt,
+                    { color: Colors.disable, textAlign: "center" },
+                  ]}
+                >
+                  {t("sure_delete")}
+                </Text>
+              </View>
+              <View style={style.modalbtn_container}>
+                <TouchableOpacity
+                  style={[style.modalbtn_confirm, { marginRight: 5 }]}
+                  onPress={() => { handledeleteProgram() }}
+                >
+                  <Text style={style.modalbtn_text}>
+                    {t("delete")}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[style.modalbtn_cancel, { marginLeft: 5 }]}
+                  onPress={() => setModalVisible(false)}
+                >
+                  <Text style={style.modalbtn_text}>{t("cancel")}</Text>
+                </TouchableOpacity>
               </View>
             </View>
-          </Modal>
-      {pCPrograms && pCPrograms.length > 0 ? (
+          </View>
+        </View>
+      </Modal>
+      {programs && programs.length > 0 ? (
         <>
           <FlatList
             key={'FlatPerformerPage1'}
-            data={pCPrograms}
+            data={programs}
             keyExtractor={(item, index) => {
               return index;
             }}

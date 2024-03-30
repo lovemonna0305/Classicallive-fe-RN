@@ -149,6 +149,11 @@ export default function Signup() {
     }
   };
 
+  function validateEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  }
+
   const handleCreateAccount = async () => {
     try {
       if (data.name === "" || data.email === "" || data.age === "") {
@@ -179,6 +184,13 @@ export default function Signup() {
           text2: t("confirm_password_incorrect"),
         });
         return;
+      } else if (!validateEmail(data.email)) {
+        Toast.show({
+          type: "error",
+          text1: t("error"),
+          text2: t("invalid_email"),
+        });
+        return;
       } else {
 
         let formdata = new FormData();
@@ -205,7 +217,7 @@ export default function Signup() {
                 text2: t('register_success'),
               });
               changeStore({ ...store, isLoading: false });
-              navigation.navigate("Otp", { email: data.email,isforgot:false });
+              navigation.navigate("Otp", { email: data.email, isforgot: false });
             } else {
               Toast.show({
                 type: "error",

@@ -56,7 +56,6 @@ export default function CustomerHistoryDetail({ route }) {
   const [modalCancelProgram, setModalCancelProgram] = useState(false);
   const [modalReserve, setModalReserve] = useState(false);
   // const { status } = route.params;
-  useEffect(() => { }, []);
 
   const handlechat = () => {
     navigation.navigate("LiveChat", {
@@ -195,7 +194,7 @@ export default function CustomerHistoryDetail({ route }) {
   };
 
   const watchprogram = () => {
-    
+
 
     var start_time = program.date + " " + program.start_time;
     var end_time = program.date + " " + program.end_time;
@@ -219,15 +218,18 @@ export default function CustomerHistoryDetail({ route }) {
 
   const handleCancel = async () => {
     setModalCancelProgram(false);
+    changeStore({ ...store, isLoading: true });
     await cancelProgram(program.id)
       .then(res => {
         if (res) {
+          currentUser.points += program.points;
+          changeStore({ ...store, currentUser: currentUser });
           Toast.show({
             type: "success",
             text1: "Success",
             text2: t("cancel_success"),
           });
-
+          changeStore({ ...store, isLoading: false });
           setStatus("canceled")
         }
         else {
@@ -236,13 +238,14 @@ export default function CustomerHistoryDetail({ route }) {
             text1: "Error",
             text2: "Error",
           });
+          changeStore({ ...store, isLoading: false });
         }
       })
       ;
     // changeStore({...store, isLoading:true});
 
   };
-  
+
   const cancelprogram = () => {
     setModalCancelProgram(true);
   };
@@ -259,7 +262,10 @@ export default function CustomerHistoryDetail({ route }) {
         centerTitle={true}
         elevation={0}
         leading={
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => {
+            changeStore({ ...store, page: "HistoryList" });
+            navigation.replace('HistoryList')
+          }}>
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}

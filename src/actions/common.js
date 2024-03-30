@@ -109,6 +109,7 @@ export const getAllCategories = async () => {
 export const getAllParentCategories = async () => {
   const res = await api.getAllParentCategories();
   if (res.data.success) {
+    global.allparentcategories = res.data.data;
     return res.data.data;
   } else {
     return [];

@@ -47,7 +47,7 @@ export default function PerformerPostCreate() {
   const theme = useContext(themeContext);
   const navigation = useNavigation();
   const currentUser = store.currentUser;
-  let categoryArray = global.categoryArray; 
+  let categoryArray = global.categoryArray;
 
   const [data, setData] = useState({
     photo: "",
@@ -77,7 +77,7 @@ export default function PerformerPostCreate() {
   );
   const [visible, setVisible] = useState(false);
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   useEffect(() => {
     global.isLoading = false;
@@ -102,6 +102,10 @@ export default function PerformerPostCreate() {
 
   const [firsttime, setFirsttime] = useState();
 
+  function padZero(num) {
+    return (num < 10 ? '0' : '') + num;
+  }
+
   const handleConfirm = (date) => {
     hideDatePicker();
     var currentDate = new Date();
@@ -109,15 +113,15 @@ export default function PerformerPostCreate() {
     const day = datetime.getDate(); // Get the day (1-31)
     const month = datetime.getMonth(); // Get the month (0-11)
     const year = datetime.getFullYear(); // Get the full year (e.g., 2024)
-    
+
     if (datetime > currentDate) {
       setData({
         ...data,
         d_date: datetime,
-        date: year + "-" + (month + 1) + "-" + day,
+        date: year + "-" + padZero(month + 1) + "-" + padZero(day),
       });
     } else {
-        Toast.show({
+      Toast.show({
         type: "error",
         text1: t("error"),
         text2: t("performance_no_before_today"),
@@ -142,7 +146,7 @@ export default function PerformerPostCreate() {
     const seconds = datetime.getSeconds(); // Get the second (0-59)
     setData({
       ...data,
-      start_time: hours + 1 + ":" + minutes,
+      start_time: padZero(hours + 1) + ":" + padZero(minutes),
       d_start_time: datetime,
     });
     setFirsttime(time);
@@ -168,10 +172,10 @@ export default function PerformerPostCreate() {
 
       setData({
         ...data,
-        end_time: hours + 1 + ":" + minutes,
+        end_time: padZero(hours + 1) + ":" + padZero(minutes),
         d_end_time: datetime,
       });
-    }  else {
+    } else {
       Toast.show({
         type: "error",
         text1: t("error"),
@@ -182,7 +186,7 @@ export default function PerformerPostCreate() {
   };
 
   const [selectedImage, setSelectedImage] = useState(
-    server.default_url+'media.png'
+    server.default_url + 'media.png'
   );
   const [image, setImage] = useState(null);
 
@@ -287,16 +291,16 @@ export default function PerformerPostCreate() {
         }
         formdata.append("is_changeImage", is_changeImage);
 
-        changeStore({...store, isLoading:true});
+        changeStore({ ...store, isLoading: true });
         (async () => {
           createProgram(formdata)
-          .then(res=>{
-            changeStore({...store, isLoading:false});
-            navigation.goBack();
-          }).catch(err=>{
-            changeStore({...store, isLoading:false});
-            navigation.goBack();
-          });
+            .then(res => {
+              changeStore({ ...store, isLoading: false });
+              navigation.goBack();
+            }).catch(err => {
+              changeStore({ ...store, isLoading: false });
+              navigation.goBack();
+            });
         })();
       }
     } catch (err) {
@@ -633,7 +637,7 @@ export default function PerformerPostCreate() {
             >
               <Image
                 source={{ uri: selectedImage }}
-                style={{ width: width/2, height: width/4 }}
+                style={{ width: width / 2, height: width / 4 }}
                 resizeMode="stretch"
               />
               <View
@@ -641,7 +645,7 @@ export default function PerformerPostCreate() {
                   position: "absolute",
                   bottom: -10,
                   alignItems: "center",
-                  right: width/4-35,
+                  right: width / 4 - 35,
                 }}
               >
                 <TouchableOpacity onPress={() => setVisible(true)}>

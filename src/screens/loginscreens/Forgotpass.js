@@ -26,37 +26,56 @@ export default function Forgotpass() {
   const [darkMode, setDarkMode] = useState(false);
   const [email, setEmail] = useState('');
 
-  const gonext = async() => {
-    changeStore({ ...store, isLoading: true });
-    await api.resendOtpEmail(email)
-      .then(res => {
-        if(res.data.success){
-          Toast.show({
-            type: "success",
-            text1: t('success'),
-            text2: t('sent_otp_successfully'),
-          });
-          navigation.navigate("Otp", { email: email, isforgot: true });
-          changeStore({ ...store, isLoading: false });
-        } else {
+  function validateEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  }
+
+  const gonext = async () => {
+    if (email === "") {
+      Toast.show({
+        type: "info",
+        text1: t('info'),
+        text2: t('enter_email'),
+      });
+      return;
+    }
+    if (validateEmail(email)) {
+      changeStore({ ...store, isLoading: true });
+      await api.forgot(email)
+        .then(res => {
+          if (res.data.success) {
+            Toast.show({
+              type: "success",
+              text1: t('success'),
+              text2: res.data.message,
+            });
+            navigation.navigate("Otp", { email: email, isforgot: true });
+            changeStore({ ...store, isLoading: false });
+          } else {
+            Toast.show({
+              type: "error",
+              text1: t('error'),
+              text2: res.data.message,
+            });
+            changeStore({ ...store, isLoading: false });
+          }
+        }).catch(err => {
           Toast.show({
             type: "error",
-            text1: t('success'),
-            text2: t('sent_otp_failed'),
+            text1: t('error'),
+            text2: err,
           });
           changeStore({ ...store, isLoading: false });
-        }
-      }).catch(err => {
-        Toast.show({
-          type: "error",
-          text1: t('opt_is_incorrect'),
-          text2: t('provide_correct_4_digits'),
-          position: "top",
         });
-        changeStore({ ...store, isLoading: false });
+    } else {
+      Toast.show({
+        type: "error",
+        text1: t('error'),
+        text2: t('invalid_email'),
       });
-
-    
+      return;
+    }
   }
   return (
     <SafeAreaView
@@ -80,7 +99,7 @@ export default function Forgotpass() {
         }
       />
       <View style={[style.main, { backgroundColor: theme.bg }]}>
-      {store.isLoading && <Spinner />}
+        {store.isLoading && <Spinner />}
         <View style={{ paddingTop: 20 }}>
           <Text
             style={[style.title, { textAlign: "center", color: theme.txt }]}

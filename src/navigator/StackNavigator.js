@@ -103,7 +103,7 @@ export default function StackNavigator() {
   // console.log('program.id', (store.program)&&store.program.id);
   // console.log("store--------------------------->")
   const [darkMode, setDarkMode] = useState(false);
-  global.isLoading = true;
+  // store.isLoading = true;
   
   // storage.removeItem('currentUser');
 

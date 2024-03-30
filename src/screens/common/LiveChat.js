@@ -126,7 +126,6 @@ export default function CustomerLiveChat({ route }) {
 
   useEffect(() => {
     fetchMessages();
-    global.isLoading = false;
     selectedChatCompare = selectedChat;
   }, [selectedChat]);
 

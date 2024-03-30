@@ -19,7 +19,7 @@ import themeContext from "../../theme/themeContex";
 import { Colors } from "../../theme/color";
 import style from "../../theme/style";
 import { useNavigation } from "@react-navigation/native";
-import StarRating, {StarRatingDisplay} from 'react-native-star-rating-widget';
+import StarRating, { StarRatingDisplay } from 'react-native-star-rating-widget';
 import { AppBar, HStack } from "@react-native-material/core";
 import { Avatar } from "react-native-paper";
 import { useTranslation } from "react-i18next";
@@ -70,7 +70,13 @@ export default function PerformerHistoryDetail() {
         centerTitle={true}
         elevation={0}
         leading={
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => {
+            {
+              navigation.goBack()
+              changeStore({ ...store, page: "HistoryList" });
+            }
+          }
+          }>
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
@@ -80,9 +86,9 @@ export default function PerformerHistoryDetail() {
           </TouchableOpacity>
         }
       />
-      <View style={{flex:1}}>
+      <View style={{ flex: 1 }}>
         {store.isLoading && <Spinner />}
-        <ScrollView showsVerticalScrollIndicator={false} style={{marginBottom:10}}>
+        <ScrollView showsVerticalScrollIndicator={false} style={{ marginBottom: 10 }}>
           <View style={{ flex: 1, marginHorizontal: 20 }}>
             <View style={{ paddingTop: 10 }}>
               <Image
@@ -91,61 +97,61 @@ export default function PerformerHistoryDetail() {
                 style={[style.img, { height: 200 }]}
               />
             </View>
-            <View style={{paddingTop:25}}>
-              <Text style={[style.activetext,{}]}>{program.title}</Text>
+            <View style={{ paddingTop: 25 }}>
+              <Text style={[style.activetext, {}]}>{program.title}</Text>
             </View>
-            <View style={{paddingTop:10}}>
-              <Text style={[style.secondarytext,{fontSize:10}]}>{program.date} {program.start_time}~{program.end_time}</Text>
+            <View style={{ paddingTop: 10 }}>
+              <Text style={[style.secondarytext, { fontSize: 10 }]}>{program.date} {program.start_time}~{program.end_time}</Text>
             </View>
             {/* Detail */}
-            <View style={[style.row,{paddingTop:10, justifyContent:"space-between"}]}>
-              <View style={[style.row,{paddingRight:10}]}>
-                <View style={[style.row,{}]}>
-                  <View style={[style.row,{alignItems:'center'}]}>
+            <View style={[style.row, { paddingTop: 10, justifyContent: "space-between" }]}>
+              <View style={[style.row, { paddingRight: 10 }]}>
+                <View style={[style.row, {}]}>
+                  <View style={[style.row, { alignItems: 'center' }]}>
                     <Icon
-                    name="user"
-                    size={15}
-                    color={Colors.btn} />
+                      name="user"
+                      size={15}
+                      color={Colors.btn} />
                   </View>
                   <View style={{ paddingHorizontal: 5 }}>
-                    <Text style={[style.activetext,{ color: Colors.btn, fontSize: 15 }]}>{program.users}</Text>
+                    <Text style={[style.activetext, { color: Colors.btn, fontSize: 15 }]}>{program.users}</Text>
                   </View>
                 </View>
-                <View style={[style.row,{}]}>
-                  <View style={[style.row,{alignItems:'center'}]}>
+                <View style={[style.row, {}]}>
+                  <View style={[style.row, { alignItems: 'center' }]}>
                     <Icon
-                    name="heart"
-                    size={15}
-                    color={Colors.btn} />
+                      name="heart"
+                      size={15}
+                      color={Colors.btn} />
                   </View>
                   <View style={{ paddingHorizontal: 5 }}>
-                    <Text style={[style.activetext,{ color: Colors.btn, fontSize: 15 }]}>{program.likes}</Text>
+                    <Text style={[style.activetext, { color: Colors.btn, fontSize: 15 }]}>{program.likes}</Text>
                   </View>
                 </View>
-                <View style={[style.row,{}]}>
-                  <View style={[style.row,{alignItems:'center'}]}>
+                <View style={[style.row, {}]}>
+                  <View style={[style.row, { alignItems: 'center' }]}>
                     <Icon
-                    name="thumbs-up"
-                    size={15}
-                    color={Colors.btn} />
+                      name="thumbs-up"
+                      size={15}
+                      color={Colors.btn} />
                   </View>
                   <View style={{ paddingHorizontal: 5 }}>
-                    <Text style={[style.activetext,{ color: Colors.btn, fontSize: 15 }]}>{program.ups}</Text>
+                    <Text style={[style.activetext, { color: Colors.btn, fontSize: 15 }]}>{program.ups}</Text>
                   </View>
                 </View>
-                <View style={[style.row,{}]}>
-                  <View style={[style.row,{alignItems:'center'}]}>
+                <View style={[style.row, {}]}>
+                  <View style={[style.row, { alignItems: 'center' }]}>
                     <Icon
-                    name="thumbs-down"
-                    size={15}
-                    color={Colors.btn} />
+                      name="thumbs-down"
+                      size={15}
+                      color={Colors.btn} />
                   </View>
                   <View style={{ paddingHorizontal: 5 }}>
-                    <Text style={[style.activetext,{ color: Colors.btn, fontSize: 15 }]}>{program.downs}</Text>
+                    <Text style={[style.activetext, { color: Colors.btn, fontSize: 15 }]}>{program.downs}</Text>
                   </View>
                 </View>
               </View>
-              <View style={[style.row,{paddingRight:5}]}>
+              <View style={[style.row, { paddingRight: 5 }]}>
                 <View >
                   <Image
                     source={require("../../../assets/img/ic_coin.png")}
@@ -153,37 +159,37 @@ export default function PerformerHistoryDetail() {
                     style={{ width: 20, height: 20 }}
                   />
                 </View>
-                <View style={{ paddingRight: 10 ,paddingHorizontal:5}}>
+                <View style={{ paddingRight: 10, paddingHorizontal: 5 }}>
                   <Text style={{ color: "white", fontSize: 15 }}>{program.points}</Text>
                 </View>
               </View>
             </View>
-            <View style={{paddingTop:10}}>
-              <Text style={[style.secondarytext,{fontSize:14}]}>{program.description}</Text>
+            <View style={{ paddingTop: 10 }}>
+              <Text style={[style.secondarytext, { fontSize: 14 }]}>{program.description}</Text>
             </View>
 
-            <View style={{paddingVertical:5}}>
+            <View style={{ paddingVertical: 5 }}>
               <Text style={style.activetext}>{t("review")}</Text>
             </View>
-            {(reviews)&&(reviews.length > 0)&&(reviews.map((item,index)=>(
-              <View key={`rating${index}`} style={{height:90,padding:5,backgroundColor:theme.box, borderRadius:5, marginVertical:5}}>
-                <View style={[style.row,{justifyContent:"space-between",paddingTop:5, paddingHorizontal:10}]}>
+            {(reviews) && (reviews.length > 0) && (reviews.map((item, index) => (
+              <View key={`rating${index}`} style={{ height: 90, padding: 5, backgroundColor: theme.box, borderRadius: 5, marginVertical: 5 }}>
+                <View style={[style.row, { justifyContent: "space-between", paddingTop: 5, paddingHorizontal: 10 }]}>
                   <View style={style.row}>
-                    <View style ={{}}>
+                    <View style={{}}>
                       <Image
                         source={{ uri: server.media_url + item.customer.image_file }}
-                        style={{width:70,height:70,borderRadius:5}}
+                        style={{ width: 70, height: 70, borderRadius: 5 }}
                       />
                     </View>
-                    <View style={{paddingLeft:10}}>
+                    <View style={{ paddingLeft: 10 }}>
                       <Text style={style.activetext}>{item.customer.name}</Text>
                       <StarRatingDisplay
-                      // style={{paddingTop:10}}
+                        // style={{paddingTop:10}}
                         rating={item.rating}
-                        starSize={12}  
-                        starStyle={{paddingHorizontal:1,marginHorizontal:0}}
+                        starSize={12}
+                        starStyle={{ paddingHorizontal: 1, marginHorizontal: 0 }}
                       />
-                      <Text numberOfLines={2} style={[style.secondarytext,{fontSize:12,paddingTop:5, width:width-150,}]}>{item.description}</Text>
+                      <Text numberOfLines={2} style={[style.secondarytext, { fontSize: 12, paddingTop: 5, width: width - 150, }]}>{item.description}</Text>
                     </View>
                   </View>
                   {/* <TouchableOpacity style={{paddingRight:5,paddingTop:5}}
@@ -198,7 +204,7 @@ export default function PerformerHistoryDetail() {
                 </View>
               </View>
             )))}
-          </View>         
+          </View>
         </ScrollView>
       </View>
     </SafeAreaView>

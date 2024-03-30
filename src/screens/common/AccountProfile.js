@@ -101,7 +101,6 @@ export default function AccountProfile() {
     };
 
     launchCamera(options, (response) => {
-      console.log("Response = ", response);
       if (response.didCancel) {
         console.log("User cancelled camera");
       } else if (response.error) {
@@ -111,7 +110,6 @@ export default function AccountProfile() {
         let imageUri = response.uri || response.assets?.[0]?.uri;
         setSelectedImage(imageUri);
         setImage(response);
-        console.log(imageUri);
       }
     });
   };
@@ -132,17 +130,6 @@ export default function AccountProfile() {
       });
       return;
     } else {
-
-      let is_changeImage = false;
-      if (image) {
-        let is_changeImage = true;
-        formdata.append("photo", {
-          name: image.assets?.[0].fileName,
-          uri: image.assets?.[0]?.uri,
-          type: image.assets?.[0]?.type,
-        });
-      }
-
       let formdata = new FormData();
       // formdata.append("role_id", data.role_id);
       // formdata.append("name", data.name);
@@ -150,36 +137,42 @@ export default function AccountProfile() {
       formdata.append("age", data.age);
       formdata.append("address", data.address);
       formdata.append("phone_number", data.phone_number);
+      let is_changeImage = 0;
+      if (image) {
+        let is_changeImage = 1;
+        formdata.append("photo", {
+          name: image.assets?.[0].fileName,
+          uri: image.assets?.[0]?.uri,
+          type: image.assets?.[0]?.type,
+        });
+      }
       formdata.append("is_changeImage", is_changeImage);
       console.log(formdata);
-
-      changeStore({ ...store, isLoading: true });
-      (async () => {
-        api.updateUser(formdata)
-          .then(res => {
-            changeStore({ ...store, isLoading: false });
-            changeStore({...store, currentUser:res.data.data.user})
-            Toast.show({
-              type: "success",
-              text1: t('success'),
-              text2: t('profile_updated'),
-            });
-          }).catch(err => {
-            changeStore({ ...store, isLoading: false });
-            // navigation.goBack();
-            console.log(err);
-            Toast.show({
-              type: "error",
-              text1: t('error'),
-              text2: t('server_error'),
-            });
-          });
-      })();
+      // changeStore({ ...store, isLoading: true });
+      // (async () => {
+      //   api.updateUser(formdata)
+      //     .then(res => {
+      //       changeStore({ ...store, isLoading: false });
+      //       changeStore({...store, currentUser:res.data.data.user})
+      //       console.log(res.data.data.user,);
+      //       Toast.show({
+      //         type: "success",
+      //         text1: t('success'),
+      //         text2: t('profile_updated'),
+      //       });
+      //     }).catch(err => {
+      //       changeStore({ ...store, isLoading: false });
+      //       // navigation.goBack();
+      //       console.log(err);
+      //       Toast.show({
+      //         type: "error",
+      //         text1: t('error'),
+      //         text2: t('server_error'),
+      //       });
+      //     });
+      // })();
     }
   };
-  useEffect(() => {
-
-  });
 
   return (
     <SafeAreaView
@@ -486,7 +479,7 @@ export default function AccountProfile() {
                 selectionColor={Colors.primary}
                 placeholderTextColor={Colors.disable}
                 style={[style.txtinput, { backgroundColor: theme.bg }]}
-                onChangeText={(e) => setData({ ...data, age: e })}
+                onChangeText={(e) => setData({ ...data, phone_number: e })}
               />
             </View>
           </View>

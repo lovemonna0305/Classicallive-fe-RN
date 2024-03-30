@@ -127,7 +127,7 @@ export default function PerformerPostEdit() {
       setData({
         ...data,
         d_date: datetime,
-        date: year + "-" + (month + 1) + "-" + day,
+        date: year + "-" + padZero(month + 1) + "-" + padZero(day),
       });
     } else {
         Toast.show({
@@ -147,6 +147,10 @@ export default function PerformerPostEdit() {
     setStimePickerVisibility(false);
   };
 
+  function padZero(num) {
+    return (num < 10 ? '0' : '') + num;
+}
+
   const handleConfirmStime = (time) => {
     hideStimePicker();
     const datetime = new Date(time);
@@ -155,7 +159,7 @@ export default function PerformerPostEdit() {
     const seconds = datetime.getSeconds(); // Get the second (0-59)
     setData({
       ...data,
-      start_time: hours + 1 + ":" + minutes,
+      start_time: padZero(hours + 1) + ":" + padZero(minutes),
       d_start_time: datetime,
     });
     setFirsttime(time);
@@ -181,7 +185,7 @@ export default function PerformerPostEdit() {
 
       setData({
         ...data,
-        end_time: hours + 1 + ":" + minutes,
+        end_time: padZero(hours + 1) + ":" + padZero(minutes),
         d_end_time: datetime,
       });
     }  else {
@@ -275,7 +279,6 @@ export default function PerformerPostEdit() {
         });
         return;
       } else {
-        global.isLoading = true;
         let formdata = new FormData();
         formdata.append("post_id", program.id);
         formdata.append("member_id", currentUser.id);
@@ -349,7 +352,7 @@ export default function PerformerPostEdit() {
       />
 
       <View style={[ style.main, { backgroundColor: theme.bg, }]} >
-        {global.isLoading && <Spinner />}
+        {store.isLoading && <Spinner />}
         <ScrollView
           showsVerticalScrollIndicator={false}
           nestedScrollEnabled={true}

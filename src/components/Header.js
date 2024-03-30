@@ -31,6 +31,7 @@ export default function Header() {
 
   const [numMessages, setNumMessages] = useState(0);
   const [darkMode, setDarkMode] = useState(false);
+  const currentUser = store.currentUser;
 
   useEffect(() => {
     (async () => {
@@ -57,7 +58,7 @@ export default function Header() {
       >
         <View style={[style.row]}>
           <Image
-            source={{ uri: server.media_url + store.currentUser.image_file, }}
+            source={{ uri: server.member_url + currentUser.image_file, }}
             style={{
               width: 50,
               height: 50,
@@ -70,7 +71,7 @@ export default function Header() {
             <Text style={{ marginTop: 8, fontWeight: 600, color: "white" }}>
               {t("welcome")}
             </Text>
-            <Text style={{ color: "white" }}>{store.currentUser.name}</Text>
+            <Text style={{ color: "white" }}>{currentUser.name}</Text>
           </View>
         </View>
         <View>

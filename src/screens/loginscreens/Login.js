@@ -34,7 +34,7 @@ import Spinner from "../../components/Spinner";
 import { api } from "../../api";
 import { images } from "../../constants";
 import { useStore } from "../../store/store";
-import { setLoading } from "../../actions/common";
+import { getAllCategories, getAllParentCategories, getCategoryArray, getPopularCategories, setLoading } from "../../actions/common";
 
 export default function Login() {
   const { t } = useTranslation();
@@ -84,6 +84,7 @@ export default function Login() {
   useEffect(() => {
     setEmail("customer@gmail.com");
     setPassword("123456");
+    console.log(store.isLoading);
     // console.log("global.isRemember",global.isRemember);
     // console.log("global.tokens",global.tokens);
     // console.log("global.currentUser",global.currentUser);

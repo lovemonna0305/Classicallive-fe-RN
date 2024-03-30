@@ -32,8 +32,10 @@ const height = Dimensions.get("screen").height;
 import { images, server } from "../../constants";
 import Spinner from "../../components/Spinner";
 import { getPProgramsByCategory } from "../../actions/performer";
+import { useStore } from "../../store/store";
 
 export default function PerformerCategory({ route }) {
+  const { changeStore, store } = useStore();
   const { t } = useTranslation();
   const theme = useContext(themeContext);
   const navigation = useNavigation();
@@ -46,16 +48,16 @@ export default function PerformerCategory({ route }) {
 
 
   useEffect(() => {
+    changeStore({...store, isLoading:true});
     (async () => {
       try {
         const data = await getPProgramsByCategory(id);
         setpCPrograms(data);
+        changeStore({...store, isLoading:false});
       } catch (err) {
-        console.log(err)
+        changeStore({...store, isLoading:false});
       }
     })();
-    global.isLoading = false;
-
   }, []);
 
   const layout = useWindowDimensions();

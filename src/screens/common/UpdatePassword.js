@@ -15,8 +15,12 @@ import { Avatar } from "react-native-paper";
 import theme from "../../theme/theme";
 import themeContext from "../../theme/themeContex";
 import { t } from "i18next";
+import { useStore } from "../../store/store";
+import { api } from "../../api";
+import Toast from "react-native-toast-message";
 
 export default function UpdatePassword() {
+  const { changeStore, store } = useStore();
   const [isOldPasswordVisible, setIsOldPasswordVisible] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
@@ -25,11 +29,44 @@ export default function UpdatePassword() {
   const [darkMode, setDarkMode] = useState(false);
 
   const [data, setData] = useState({
-    
-    old_password: "",
+    current_password: "",
     new_password: "",
     confirm_password: "",
   });
+
+  const UpdatePass = async () => {
+    let formdata = new FormData();
+    formdata.append("current_password", data.current_password);
+    formdata.append("new_password", data.new_password);
+    formdata.append("confirm_password", data.confirm_password);
+    console.log(formdata);
+    changeStore({ ...store, isLoading: true });
+    await api.updatePassword(formdata)
+      .then(res => {
+        if (res.data.success) {
+          Toast.show({
+            type: "success",
+            text1: t('success'),
+            text2: t(res.data.message),
+          });
+          changeStore({ ...store, isLoading: false });
+        } else {
+          Toast.show({
+            type: "error",
+            text1: t('error'),
+            text2: t(res.data.message),
+          });
+          changeStore({ ...store, isLoading: false });
+        }
+      }).catch(err => {
+        Toast.show({
+          type: "error",
+          text1: t('error'),
+          text2: err,
+        });
+        changeStore({ ...store, isLoading: false });
+      });
+  }
 
   return (
     <SafeAreaView
@@ -55,7 +92,7 @@ export default function UpdatePassword() {
       />
       <View style={[style.main, { backgroundColor: theme.bg }]}>
         <View style={{ paddingTop: 20 }}>
-           <Text
+          <Text
             style={[style.title, { textAlign: "center", color: theme.txt }]}
           >
             {t('change_password')}
@@ -87,18 +124,18 @@ export default function UpdatePassword() {
             ]}
           >
             <TextInput
-              value={data.old_password}
+              value={data.current_password}
               placeholder={t('enter_current_pw')}
-              secureTextEntry={!isPasswordVisible}
+              secureTextEntry={!isOldPasswordVisible}
               placeholderTextColor={Colors.disable}
               style={{ color: Colors.disable, fontFamily: "Plus Jakarta Sans" }}
-              onChangeText={(e)=>setData({...data, old_password:e})}
+              onChangeText={(e) => setData({ ...data, current_password: e })}
             ></TextInput>
             <TouchableOpacity
-              onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+              onPress={() => setIsOldPasswordVisible(!isOldPasswordVisible)}
             >
               <Icons
-                name={isPasswordVisible ? "eye-off" : "eye"}
+                name={isOldPasswordVisible ? "eye-off" : "eye"}
                 color={theme.txt}
                 size={20}
               />
@@ -125,7 +162,7 @@ export default function UpdatePassword() {
               secureTextEntry={!isPasswordVisible}
               placeholderTextColor={Colors.disable}
               style={{ color: Colors.disable, fontFamily: "Plus Jakarta Sans" }}
-              onChangeText={(e)=>setData({...data, new_password:e})}
+              onChangeText={(e) => setData({ ...data, new_password: e })}
             ></TextInput>
             <TouchableOpacity
               onPress={() => setIsPasswordVisible(!isPasswordVisible)}
@@ -161,7 +198,7 @@ export default function UpdatePassword() {
               secureTextEntry={!isPassword}
               placeholderTextColor={Colors.disable}
               style={{ color: Colors.disable, fontFamily: "Plus Jakarta Sans" }}
-              onChangeText={(e)=>setData({...data, confirm_password:e})}
+              onChangeText={(e) => setData({ ...data, confirm_password: e })}
             />
             <TouchableOpacity onPress={() => setIsPassword(!isPassword)}>
               <Icons
@@ -173,10 +210,10 @@ export default function UpdatePassword() {
           </View>
           <View style={{ paddingTop: 30 }}>
             <TouchableOpacity
-              onPress={() => navigation.navigate("Login")}
+              onPress={() => UpdatePass()}
               style={style.btn}
             >
-              <Text style={style.btntxt}>Continue</Text>
+              <Text style={style.btntxt}>{t('change_password')}</Text>
             </TouchableOpacity>
           </View>
         </View>

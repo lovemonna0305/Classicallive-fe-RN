@@ -44,23 +44,27 @@ export default function CustomerHomepage() {
 
 
   useEffect(() => {
-    changeStore({...store, isLoading:true});
+    changeStore({ ...store, isLoading: true });
     (async () => {
       const data = await getPrograms(1)
-      .then(res=>{
-        setPrograms(res);
-        changeStore({...store, isLoading:false});
-      }).catch(err=>{
-        changeStore({...store, isLoading:false});
-      });
+        .then(res => {
+          setPrograms(res);
+          changeStore({ ...store, isLoading: false });
+        }).catch(err => {
+          changeStore({ ...store, isLoading: false });
+        });
     })();
   }, []);
 
   const renderItem1 = ({ item, index }) => {
     const lastItem = index === Programs["after"].length - 1;
     const selectProgram = (item) => {
-      changeStore({...store, program: item});
-      navigation.navigate("CustomerPostDetail");
+      changeStore({ ...store, program: item });
+      if (item.reserv_status.includes('canceled')) {
+        navigation.navigate("CustomerPostDetail");
+      } else {
+        navigation.navigate("CustomerHistoryDetail");
+      }
     };
     return (
       <TouchableOpacity
@@ -90,8 +94,12 @@ export default function CustomerHomepage() {
 
   const renderItem2 = ({ item, index }) => {
     const selectProgram = (item) => {
-      changeStore({...store, program: item});
-      navigation.navigate("CustomerPostDetail");
+      changeStore({ ...store, program: item });
+      if (item.reserv_status.includes('canceled')) {
+        navigation.navigate("CustomerPostDetail");
+      } else {
+        navigation.navigate("CustomerHistoryDetail");
+      }
     };
     return (
       <TouchableOpacity
@@ -154,8 +162,12 @@ export default function CustomerHomepage() {
   };
   const renderItem3 = ({ item, index }) => {
     const selectProgram = (item) => {
-      changeStore({...store, program: item});
-      navigation.navigate("CustomerPostDetail");
+      changeStore({ ...store, program: item });
+      if (item.reserv_status.includes('canceled')) {
+        navigation.navigate("CustomerPostDetail");
+      } else {
+        navigation.navigate("CustomerHistoryDetail");
+      }
     };
     return (
       <TouchableOpacity
@@ -217,7 +229,7 @@ export default function CustomerHomepage() {
       <Header />
       <View style={{ flex: 1 }}>
         {store.isLoading && <Spinner />}
-        <ScrollView style={{ flex: 1,}}>
+        <ScrollView style={{ flex: 1, }}>
           <View style={{}}>
             <View>
               <View style={{ marginTop: 10 }}>

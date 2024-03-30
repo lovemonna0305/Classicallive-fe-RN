@@ -73,12 +73,9 @@ import PerformerCustomerList from "../screens/Performer/CustomerList";
 import Profile from "../screens/common/Settings";
 import Language from "../screens/common/Language";
 import Legal from "../screens/common/Legal";
-// import Chat from "../screens/common/Chat";
-// import Message from "../screens/common/Message";
 import Notification from "../screens/common/Notification";
-// import AccountProfile from "../screens/common/AccountProfile";
+import AccountProfile from "../screens/common/AccountProfile";
 import LiveChat from "../screens/common/LiveChat";
-import BottomNavigator from "./BottomNavigator";
 
 import { Colors } from "../theme/color";
 import { storage } from "../utils/storage";
@@ -132,9 +129,6 @@ export default function StackNavigator() {
       if(currentUser!=null){
         // setIsLoggedin(true);
         changeStore({...store, isLoggedin:true});
-        global.currentUser = currentUser;
-        changeStore({...store, role:global.currentUser.role.name});
-        // console.log("role",role);
       }
     };
     fetchStatus();
@@ -164,7 +158,7 @@ export default function StackNavigator() {
           ) : null}
           {(store.isLoggedin) ? (
             <>
-              {store.role == "customer" ? (
+              {store.currentUser.role_id == 4 ? (
                 <>
                   <Stack.Screen
                     name="Home"
@@ -350,18 +344,18 @@ export default function StackNavigator() {
 
 
 
-
+              <Stack.Screen
+                name="AccountProfile"
+                component={AccountProfile}
+                options={{ headerShown: false }}
+              />
 
               {/* <Stack.Screen
                 name="Yourwallet"
                 component={Yourwallet}
                 options={{ headerShown: false }}
               />
-              <Stack.Screen
-                name="AccountProfile"
-                component={AccountProfile}
-                options={{ headerShown: false }}
-              />
+              
               <Stack.Screen
                 name="FriendProfile"
                 component={FriendProfile}

@@ -34,12 +34,13 @@ const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
 import { server } from "../../constants";
 
+
 export default function Settings() {
+  const { changeStore, store } = useStore();
   const theme = useContext(themeContext);
   const [darkMode, setDarkMode] = useState("false");
-  const {changeStore} = useStore();
 
-  const currentUser = global.currentUser;
+  const currentUser = store.currentUser;
   // const toggleSwitch = () => setDarkMode(previousState => !previousState);
 
   const [visible, setVisible] = useState(false);
@@ -52,7 +53,6 @@ export default function Settings() {
     } else {
       i18n.changeLanguage(language);
     }
-    console.log(currentUser.role)
   }, []);
 
   const handlelogout = async () => {
@@ -134,7 +134,7 @@ export default function Settings() {
               </TouchableOpacity>
             </View>
           </View>
-          {currentUser.role&&currentUser.role.name.includes("customer") ? (
+          {currentUser&&currentUser.role_id==4 ? (
             <>
               <Text
                 style={{

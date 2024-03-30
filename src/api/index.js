@@ -107,6 +107,14 @@ const getCProgramsByCategory = (id) => {
   return jwtInterceoptor.get(`${SERVER_URL}/customer/programsByCategory/${id}`);
 };
 
+const buycoins = (data) => {
+  return jwtInterceoptor.post(`${SERVER_URL}/customer/buycoins`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+}
+
 const createpaymentintent = (data) => {
   return jwtInterceoptor.post(`${SERVER_URL}/customer/create-payment-intent`, data, {
     headers: {
@@ -294,8 +302,16 @@ const newpassword = (data) => {
   });
 };
 
-const updateUser = (id, data) =>
-  jwtInterceoptor.post(`${SERVER_URL}/api/user/${id}`, data);
+const updateUser = (data) => {
+  return jwtInterceoptor.post(`${SERVER_URL}/user`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+}
+
+
 const updateProfile = (data) =>
   jwtInterceoptor.post(`${SERVER_URL}/api/user/updateUser`, data);
 
@@ -353,6 +369,7 @@ export const api = {
   getCategoryArray,
   getReviewsByPost,
 
+  buycoins,
   createpaymentintent,
   commitreview,
   updateInterCategory,

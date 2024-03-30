@@ -60,10 +60,9 @@ export default function Login() {
         // global.isRemember = true;
         // global.tokens = res.data.data.tokens;
         // global.currentUser = res.data.data.user;
-        // global.role = res.data.data.user.role.name;
         // if (!check) {
         // }
-        changeStore({ ...store, currentUser: res.data.data.user, isLoggedin: true, role: res.data.data.user.role.name, isLoading: false, page:"Home" });
+        changeStore({ ...store, currentUser: res.data.data.user, isLoggedin: true, isLoading: false, page:"Home" });
       } else {
         Toast.show({
           type: "error",

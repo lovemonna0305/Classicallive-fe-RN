@@ -39,10 +39,10 @@ export const roleList = [
   }
 ];
 export const server = {
-  // url:"http://classical613.xsrv.jp",
-  // member_url:"http://classical613.xsrv.jp/uploads/member/",
-  // media_url:"http://classical613.xsrv.jp/uploads/media/",
-  // default_url:"http://classical613.xsrv.jp/uploads/default/",
+  // url:"https://classical613.xsrv.jp",
+  // member_url:"https://classical613.xsrv.jp/uploads/member/",
+  // media_url:"https://classical613.xsrv.jp/uploads/media/",
+  // default_url:"https://classical613.xsrv.jp/uploads/default/",
 
   url:"http://192.168.145.168:8000",
   member_url:"http://192.168.145.168:8000/uploads/member/",

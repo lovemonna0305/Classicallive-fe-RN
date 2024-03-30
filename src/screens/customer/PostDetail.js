@@ -55,7 +55,7 @@ export default function CustomerPostDetail() {
 
 
   const checkProgram = () => {
-    if (currentUser.points > program.points) {
+    if (currentUser.points < program.points) {
       setModalVisible(true);
       return;
     }
@@ -86,14 +86,12 @@ export default function CustomerPostDetail() {
       });
     navigation.navigate("HistoryList");
   };
-
   const handlechat = () => {
     navigation.navigate("LiveChat", {
       id: program.chat.id,
       member: program.member,
     });
   };
-
   const handlefollow = async () => {
 
     changeStore({ ...store, isLoading: true });
@@ -300,7 +298,10 @@ export default function CustomerPostDetail() {
                     <View style={style.modalbtn_container}>
                       <TouchableOpacity
                         style={[style.modalbtn_confirm, { marginRight: 5 }]}
-                        onPress={() => navigation.navigate("CustomerPoints")}
+                        onPress={() => {
+                          navigation.navigate("CustomerPoints")
+                          setModalVisible(false);
+                        }}
                       >
                         <Text style={style.modalbtn_text}>
                           {t("purchase_coins")}

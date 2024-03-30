@@ -78,6 +78,10 @@ export const completeProgram = async (id) => {
     }
 };
 
+export const buycoins = async (data) => {
+    return await api.buycoins(data);
+};
+
 export const fetchPaymentIntentClientSecret = async (data) => {
     return await api.createpaymentintent(data);
 };

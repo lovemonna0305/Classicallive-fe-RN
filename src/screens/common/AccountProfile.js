@@ -15,7 +15,6 @@ import {
 import Swiper from "react-native-swiper";
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { useSelector } from "react-redux";
 import { AppBar } from "@react-native-material/core";
 import Icon from "react-native-vector-icons/Ionicons";
 import { Avatar } from "react-native-paper";
@@ -37,17 +36,20 @@ import {
 import { images, server } from "../../constants";
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
+import { useStore } from "../../store/store";
+import Spinner from "../../components/Spinner";
 
 export default function AccountProfile() {
+  const { changeStore, store } = useStore();
   const { t } = useTranslation();
   const theme = useContext(themeContext);
   const navigation = useNavigation();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
-  const { currentUser } = useSelector((state) => state.auth);
-  const { isLoading } = useSelector((state) => state.common);
-  const [loading, setLoading] = useState(true);
+
+  const currentUser = store.currentUser;
+
   const [data, setData] = useState({
     photo: "",
     name: currentUser.name,
@@ -56,10 +58,6 @@ export default function AccountProfile() {
     age: currentUser.age,
     address: currentUser.address,
     phone_number: currentUser.phone_number,
-  });
-
-  useEffect(()=>{
-    console.log(data);
   });
 
   const [visible, setVisible] = useState(false);
@@ -119,85 +117,68 @@ export default function AccountProfile() {
   };
 
   const handleUpdateAccount = async () => {
-    try {
-      if (data.name === "" || data.email === "" || data.age === "") {
-        Toast.show({
-          type: "error",
-          text1: t("error"),
-          text2: t("name_email_age_required"),
+    if (data.name === "" || data.email === "" || data.age === "") {
+      Toast.show({
+        type: "error",
+        text1: t("error"),
+        text2: t("name_email_age_required"),
+      });
+      return;
+    } else if (data.age < 18) {
+      Toast.show({
+        type: "error",
+        text1: t("error"),
+        text2: t("18_less_performer_no_register"),
+      });
+      return;
+    } else {
+
+      let is_changeImage = false;
+      if (image) {
+        let is_changeImage = true;
+        formdata.append("photo", {
+          name: image.assets?.[0].fileName,
+          uri: image.assets?.[0]?.uri,
+          type: image.assets?.[0]?.type,
         });
-        return;
-      } else if (data.age < 18) {
-        Toast.show({
-          type: "error",
-          text1: t("error"),
-          text2: t("18_less_performer_no_register"),
-        });
-        return;
-      } else if (data.password.length < 6) {
-        Toast.show({
-          type: "error",
-          text1: t("error"),
-          text2: t("password_length_6"),
-        });
-        return;
-      } else {
-
-        
-        formdata.append("is_changeImage", is_changeImage);
-
-        let formdata = new FormData();
-        formdata.append("role_id", data.role_id);
-        formdata.append("name", data.name);
-        formdata.append("email", data.email);
-        formdata.append("age", data.age);
-        formdata.append("address", data.address);
-        formdata.append("phone_number", data.phone_number);
-        formdata.append("is_changeImage", data.is_changeImage);
-        
-        let is_changeImage = false;
-        if (image) {
-          let is_changeImage = true;
-          formdata.append("photo", {
-            name: image.assets?.[0].fileName,
-            uri: image.assets?.[0]?.uri,
-            type: image.assets?.[0]?.type,
-          });
-        }
-
-        console.log(formdata);
-
-        // if(image){
-        //   formdata.append("photo", {
-        //     name: "image.fileName.jpg",
-        //     uri: image.assets?.[0]?.uri,
-        //     type: "image/jpg",
-        //   });
-        // }
-        // const res = await api.signup(formdata);
-        // if(!res.data.success){
-        //   Toast.show({
-        //     type: "error",
-        //     text1: t("error"),
-        //     text2: res.data.message,
-        //   });
-        //   return;
-        // } 
-        // Toast.show({
-        //   type: "success",
-        //   text1: t("success"),
-        //   text2: res.data.message,
-        // });
-        // navigation.navigate("Otp", data);
-       
       }
-    } catch (err) {
-      console.log(err);
+
+      let formdata = new FormData();
+      // formdata.append("role_id", data.role_id);
+      // formdata.append("name", data.name);
+      // formdata.append("email", data.email);
+      formdata.append("age", data.age);
+      formdata.append("address", data.address);
+      formdata.append("phone_number", data.phone_number);
+      formdata.append("is_changeImage", is_changeImage);
+      console.log(formdata);
+
+      changeStore({ ...store, isLoading: true });
+      (async () => {
+        api.updateUser(formdata)
+          .then(res => {
+            changeStore({ ...store, isLoading: false });
+            changeStore({...store, currentUser:res.data.data.user})
+            Toast.show({
+              type: "success",
+              text1: t('success'),
+              text2: t('profile_updated'),
+            });
+          }).catch(err => {
+            changeStore({ ...store, isLoading: false });
+            // navigation.goBack();
+            console.log(err);
+            Toast.show({
+              type: "error",
+              text1: t('error'),
+              text2: t('server_error'),
+            });
+          });
+      })();
     }
   };
-
   useEffect(() => {
-    
+
   });
 
   return (
@@ -240,6 +221,7 @@ export default function AccountProfile() {
           },
         ]}
       >
+        {store.isLoading && <Spinner />}
         <ScrollView
           showsVerticalScrollIndicator={false}
           nestedScrollEnabled={true}
@@ -262,7 +244,7 @@ export default function AccountProfile() {
                 width: "20%",
                 marginTop: 100,
                 alignItems: "center",
-                right: width/2-100,
+                right: width / 2 - 100,
               }}
             >
               <TouchableOpacity onPress={() => setVisible(true)}>
@@ -375,6 +357,7 @@ export default function AccountProfile() {
           <View style={{ paddingTop: 8 }}>
             <TextInput
               value={data.name}
+              editable={false}
               placeholder={t("enter_name")}
               selectionColor={Colors.primary}
               placeholderTextColor={Colors.disable}
@@ -425,6 +408,7 @@ export default function AccountProfile() {
                   height: 50,
                   fontFamily: "Plus Jakarta Sans",
                 }}
+                disabled={true}
                 listMode="SCROLLVIEW"
                 theme="DARK"
                 open={open}
@@ -464,7 +448,7 @@ export default function AccountProfile() {
               />
             </View>
           </View>
-          
+
           <View style={{ paddingTop: 15 }}>
             <Text
               style={{
@@ -482,7 +466,7 @@ export default function AccountProfile() {
                 selectionColor={Colors.primary}
                 placeholderTextColor={Colors.disable}
                 style={[style.txtinput, { backgroundColor: theme.bg }]}
-                onChangeText={(e) => setData({ ...data, age: e })}
+                onChangeText={(e) => setData({ ...data, address: e })}
               />
             </View>
           </View>

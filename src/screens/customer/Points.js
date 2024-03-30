@@ -29,7 +29,7 @@ import { buycoins, fetchPaymentIntentClientSecret } from "../../actions/customer
 import { server } from "../../constants";
 import { setLoading } from "../../actions/common";
 import Spinner from "../../components/Spinner";
-import { CardField, useStripe, CardForm, Googlepay, PlatformPayButton, PlatformPay, createPlatformPayPaymentMethod, isPlatformPaySupported, usePlatformPay } from "@stripe/stripe-react-native";
+import { useStripe, usePlatformPay } from "@stripe/stripe-react-native";
 import { useStore } from "../../store/store";
 import Toast from "react-native-toast-message";
 
@@ -64,6 +64,7 @@ export default function CustomerPoints() {
   const [modalPayment, setModalPayment] = useState(false);
   const [formCompleted, setFormCompleted] = useState(false);
   const [clientSecret, setClientSecret] = useState();
+  const [isSuccess, setIsSuccess] = useState();
   const [cardDetails, setCardDetails] = useState({
     amount: '',
     number: '',
@@ -100,8 +101,8 @@ export default function CustomerPoints() {
     })();
   }, []);
 
-  useEffect(()=> {
-    const confirmPayment = async() => {
+  useEffect(() => {
+    const confirmPayment = async () => {
       const { error } = await confirmPlatformPayPayment(
         clientSecret,
         {
@@ -118,27 +119,51 @@ export default function CustomerPoints() {
           },
         }
       );
-  
       if (error) {
         Toast.show({
-          type: "success",
-          text1: "Success",
+          type: "error",
+          text1: t('error'),
           text2: t("buy_coins_error"),
         });
         return;
       }
-      Toast.show({
-        type: "success",
-        text1: "Success",
-        text2: t("buy_coins_success"),
-      });
+      setIsSuccess(true);
     }
     confirmPayment();
 
   }, [clientSecret])
 
-  const createPaymentMethod = async () => {
+  useEffect(() => {
+    const buycoin = async () => {
+      let formdata = new FormData();
+      formdata.append("amount", selectitem.amount);
+      formdata.append("points", selectitem.points);
+      formdata.append("cardNumber", cardNumber);
+      formdata.append("expiryDate", expiryDate);
+      formdata.append("cvv", cvv);
+      await buycoins(formdata)
+        .then(res => {
+          currentUser.points += selectitem.points;
+          changeStore({ ...store, currentUser: currentUser });
+          Toast.show({
+            type: "success",
+            text1: "Success",
+            text2: t("buy_coins_success"),
+          });
+          changeStore({ ...store, isLoading: false });
+        }).catch(err => {
+          Toast.show({
+            type: "error",
+            text1: t('error'),
+            text2: t("buy_coins_error"),
+          });
+          changeStore({ ...store, isLoading: false });
+        });
+    }
+    isSuccess&&buycoin();
+  }, [isSuccess])
 
+  const createPaymentMethod = async () => {
     changeStore({ ...store, isLoading: true });
     let formdata = new FormData();
     formdata.append("amount", selectitem.amount);
@@ -148,15 +173,12 @@ export default function CustomerPoints() {
     formdata.append("cvv", cvv);
     await fetchPaymentIntentClientSecret(formdata)
       .then(res => {
+        setModalPayment(false);
         setClientSecret(res.data.data.client_secret);
-        currentUser.points += selectitem.points;
-        changeStore({ ...store, currentUser: currentUser });
-
-        changeStore({ ...store, isLoading: false });
       }).catch(err => {
+        setModalPayment(false);
         changeStore({ ...store, isLoading: false });
       });
-    setModalPayment(false);
   };
 
   const renderItem = ({ item, index }) => {

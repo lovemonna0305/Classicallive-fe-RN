@@ -1,21 +1,3 @@
-export const langList = [
-  {
-    value: "EN",
-    label: "English",
-  },
-  {
-    value: "CN",
-    label: "Chinese",
-  },
-  {
-    value: "RU",
-    label: "Russian",
-  },
-  {
-    value: "FN",
-    label: "French",
-  }
-];
 
 export const genderList = [
   {
@@ -28,16 +10,6 @@ export const genderList = [
   }
 ];
 
-export const roleList = [
-  {
-    value: "professional",
-    label: "Professional"
-  },
-  {
-    values: "patient",
-    label: "Patient"
-  }
-];
 export const server = {
   // url:"https://classical613.xsrv.jp",
   // member_url:"https://classical613.xsrv.jp/uploads/member/",

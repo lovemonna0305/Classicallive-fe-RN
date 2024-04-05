@@ -9,12 +9,12 @@ import {
   ImageBackground,
 } from "react-native";
 import React, { useState, useContext } from "react";
-import style from "../theme/style";
-import themeContext from "../theme/themeContex";
-import { Colors } from "../theme/color";
-import theme from "../theme/theme";
+import style from "../../theme/style";
+import themeContext from "../../theme/themeContex";
+import { Colors } from "../../theme/color";
+import theme from "../../theme/theme";
 import { useNavigation } from "@react-navigation/native";
-import logoimage from "../../assets/img/apple-icon.png";
+import logoimage from "../../../assets/img/apple-icon.png";
 
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;

@@ -29,7 +29,6 @@ import Spinner from "../../components/Spinner";
 import { api } from "../../api";
 import Toast from "react-native-toast-message";
 import { getPrograms } from "../../actions/customer";
-import { getAllCategories, getAllParentCategories, getCategoryArray, getPopularCategories, setProgram } from "../../actions/common";
 import { useStore } from "../../store/store";
 import Footer from "../../components/Footer";
 
@@ -39,14 +38,13 @@ export default function CustomerHomepage() {
   const navigation = useNavigation();
   const { t } = useTranslation();
   const theme = useContext(themeContext);
-  const [darkMode, setDarkMode] = useState(false);
   const [Programs, setPrograms] = useState({});
 
 
   useEffect(() => {
     changeStore({ ...store, isLoading: true });
     (async () => {
-      const data = await getPrograms(1)
+      await getPrograms(1)
         .then(res => {
           setPrograms(res);
           changeStore({ ...store, isLoading: false });

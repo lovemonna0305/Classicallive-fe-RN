@@ -80,7 +80,6 @@ export default function PerformerPostCreate() {
   useEffect(() => { }, []);
 
   useEffect(() => {
-    global.isLoading = false;
     setSubCategoryItems([]);
     const cateIndex = categoryArray["category"].findIndex(
       (item) => item.value === categoryValue

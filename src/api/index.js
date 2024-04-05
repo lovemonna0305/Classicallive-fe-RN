@@ -245,10 +245,6 @@ const getMessage = (id) => {
 };
 
 
-// const getMessage = (id) => {
-//   return jwtInterceoptor.get(`${SERVER_URL}/message/${id}`);
-// }
-
 
 const unreadNumMessage = () => {
   return jwtInterceoptor.get(`${SERVER_URL}/message/unread`);
@@ -334,37 +330,6 @@ const getUsers = () => jwtInterceoptor.get(`${SERVER_URL}/api/user/all`);
 const getProfile = (id) =>
   jwtInterceoptor.get(`${SERVER_URL}/api/profile/${id}`);
 
-// Chat
-
-const createGroup = (data) =>
-  jwtInterceoptor.post(`${SERVER_URL}/api/chat/createGroup`, data);
-const removeFromGroup = (data) =>
-  jwtInterceoptor.post(`${SERVER_URL}/api/chat/removeFromGroup`, data);
-const renameGroup = (data) =>
-  jwtInterceoptor.post(`${SERVER_URL}/api/chat/renameGroup`, data);
-const addUserToGroup = (data) =>
-  jwtInterceoptor.post(`${SERVER_URL}/api/chat/addUserToGroup`, data);
-
-
-
-
-
-
-
-
-// Friend
-const sendfriendrequest = (id) =>
-  jwtInterceoptor.post(`${SERVER_URL}/api/user/sendfriendrequest/${id}`);
-const getfriendrequest = (id) =>
-  jwtInterceoptor.get(`${SERVER_URL}/api/user/getfriendrequest/${id}`);
-const getfriendrequests = () =>
-  jwtInterceoptor.get(`${SERVER_URL}/api/user/getfriendrequests`);
-const acceptfriendrequest = (id) =>
-  jwtInterceoptor.get(`${SERVER_URL}/api/user/acceptfriendrequest/${id}`);
-const rejectfriendrequest = (id) =>
-  jwtInterceoptor.get(`${SERVER_URL}/api/user/rejectfriendrequest/${id}`);
-const unfriend = (id) =>
-  jwtInterceoptor.get(`${SERVER_URL}/api/user/unfriend/${id}`);
 
 export const api = {
   login,
@@ -411,10 +376,6 @@ export const api = {
 
 
 
-
-
-
-
   loginGoogle,
   signup,
   signupGoogle,
@@ -431,11 +392,6 @@ export const api = {
   getProfile,
   createProfile,
 
-  createGroup,
-  removeFromGroup,
-  renameGroup,
-  addUserToGroup,
-
   getChats,
   getNotifications,
   getChat,
@@ -444,10 +400,4 @@ export const api = {
   sendMessage,
   unreadNumMessage,
 
-  sendfriendrequest,
-  getfriendrequest,
-  getfriendrequests,
-  acceptfriendrequest,
-  rejectfriendrequest,
-  unfriend,
 };

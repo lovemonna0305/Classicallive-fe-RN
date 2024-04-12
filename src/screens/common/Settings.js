@@ -347,9 +347,9 @@ export default function Settings() {
             {t("about")}
           </Text>
 
-          <TouchableOpacity onPress={() => navigation.navigate("Legal")}>
+          <TouchableOpacity onPress={() => navigation.navigate("Privacy")}>
             <List.Item
-              title={t("legal_policies")}
+              title={t("privacy")}
               titleStyle={{
                 color: theme.txt,
                 fontSize: 16,
@@ -375,9 +375,9 @@ export default function Settings() {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => navigation.navigate("Legal")}>
+          <TouchableOpacity onPress={() => navigation.navigate("Terms")}>
             <List.Item
-              title={t("help_support")}
+              title={t("terms_use")}
               titleStyle={{
                 color: theme.txt,
                 fontSize: 16,

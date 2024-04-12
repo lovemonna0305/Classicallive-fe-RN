@@ -52,7 +52,7 @@ export default function PerformerPostEdit() {
 
   const program = store.program;
   const currentUser = store.currentUser;
-  const categoryArray = global.categoryArray; 
+  const categoryArray = global.categoryArray;
 
 
   const [data, setData] = useState({
@@ -122,7 +122,7 @@ export default function PerformerPostEdit() {
     const day = datetime.getDate(); // Get the day (1-31)
     const month = datetime.getMonth(); // Get the month (0-11)
     const year = datetime.getFullYear(); // Get the full year (e.g., 2024)
-    
+
     if (datetime > currentDate) {
       setData({
         ...data,
@@ -130,7 +130,7 @@ export default function PerformerPostEdit() {
         date: year + "-" + padZero(month + 1) + "-" + padZero(day),
       });
     } else {
-        Toast.show({
+      Toast.show({
         type: "error",
         text1: t("error"),
         text2: t("performance_no_before_today"),
@@ -149,7 +149,7 @@ export default function PerformerPostEdit() {
 
   function padZero(num) {
     return (num < 10 ? '0' : '') + num;
-}
+  }
 
   const handleConfirmStime = (time) => {
     hideStimePicker();
@@ -188,7 +188,7 @@ export default function PerformerPostEdit() {
         end_time: padZero(hours + 1) + ":" + padZero(minutes),
         d_end_time: datetime,
       });
-    }  else {
+    } else {
       Toast.show({
         type: "error",
         text1: t("error"),
@@ -302,16 +302,16 @@ export default function PerformerPostEdit() {
           });
         }
         formdata.append("is_changeImage", is_changeImage);
-        changeStore({...store, isLoading:true});
+        changeStore({ ...store, isLoading: true });
         (async () => {
           updateProgram(formdata)
-          .then(res=>{
-            changeStore({...store, isLoading:false});
-            navigation.goBack();
-          }).catch(err=>{
-            changeStore({...store, isLoading:false});
-            navigation.goBack();
-          });
+            .then(res => {
+              changeStore({ ...store, isLoading: false });
+              navigation.goBack();
+            }).catch(err => {
+              changeStore({ ...store, isLoading: false });
+              navigation.goBack();
+            });
         })();
       }
     } catch (err) {
@@ -351,7 +351,7 @@ export default function PerformerPostEdit() {
         }
       />
 
-      <View style={[ style.main, { backgroundColor: theme.bg, }]} >
+      <View style={[style.main, { backgroundColor: theme.bg, }]} >
         {store.isLoading && <Spinner />}
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -643,10 +643,9 @@ export default function PerformerPostEdit() {
               }}
             >
 
-              
               <Image
                 source={{ uri: selectedImage }}
-                style={{ width: width/2, height: width/4 }}
+                style={{ width: width / 2, height: width / 4 }}
                 resizeMode="stretch"
               />
               <View
@@ -654,7 +653,7 @@ export default function PerformerPostEdit() {
                   position: "absolute",
                   bottom: -10,
                   alignItems: "center",
-                  right: width/4-35,
+                  right: width / 4 - 35,
                 }}
               >
                 <TouchableOpacity onPress={() => setVisible(true)}>
@@ -703,7 +702,7 @@ export default function PerformerPostEdit() {
                           ]}
                         ></View>
                         <TouchableOpacity
-                          onPress={openImagePicker}
+                          onPress={handleCameraLaunch}
                           style={{
                             // paddingTop: 15 ,
                             paddingVertical: 15,
@@ -726,7 +725,7 @@ export default function PerformerPostEdit() {
                         </TouchableOpacity>
                         <View style={{ paddingTop: 15 }}>
                           <TouchableOpacity
-                            onPress={handleCameraLaunch}
+                            onPress={openImagePicker}
                             style={{
                               //  paddingTop: 15 ,
                               paddingVertical: 15,

@@ -693,7 +693,7 @@ export default function PerformerPostCreate() {
                           ]}
                         ></View>
                         <TouchableOpacity
-                          onPress={openImagePicker}
+                          onPress={handleCameraLaunch}
                           style={{
                             // paddingTop: 15 ,
                             paddingVertical: 15,
@@ -716,7 +716,7 @@ export default function PerformerPostCreate() {
                         </TouchableOpacity>
                         <View style={{ paddingTop: 15 }}>
                           <TouchableOpacity
-                            onPress={handleCameraLaunch}
+                            onPress={openImagePicker}
                             style={{
                               //  paddingTop: 15 ,
                               paddingVertical: 15,

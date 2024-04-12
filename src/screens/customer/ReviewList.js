@@ -30,7 +30,6 @@ const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
 import { images, server } from "../../constants";
 import { useStore } from "../../store/store";
-import { err } from "react-native-svg";
 import Spinner from "../../components/Spinner";
 
 export default function CustomerReviewList() {

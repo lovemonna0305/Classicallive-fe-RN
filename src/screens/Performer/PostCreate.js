@@ -77,7 +77,9 @@ export default function PerformerPostCreate() {
   );
   const [visible, setVisible] = useState(false);
 
-  useEffect(() => { }, []);
+  useEffect(() => { 
+    changeStore({ ...store, isLoading: false });
+  }, []);
 
   useEffect(() => {
     setSubCategoryItems([]);
@@ -294,11 +296,22 @@ export default function PerformerPostCreate() {
         (async () => {
           createProgram(formdata)
             .then(res => {
-              changeStore({ ...store, isLoading: false });
-              navigation.goBack();
+              if(res.data.success){
+                changeStore({ ...store, isLoading: false });
+                navigation.replace('Category');
+              } else {
+                changeStore({ ...store, isLoading: false });
+                changeStore({ ...store, isLoading: false });
+                Toast.show({
+                  type: "error",
+                  text1: t("error"),
+                  text2: t(res.data.message),
+                });
+                return;
+              }
             }).catch(err => {
               changeStore({ ...store, isLoading: false });
-              navigation.goBack();
+              console.log('error')
             });
         })();
       }

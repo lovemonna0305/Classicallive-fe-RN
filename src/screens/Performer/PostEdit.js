@@ -87,7 +87,7 @@ export default function PerformerPostEdit() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    global.isLoading = false;
+    // global.isLoading = false;
     const cateIndex = categoryArray["category"].findIndex(
       (item) => item.value === program.category.parent_id
     );
@@ -248,7 +248,6 @@ export default function PerformerPostEdit() {
   };
 
   const handleEditPost = async () => {
-    global.isLoading = true;
     try {
       if (data.title === "") {
         Toast.show({
@@ -306,8 +305,18 @@ export default function PerformerPostEdit() {
         (async () => {
           updateProgram(formdata)
             .then(res => {
-              changeStore({ ...store, isLoading: false });
-              navigation.goBack();
+              if(res.data.success){
+                changeStore({ ...store, isLoading: false });
+                navigation.replace('PerformerCategory');
+              } else {
+                changeStore({ ...store, isLoading: false });
+                Toast.show({
+                  type: "error",
+                  text1: t("error"),
+                  text2: t(res.data.message),
+                });
+                return;
+              }
             }).catch(err => {
               changeStore({ ...store, isLoading: false });
               navigation.goBack();

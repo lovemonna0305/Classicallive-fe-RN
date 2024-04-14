@@ -11,6 +11,7 @@ export const StoreProvider = ({ children }) => {
     currentUser: {},
     program: {},
     pPendingPoints: 0,
+    category:{},
   });
 
   const changeStore = (newStore) => {

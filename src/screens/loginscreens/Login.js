@@ -82,7 +82,7 @@ export default function Login() {
   };
 
   useEffect(() => {
-    setEmail("performer@gmail.com");
+    setEmail("customer@gmail.com");
     setPassword("123456");
     console.log(store.isLoading);
     // console.log("global.isRemember",global.isRemember);

@@ -99,7 +99,7 @@ export default function PerformerCustomerList() {
               <Avatar.Icon
                 icon="arrow-left"
                 style={{ backgroundColor: theme.bg }}
-                color="white"
+                color={theme.txt}
                 size={40}
               />
             </TouchableOpacity>
@@ -245,23 +245,39 @@ export default function PerformerCustomerList() {
           style={{ alignItems: "center", justifyContent: "center" }}
           onPress={() => setModalDeleteVisible(true)}
         >
-          <Icon name="times" size={20} color="white" />
+          <Icon name="times" size={20} color={theme.txt} />
           <Text style={style.activetext}>{t("delete")}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{ alignItems: "center", justifyContent: "center" }}
           onPress={() => navigation.navigate("PerformerPostEdit")}
         >
-          <Icon name="edit" size={20} color="white" />
+          <Icon name="edit" size={20} color={theme.txt} />
           <Text style={style.activetext}>{t("edit")}</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={{ alignItems: "center", justifyContent: "center" }}
-          onPress={() => enterProgram()}
-        >
-          <Icon name="play-circle" size={20} color="white" />
-          <Text style={style.activetext}>{t("play")}</Text>
-        </TouchableOpacity>
+        {program.is_past?(
+          <>
+            <TouchableOpacity
+            style={{ alignItems: "center", justifyContent: "center" }}
+            onPress={() => enterProgram()}
+            disabled={true}
+          >
+            <Icon name="play-circle" size={20} color={Colors.disable} />
+            <Text style={[style.activetext,{color:Colors.disable}]}>{t("play")}</Text>
+          </TouchableOpacity>
+          </>
+        ):(
+          <>
+            <TouchableOpacity
+            style={{ alignItems: "center", justifyContent: "center" }}
+            onPress={() => enterProgram()}
+          >
+            <Icon name="play-circle" size={20} color={theme.txt} />
+            <Text style={style.activetext}>{t("play")}</Text>
+          </TouchableOpacity>
+          </>
+        )}
+        
       </View>
     </SafeAreaView>
   );

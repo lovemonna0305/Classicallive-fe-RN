@@ -307,7 +307,7 @@ export default function PerformerPostEdit() {
             .then(res => {
               if(res.data.success){
                 changeStore({ ...store, isLoading: false });
-                navigation.replace('PerformerCategory');
+                navigation.replace('Home');
               } else {
                 changeStore({ ...store, isLoading: false });
                 Toast.show({
@@ -379,10 +379,11 @@ export default function PerformerPostEdit() {
             <View style={{ paddingTop: 8 }}>
               <TextInput
                 value={data.title}
+                editable={false}
                 placeholder={t("title")}
                 selectionColor={Colors.primary}
                 placeholderTextColor={Colors.disable}
-                style={[style.txtinput, { backgroundColor: theme.bg }]}
+                style={[style.txtinput, { backgroundColor: theme.bg , borderColor:Colors.disable}]}
                 onChangeText={(e) => setData({ ...data, title: e })}
               />
             </View>
@@ -655,7 +656,7 @@ export default function PerformerPostEdit() {
               <Image
                 source={{ uri: selectedImage }}
                 style={{ width: width / 2, height: width / 4 }}
-                resizeMode="stretch"
+                resizeMode="cover"
               />
               <View
                 style={{
@@ -801,7 +802,7 @@ export default function PerformerPostEdit() {
             </View>
             <View style={{ paddingVertical: 30 }}>
               <TouchableOpacity onPress={handleEditPost} style={style.btn}>
-                <Text style={style.btntxt}>{t("send")}</Text>
+                <Text style={style.btntxt}>{t("update")}</Text>
               </TouchableOpacity>
             </View>
           </View>

@@ -158,7 +158,7 @@ export default function CustomerLiveChat({ route }) {
     sendmessage: {
       flex: 1,
       padding: 15,
-      backgroundColor: "#4A6C00",
+      backgroundColor: theme.itembackground,
       borderRadius: 10,
       width: width / 2 + 10,
       textAlign: "right",
@@ -167,11 +167,11 @@ export default function CustomerLiveChat({ route }) {
     },
     receviedtextstyle: {
       fontSize: 16,
-      color: "white",
+      color: theme.txt,
     },
     senttextstyle: {
       fontSize: 16,
-      color: "white",
+      color: theme.txt,
     },
   });
   return (
@@ -196,7 +196,7 @@ export default function CustomerLiveChat({ route }) {
                 <Avatar.Icon
                   icon="arrow-left"
                   style={{ backgroundColor: theme.bg }}
-                  color="white"
+                  color={theme.txt}
                   size={40}
                 />
               </TouchableOpacity>
@@ -217,7 +217,7 @@ export default function CustomerLiveChat({ route }) {
                 </View> */}
               </TouchableOpacity>
               <View style={{ marginLeft: 20 }}>
-                <Text style={{ fontSize: 14, fontWeight: 700, color: "white" }}>
+                <Text style={{ fontSize: 14, fontWeight: 700, color: theme.txt }}>
                   {member.name}{" "}
                 </Text>
                 {/* <Text style={{ fontSize: 14, color: "white" }}>Online </Text> */}
@@ -286,9 +286,9 @@ export default function CustomerLiveChat({ route }) {
               paddingLeft: 20,
               fontSize: 17,
               position: "relative",
-              color: "white",
+              color: theme.txt,
             }}
-            placeholderTextColor="white"
+            placeholderTextColor= {theme.txt}
             placeholder="Send messages ..."
             value={newMessage}
             onChangeText={(e) => setNewMessage(e)}

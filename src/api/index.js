@@ -261,6 +261,10 @@ const getNotifications = () => {
   return jwtInterceoptor.get(`${SERVER_URL}/notifications`);
 }
 
+const readNotification = (id) => {
+  return jwtInterceoptor.get(`${SERVER_URL}/readNotification/${id}`);
+}
+
 const getChat = (id, post_id) => jwtInterceoptor.get(`${SERVER_URL}/chat/?id=${id}&post_id=${post_id}`);
 
 
@@ -395,6 +399,7 @@ export const api = {
   getChats,
   getNotifications,
   getChat,
+  readNotification,
 
   getMessage,
   sendMessage,

@@ -56,7 +56,7 @@ export default function CustomerHistoryDetail({ route }) {
   const [modalCancelProgram, setModalCancelProgram] = useState(false);
   const [modalReserve, setModalReserve] = useState(false);
   // const { status } = route.params;
-
+console.log(program.id);
   const handlechat = () => {
     navigation.navigate("LiveChat", {
       id: program.chat.id,

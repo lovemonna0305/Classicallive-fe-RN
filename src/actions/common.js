@@ -60,8 +60,6 @@ export const getChats = async () => {
 export const getNotifications = async () => {
 
   const res = await api.getNotifications();
-  global.numMessages = res.data.data.numMsgs;
-  global.notifications = res.data.data.notifications;
   return res.data.data;
 };
 

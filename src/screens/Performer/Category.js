@@ -34,7 +34,7 @@ import Spinner from "../../components/Spinner";
 import { getPProgramsByCategory } from "../../actions/performer";
 import { useStore } from "../../store/store";
 
-export default function PerformerCategory({ route }) {
+export default function PerformerCategory() {
   const { changeStore, store } = useStore();
   const { t } = useTranslation();
   const theme = useContext(themeContext);
@@ -44,7 +44,7 @@ export default function PerformerCategory({ route }) {
   const [postItem, setPostItem] = useState();
   const [pCPrograms, setpCPrograms] = useState(global.pCPrograms);
   const [allparentcategories, setAllparentcategories] = useState(global.allparentcategories);
-  const { id, slug } = route.params;
+  const { id, slug } = store.category;
 
 
   useEffect(() => {

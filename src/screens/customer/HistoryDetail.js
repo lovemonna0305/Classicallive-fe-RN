@@ -269,7 +269,7 @@ export default function CustomerHistoryDetail({ route }) {
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
-              color="white"
+              color={theme.txt}
               size={40}
             />
           </TouchableOpacity>
@@ -286,7 +286,7 @@ export default function CustomerHistoryDetail({ route }) {
               />
             </View>
             <View style={{ paddingRight: 20 }}>
-              <Text style={{ color: "white", fontSize: 15 }}>
+              <Text style={{ color: theme.txt, fontSize: 15 }}>
                 {currentUser.points}
               </Text>
             </View>
@@ -501,7 +501,7 @@ export default function CustomerHistoryDetail({ route }) {
             <View style={{ paddingTop: 10 }}>
               <Image
                 source={{ uri: server.media_url + program.image_file }}
-                resizeMode="contain"
+                resizeMode="cover"
                 style={[style.img, { height: 200 }]}
               />
             </View>
@@ -702,7 +702,7 @@ export default function CustomerHistoryDetail({ route }) {
                   />
                 </View>
                 <View style={{ paddingRight: 10, paddingHorizontal: 5 }}>
-                  <Text style={{ color: "white", fontSize: 15 }}>
+                  <Text style={{ color: theme.txt, fontSize: 15 }}>
                     {program.points}
                   </Text>
                 </View>
@@ -713,7 +713,7 @@ export default function CustomerHistoryDetail({ route }) {
                 {program.description}
               </Text>
             </View>
-            {!status.includes("complete") && (
+            {(!status.includes("complete"))&&(!program.is_past) && (
               <View style={{ paddingTop: 10 }}>
                 <View
                   style={[
@@ -823,7 +823,7 @@ export default function CustomerHistoryDetail({ route }) {
             {!status.includes("complete") &&
               program.is_chat.includes("yes") ? (
               <>
-                <Icon name="envelope" size={20} color="white" />
+                <Icon name="envelope" size={20} color={theme.txt} />
                 <Text style={style.activetext}>{t("message")}</Text>
               </>
             ) : (
@@ -835,13 +835,27 @@ export default function CustomerHistoryDetail({ route }) {
               </>
             )}
           </TouchableOpacity>
-          <TouchableOpacity
-            style={{ alignItems: "center", justifyContent: "center" }}
-            onPress={() => handleReview()}
-          >
-            <Icon name="arrow-right" size={20} color="white" />
-            <Text style={style.activetext}>{t("review")}</Text>
-          </TouchableOpacity>
+          {!status.includes("complete")?(
+            <>
+            <TouchableOpacity
+              style={{ alignItems: "center", justifyContent: "center" }}
+              onPress={() => handleReview()}
+              disabled={true}
+            >
+              <Icon name="arrow-right" size={20} color={Colors.disable} />
+              <Text style={[style.activetext,{color:Colors.disable}]}>{t("review")}</Text>
+            </TouchableOpacity>
+            </>):(
+              <>
+                <TouchableOpacity
+                  style={{ alignItems: "center", justifyContent: "center" }}
+                  onPress={() => handleReview()}
+                >
+                  <Icon name="arrow-right" size={20} color={theme.txt} />
+                  <Text style={style.activetext}>{t("review")}</Text>
+                </TouchableOpacity>
+              </>
+            )}
         </View>
       </View>
     </SafeAreaView>

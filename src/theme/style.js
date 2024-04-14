@@ -29,9 +29,11 @@ export default StyleSheet.create({
     paddingLeft: 15,
   },
   text2: {
-    fontSize: 16,
-    paddingTop: 20,
-    fontWeight: 500,
+    color: Colors.primary,
+    fontWeight: 'normal',
+    paddingTop: 18,
+    lineHeight: 5,
+    fontSize: 12,
   },
   viewstyle: {
     flex: 1,

@@ -68,7 +68,7 @@ export default function CustomerCategoryList() {
       >
         <View>
           <Image
-            source={{ uri: server.media_url + item.image_file }}
+            source={{ uri: server.category_url + item.image_file }}
             style={{ width: 60, height: 60, borderRadius: 3 }}
           />
         </View>
@@ -98,7 +98,7 @@ export default function CustomerCategoryList() {
       >
         <View>
           <Image
-            source={{ uri: server.media_url + item.image_file }}
+            source={{ uri: server.category_url + item.image_file }}
             style={{ width: 60, height: 60, borderRadius: 3 }}
           />
         </View>
@@ -130,7 +130,7 @@ export default function CustomerCategoryList() {
             {t("popular_category")}
           </Text>
         </View>
-        <View style={{ marginTop: 10, height: 200, marginHorizontal: 18 }}>
+        <View style={{ marginTop: 10, height: height*0.3, marginHorizontal: 18 }}>
           {popularcategories && popularcategories != 0 ? (
             <>
               <FlatList
@@ -174,7 +174,7 @@ export default function CustomerCategoryList() {
             {t("all_category")}
           </Text>
         </View>
-        <View style={{ marginTop: 10, height: 200, marginHorizontal: 18 }}>
+        <View style={{ marginTop: 10, height: height*0.3, marginHorizontal: 18 }}>
           {allparentcategories && allparentcategories != 0 ? (
             <>
               <FlatList

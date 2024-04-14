@@ -21,6 +21,7 @@ export const server = {
   member_url:"http://192.168.145.168:8000/uploads/member/",
   media_url:"http://192.168.145.168:8000/uploads/media/",
   default_url:"http://192.168.145.168:8000/uploads/default/",
+  category_url:"http://192.168.145.168:8000/uploads/category/",
 }
 
 export const _stripe = {
@@ -41,6 +42,6 @@ export const images = {
   plus: require("../../assets/img/plus.png"),
   edit: require("../../assets/img/edit.png"),
   success: require("../../assets/img/success.png"),
-  notification: require("../../assets/img/notification.svg"),
+  // notification: require("../../assets/img/notification.svg"),
 }
 

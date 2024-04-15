@@ -300,6 +300,7 @@ export default function CustomerPostDetail() {
                       <TouchableOpacity
                         style={[style.modalbtn_confirm, { marginRight: 5 }]}
                         onPress={() => {
+                          changeStore({ ...store, page: "CustomerPostDetail" });
                           navigation.navigate("CustomerPoints")
                           setModalVisible(false);
                         }}

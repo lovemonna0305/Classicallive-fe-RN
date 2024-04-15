@@ -91,7 +91,7 @@ export default function Header() {
                   </TouchableOpacity>
                 </View> */}
             <View style={{ position: "relative" }}>
-              <TouchableOpacity onPress={() => { navigation.navigate("Notification") }}>
+              <TouchableOpacity onPress={() => { navigation.replace("Notification") }}>
                 <View
                   style={{
                     position: "absolute",

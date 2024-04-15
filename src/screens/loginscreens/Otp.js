@@ -48,7 +48,6 @@ export default function Otp({ route, navigation }) {
     changeStore({ ...store, isLoading: true });
     await api.verifyOtp(otp)
       .then(res => {
-        console.log(res);
         if (res.data.success) {
           Toast.show({
             type: "success",

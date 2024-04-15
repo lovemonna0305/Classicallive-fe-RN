@@ -245,8 +245,10 @@ export default function PerformerCategory() {
         }}
       >
         <TouchableOpacity
-          onPress={() => navigation.navigate("PostCreate")}
-        >
+          onPress={() => {
+            changeStore({ ...store, isLoading: false });
+            navigation.navigate("PostCreate")}
+          }>
           <Avatar.Image
             source={images.plus}
             style={{ backgroundColor: "" }}

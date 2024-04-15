@@ -57,14 +57,14 @@ export default function PerformerCategoryList() {
   const renderItem1 = ({ item, index }) => {
     const selectCategory = async (item) => {
       changeStore({ ...store, category: item,page:'CategoryList' });
-      navigation.navigate("Category");
+      navigation.replace("Category");
     };
     return (
       <TouchableOpacity style={{
         flexDirection: "row",
         paddingRight: 20,
         backgroundColor: theme.itembackground,
-        borderRadius: 20,
+        borderRadius: 10,
         alignContent: "center",
         justifyContent: "space-between",
         width: width - 40,
@@ -76,7 +76,7 @@ export default function PerformerCategoryList() {
         <View style={{ flexDirection: 'row' }}>
           <Image
             source={{ uri: server.category_url + item.image_file }}
-            style={{ width: height * 0.1, height: height * 0.09, borderTopLeftRadius: 20, borderBottomLeftRadius: 20 }}
+            style={{ width: height * 0.1, height: height * 0.09, borderTopLeftRadius: 10, borderBottomLeftRadius: 10 }}
           />
           <View style={{ justifyContent: "center", width: width * 0.4, paddingLeft: 10 }}>
             <Text style={[{ fontSize: 16, fontWeight: "bold", color: theme.txt, }]} > {t(item.slug)}</Text>

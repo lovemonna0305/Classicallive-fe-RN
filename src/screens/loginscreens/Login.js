@@ -83,7 +83,7 @@ export default function Login() {
 
   useEffect(() => {
     setEmail("performer@gmail.com");
-    setPassword("123456");
+    setPassword("123123");
     // console.log("global.isRemember",global.isRemember);
     // console.log("global.tokens",global.tokens);
     // console.log("global.currentUser",global.currentUser);

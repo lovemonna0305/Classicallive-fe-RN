@@ -53,6 +53,7 @@ export default function CustomerPoints() {
 
   // const { program } = useSelector((state) => state.customer);
   const currentUser = store.currentUser;
+  const page = store.page;
   // const { isLoading } = useSelector((state) => state.common);
 
   const [cardNumber, setCardNumber] = useState('');
@@ -222,7 +223,7 @@ export default function CustomerPoints() {
         centerTitle={true}
         elevation={0}
         leading={
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => navigation.replace(page)}>
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}

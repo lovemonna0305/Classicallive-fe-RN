@@ -44,7 +44,7 @@ export default function PerformerHistoryList() {
   const [Programs, setPrograms] = useState({});
 
   useEffect(() => {
-    changeStore({ ...store, isLoading: true });
+    changeStore({ ...store, isLoading: true, page:'HistoryList' });
     (async () => {
       await getPrograms(2)
         .then(res => {

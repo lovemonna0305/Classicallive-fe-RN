@@ -42,7 +42,7 @@ export default function CustomerHomepage() {
 
 
   useEffect(() => {
-    changeStore({ ...store, isLoading: true });
+    changeStore({ ...store, isLoading: true , page:"Home"});
     (async () => {
       await getPrograms(1)
         .then(res => {

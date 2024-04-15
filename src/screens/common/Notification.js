@@ -37,6 +37,7 @@ export default function Notification() {
   const [notifications, setNotifications] = useState({});
 
   const currentUser = store.currentUser;
+  const page = store.page;
 
   useEffect(() => {
     changeStore({ ...store, isLoading: true });
@@ -57,7 +58,7 @@ export default function Notification() {
         await api.readNotification(select.notification.id)
           .then(res => {
             if (res.data.success) {
-              changeStore({ ...store, isLoading: false, program: res.data.data });
+              changeStore({ ...store, isLoading: false, program: res.data.data, page:"Notification" });
               if (currentUser.role_id == 3) {
                 navigation.navigate("CustomerList");
               } else {
@@ -127,7 +128,7 @@ export default function Notification() {
         centerTitle={true}
         elevation={0}
         leading={
-          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <TouchableOpacity onPress={() => navigation.replace("Home")}>
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}

@@ -51,12 +51,13 @@ export default function CustomerHistoryDetail({ route }) {
 
   const program = store.program;
   const currentUser = store.currentUser;
+  const page = store.page;
   const [modalVisible, setModalVisible] = useState(false);
   const [status, setStatus] = useState(program.reserv_status);
   const [modalCancelProgram, setModalCancelProgram] = useState(false);
   const [modalReserve, setModalReserve] = useState(false);
   // const { status } = route.params;
-console.log(program.id);
+// console.log(program.id);
   const handlechat = () => {
     navigation.navigate("LiveChat", {
       id: program.chat.id,
@@ -263,8 +264,7 @@ console.log(program.id);
         elevation={0}
         leading={
           <TouchableOpacity onPress={() => {
-            changeStore({ ...store, page: "HistoryList" });
-            navigation.replace('HistoryList')
+            navigation.replace(page)
           }}>
             <Avatar.Icon
               icon="arrow-left"
@@ -558,8 +558,9 @@ console.log(program.id);
                 <TouchableOpacity
                   style={{ paddingRight: 5, paddingTop: 5 }}
                   onPress={() => {
+                    changeStore({ ...store, page:"CustomerHistoryDetail"});
                     getProgramsByPerformer(program.member.id);
-                    navigation.navigate("CustomerPostList");
+                    navigation.replace("CustomerPostList")
                   }}
                 >
                   <Image

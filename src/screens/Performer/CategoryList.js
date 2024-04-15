@@ -56,8 +56,8 @@ export default function PerformerCategoryList() {
 
   const renderItem1 = ({ item, index }) => {
     const selectCategory = async (item) => {
-      changeStore({ ...store, category: item });
-      navigation.navigate("PerformerCategory");
+      changeStore({ ...store, category: item,page:'CategoryList' });
+      navigation.navigate("Category");
     };
     return (
       <TouchableOpacity style={{

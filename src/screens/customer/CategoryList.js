@@ -33,7 +33,7 @@ export default function CustomerCategoryList() {
   const theme = useContext(themeContext);
 
   useEffect(() => {
-    changeStore({...store, isLoading:true});
+    changeStore({ ...store, isLoading: true , page:"CategoryList"});
     (async () => {
       await getAllParentCategories()
       await getPopularCategories()
@@ -57,9 +57,8 @@ export default function CustomerCategoryList() {
   const renderItem1 = ({ item, index }) => {
     const lastItem = index === popularcategories.length - 1;
     const selectCategory = async (item) => {
-      navigation.navigate("CustomerCategory", {
-        id: item.id,
-      });
+      changeStore({ ...store, category: item });
+      navigation.navigate("Category");
     };
     return (
       <TouchableOpacity
@@ -87,9 +86,8 @@ export default function CustomerCategoryList() {
       formdata.append("category", item.id);
       getSubCategory(formdata);
       setCategory(item);
-      navigation.navigate("CustomerCategory",{
-        id: item.id,
-      });
+      changeStore({ ...store, category: item });
+      navigation.navigate("Category");
     };
     return (
       <TouchableOpacity

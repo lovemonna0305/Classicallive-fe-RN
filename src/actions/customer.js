@@ -92,7 +92,6 @@ export const commitReview = async (data, program) => {
 };
 
 export const getCProgramsByCategory = async (id) => {
-    global.isLoading = true;
     const res = await api.getCProgramsByCategory(id);
     if (res.data.success) {
         global.cCPrograms = res.data.data.programs;

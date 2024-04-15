@@ -41,6 +41,7 @@ export default function PerformerCustomerList() {
   const ref = React.useRef(null);
   const theme = useContext(themeContext);
   const program = store.program;
+  const page = store.page;
   const [reservations, setReservations] = useState();
 
   const [darkMode, setDarkMode] = useState(false);
@@ -95,7 +96,14 @@ export default function PerformerCustomerList() {
           centerTitle={true}
           elevation={0}
           leading={
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            <TouchableOpacity onPress={() => {
+              if(page.includes("HistoryList")){
+                  console.log(page);
+                  navigation.replace(page);
+                } else {
+                  navigation.replace('Home');
+                }
+              }}>
               <Avatar.Icon
                 icon="arrow-left"
                 style={{ backgroundColor: theme.bg }}
@@ -250,8 +258,10 @@ export default function PerformerCustomerList() {
         </TouchableOpacity>
         <TouchableOpacity
           style={{ alignItems: "center", justifyContent: "center" }}
-          onPress={() => navigation.navigate("PerformerPostEdit")}
-        >
+          onPress={() => {
+            changeStore({...store, page:'CustomerList'});
+            navigation.navigate("PerformerPostEdit")
+          }}>
           <Icon name="edit" size={20} color={theme.txt} />
           <Text style={style.activetext}>{t("edit")}</Text>
         </TouchableOpacity>

@@ -144,7 +144,7 @@ export default function StackNavigator() {
                     options={{ headerShown: false }}
                   />
                   <Stack.Screen
-                    name="CustomerCategory"
+                    name="Category"
                     component={CustomerCategory}
                     options={{ headerShown: false }}
                   />
@@ -214,7 +214,7 @@ export default function StackNavigator() {
                     options={{ headerShown: false }}
                   />
                   <Stack.Screen
-                    name="PerformerCategory"
+                    name="Category"
                     component={PerformerCategory}
                     options={{ headerShown: false }}
                   />

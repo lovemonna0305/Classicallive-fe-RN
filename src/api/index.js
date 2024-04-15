@@ -45,7 +45,7 @@ jwtInterceoptor.interceptors.response.use(
       }
     } catch (e) {
       if (error.response.status == 401)
-        console.log("error", e);
+        console.error("error", e);
     }
   }
 );

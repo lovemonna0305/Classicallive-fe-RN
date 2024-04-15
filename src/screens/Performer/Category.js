@@ -48,7 +48,7 @@ export default function PerformerCategory() {
 
 
   useEffect(() => {
-    changeStore({...store, isLoading:true});
+    changeStore({...store, isLoading:true, page:'Category'});
     (async () => {
       try {
         const data = await getPProgramsByCategory(id);
@@ -105,7 +105,7 @@ export default function PerformerCategory() {
         centerTitle={true}
         elevation={0}
         leading={
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => navigation.replace('CategoryList')}>
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
@@ -186,7 +186,6 @@ export default function PerformerCategory() {
               >
                 <TouchableOpacity
                   onPress={() => {
-                    console.log(postItem.id);
                     let formdata = new FormData();
                     formdata.append("post_id", postItem.id);
                     dispatch(deleteProgram(formdata));

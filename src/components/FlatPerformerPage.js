@@ -33,7 +33,7 @@ export default function FlatPerformerPage({ items, title }) {
 
   const renderItem = ({ item, index }) => {
     const selectProgram = (item) => {
-      changeStore({...store, program:item});
+      changeStore({...store, program:item, page:'HistoryList'});
       if(title.includes("completed")) {
         navigation.navigate("PerformerHistoryDetail"); //Review Page
       } else {

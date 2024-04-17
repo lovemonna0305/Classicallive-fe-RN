@@ -148,29 +148,29 @@ export default function AccountProfile() {
       }
       formdata.append("is_changeImage", is_changeImage);
       console.log(formdata);
-      // changeStore({ ...store, isLoading: true });
-      // (async () => {
-      //   api.updateUser(formdata)
-      //     .then(res => {
-      //       changeStore({ ...store, isLoading: false });
-      //       changeStore({...store, currentUser:res.data.data.user})
-      //       console.log(res.data.data.user,);
-      //       Toast.show({
-      //         type: "success",
-      //         text1: t('success'),
-      //         text2: t('profile_updated'),
-      //       });
-      //     }).catch(err => {
-      //       changeStore({ ...store, isLoading: false });
-      //       // navigation.goBack();
-      //       console.log(err);
-      //       Toast.show({
-      //         type: "error",
-      //         text1: t('error'),
-      //         text2: t('server_error'),
-      //       });
-      //     });
-      // })();
+      changeStore({ ...store, isLoading: true });
+      (async () => {
+        api.updateUser(formdata)
+          .then(res => {
+            changeStore({ ...store, isLoading: false });
+            changeStore({...store, currentUser:res.data.data.user})
+            console.log(res.data.data.user,);
+            Toast.show({
+              type: "success",
+              text1: t('success'),
+              text2: t('profile_updated'),
+            });
+          }).catch(err => {
+            changeStore({ ...store, isLoading: false });
+            // navigation.goBack();
+            console.log(err);
+            Toast.show({
+              type: "error",
+              text1: t('error'),
+              text2: t('server_error'),
+            });
+          });
+      })();
     }
   };
 
@@ -283,7 +283,7 @@ export default function AccountProfile() {
                         ]}
                       ></View>
                       <TouchableOpacity
-                        onPress={openImagePicker}
+                        onPress={handleCameraLaunch}
                         style={{
                           // paddingTop: 15 ,
                           paddingVertical: 15,
@@ -306,7 +306,7 @@ export default function AccountProfile() {
                       </TouchableOpacity>
                       <View style={{ paddingTop: 15 }}>
                         <TouchableOpacity
-                          onPress={handleCameraLaunch}
+                          onPress={openImagePicker}
                           style={{
                             //  paddingTop: 15 ,
                             paddingVertical: 15,

@@ -4,7 +4,6 @@ import { server } from "../constants";
 
 const prefix = "/api";
 export const SERVER_URL = server.url + prefix;
-const API_BASE_URL = 'https://api.videosdk.live/v2';
 
 const jwtInterceoptor = axios.create({});
 
@@ -50,21 +49,6 @@ jwtInterceoptor.interceptors.response.use(
     }
   }
 );
-
-const createMeeting = async ({token}) => {
-  const url = `${API_BASE_URL}/rooms`;
-  const options = {
-    method: 'POST',
-    headers: {Authorization: token, 'Content-Type': 'application/json'},
-  };
-
-  const {roomId} = await fetch(url, options)
-    .then(response => response.json())
-    .catch(error => console.error('error', error));
-
-  console.log('room', roomId);
-  return roomId;
-};
 
 const login = (data) => {
   return axios.post(`${SERVER_URL}/auth/signin`, data, {
@@ -348,7 +332,6 @@ const getProfile = (id) =>
 
 
 export const api = {
-  createMeeting,
   login,
   getPrograms,
   getProgramsByPerformer,

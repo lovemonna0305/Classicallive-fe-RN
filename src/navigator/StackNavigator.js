@@ -50,7 +50,7 @@ import PerformerCustomerList from "../screens/Performer/CustomerList";
 
 import Profile from "../screens/common/Settings";
 import Language from "../screens/common/Language";
-import Privacy from "../screens/common/Privacy";
+import Legal from "../screens/common/Legal";
 import Notification from "../screens/common/Notification";
 import AccountProfile from "../screens/common/AccountProfile";
 import LiveChat from "../screens/common/LiveChat";
@@ -66,7 +66,6 @@ import Message from "../screens/common/Message";
 
 import PerformerCategoryList from "../screens/Performer/CategoryList";
 import PerformerHistoryList from "../screens/Performer/HistoryList";
-import Terms from "../screens/common/Terms";
 
 const Stack = createNativeStackNavigator();
 
@@ -284,14 +283,8 @@ export default function StackNavigator() {
               />
 
               <Stack.Screen
-                name="Privacy"
-                component={Privacy}
-                options={{ headerShown: false }}
-              />
-              
-              <Stack.Screen
-                name="Terms"
-                component={Terms}
+                name="Legal"
+                component={Legal}
                 options={{ headerShown: false }}
               />
               <Stack.Screen

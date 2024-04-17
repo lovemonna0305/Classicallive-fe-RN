@@ -110,6 +110,9 @@ dependencies {
     implementation("com.facebook.react:flipper-integration")
     implementation("com.google.android.material:material:1.3.7")
 
+    implementation project(':rnfgservice')
+    implementation project(':rnwebrtc')
+
     implementation project(':react-native-vector-icons')
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
 

@@ -1,4 +1,3 @@
-import theme from "../theme/theme";
 
 export const genderList = [
   {
@@ -43,4 +42,3 @@ export const images = {
   success: require("../../assets/img/success.png"),
   notification: require("../../assets/img/notification.svg"),
 }
-

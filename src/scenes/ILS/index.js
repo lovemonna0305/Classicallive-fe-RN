@@ -54,8 +54,6 @@ export default function Meeting() {
   const name = store.streaming.name ? store.streaming.name : 'Test User';
   const mode = store.streaming.mode ? store.streaming.mode : 'CONFERENCE';
 
-  console.log(store.streaming);
-
   return (
     <SafeAreaView
       style={{flex: 1, backgroundColor: colors.primary[900], padding: 12}}>
@@ -75,17 +73,19 @@ export default function Meeting() {
         <MeetingConsumer
           {...{
             onMeetingLeft: () => {
-                console.log('Left Meeting!!!')
-                // changeStore({ ...store, iscomplete: true, isLoading: true });
-                // (async () => {
-                //   completeProgram(program.id)
-                //     .then(points => {
-                //       currentUser.points += points;
-                //       changeStore({ ...store, isLoading: false, currentUser: currentUser, pPendingPoints: points });
-                //     }).catch(err => {
-                //       changeStore({ ...store, isLoading: false });
-                //     });
-                // })();
+              console.log('Left Meeting!!!')
+              if(currentUser.role_id==3){
+                changeStore({ ...store, iscomplete: true, isLoading: true });
+                (async () => {
+                  completeProgram(program.id)
+                    .then(points => {
+                      currentUser.points += points;
+                      changeStore({ ...store, isLoading: false, currentUser: currentUser, pPendingPoints: points });
+                    }).catch(err => {
+                      changeStore({ ...store, isLoading: false });
+                    });
+                })();
+              }
               navigation.navigate('HistoryList');
             },
           }}>

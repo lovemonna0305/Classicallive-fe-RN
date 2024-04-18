@@ -7,6 +7,7 @@ import {
   Dimensions,
   StatusBar,
   TextInput,
+  FlatList
 } from "react-native";
 import React, { useState, useContext, useEffect } from "react";
 import { AppBar, Spacer } from "@react-native-material/core";
@@ -26,6 +27,7 @@ const height = Dimensions.get("screen").height;
 import { server } from "../../constants";
 import Spinner from "../../components/Spinner";
 import { useStore } from "../../store/store";
+import { api } from "../../api";
 
 export default function Notification() {
   const { changeStore, store } = useStore();
@@ -34,19 +36,83 @@ export default function Notification() {
   const [darkMode, setDarkMode] = useState(false);
   const [notifications, setNotifications] = useState({});
 
+  const currentUser = store.currentUser;
+  const page = store.page;
+
   useEffect(() => {
-    changeStore({...store, isLoading:true});
+    changeStore({ ...store, isLoading: true });
     (async () => {
       await getNotifications()
-      .then(res=>{
-        setNotifications(res.notifications);
-        changeStore({...store, isLoading:false});
-      }).catch(err=>{
-        changeStore({...store, isLoading:false});
-      });
+        .then(res => {
+          setNotifications(res.notifications);
+          changeStore({ ...store, isLoading: false });
+        }).catch(err => {
+          changeStore({ ...store, isLoading: false });
+        });
     })();
- 
   }, []);
+
+  const renderItem = ({ item, index }) => {
+    const selectProgram = (select) => {
+      (async () => {
+        await api.readNotification(select.notification.id)
+          .then(res => {
+            if (res.data.success) {
+              changeStore({ ...store, isLoading: false, program: res.data.data, page:"Notification" });
+              if (currentUser.role_id == 3) {
+                navigation.navigate("CustomerList");
+              } else {
+                navigation.navigate("CustomerPostDetail");
+              }
+            } else {
+              changeStore({ ...store, isLoading: false });
+              console.log('error')
+            }
+          }).catch(err => {
+            changeStore({ ...store, isLoading: false });
+          });
+      })();
+    };
+    return (
+      <TouchableOpacity
+        key={index}
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          justifyContent: "center",
+          alignContent: "center",
+          backgroundColor: theme.itembackground,
+          margin: 10,
+          padding: 10,
+          borderRadius: 10,
+        }}
+        onPress={() => selectProgram(item)}>
+        <View style={{ marginHorizontal: 10 }}>
+          <Text
+            style={[style.subtitle, { width: width * 0.85, color: theme.txt, fontSize: 16 }]}
+          >
+            {item.member.name}
+          </Text>
+          <Text
+            style={[
+              style.subtxt,
+              {
+                width: width * 0.85,
+                color: theme.txt,
+                paddingTop: 5,
+                paddingRight: 5,
+              },
+            ]}
+          >
+            {(item.notification.content) ?? t("no_mes")}
+          </Text>
+          <Text style={[style.subtxt, { color: Colors.disable, }]}>
+            {item.notification.updated_at}
+          </Text>
+        </View>
+      </TouchableOpacity>
+    )
+  };
 
   return (
     <SafeAreaView style={[style.area, { backgroundColor: theme.bg }]}>
@@ -62,7 +128,7 @@ export default function Notification() {
         centerTitle={true}
         elevation={0}
         leading={
-          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <TouchableOpacity onPress={() => navigation.replace("Home")}>
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
@@ -77,79 +143,18 @@ export default function Notification() {
           <Spinner />
         )}
         {notifications && notifications.length > 0 ? (
-          <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-            {notifications.map((item, index) => (
-              <TouchableOpacity
-                key={index}
-                style={{
-                  flex: 1,
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignContent: "center",
-                  paddingTop: 20,
-                }}
-                onPress={() => {
-                  changeStore({ ...store, isLoading: true });
-                  navigation.navigate("LiveChat", {
-                    id: item.chat.id,
-                    member: item.member,
-                  });
-                }}
-              >
-                <Avatar.Image source={{ uri: server.media_url + item.member.image_file }} />
-                <View style={{ paddingLeft: 10 }}>
-                  <Text
-                    style={[style.subtitle, { width: 180, color: theme.txt, fontSize: 16 }]}
-                  >
-                    {item.member.name}
-                  </Text>
-                  <Text
-                    numberOfLines={1}
-                    style={[
-                      style.subtxt,
-                      {
-                        width: 210,
-                        color: Colors.disable,
-                        paddingTop: 8,
-                        paddingRight: 5,
-                      },
-                    ]}
-                  >
-                    {(item.chat.last_message) ?? t("no_mes")}
-                  </Text>
+          <View>
+            <FlatList
+              key={"notification"}
+              data={notifications}
+              keyExtractor={(item, index) => {
+                return index;
+              }}
+              showsHorizontalScrollIndicator={false}
+              renderItem={renderItem}
+            />
+          </View>
 
-                </View>
-
-                <View style={{ marginLeft: 10, width: width / 4, justifyContent: 'flex-end' }}>
-                  <View
-                    style={{
-                      backgroundColor: (item.chat.unreadMsg != 0) && "#FE970F",
-                      height: 20,
-                      width: 20,
-                      borderRadius: 20,
-                      alignSelf: "flex-end",
-                      marginTop: 8,
-                    }}
-                  >
-                    <View>
-                      <Text
-                        style={{
-                          textAlign: "center",
-                          color: Colors.secondary,
-                          fontSize: 12,
-                        }}
-                      >
-                        {(item.chat.unreadMsg != 0) ? item.chat.unreadMsg : ""}
-                      </Text>
-                    </View>
-                  </View>
-                  <Text style={[style.subtxt, { color: Colors.disable, textAlign: 'right' }]}>
-                    {item.chat.updated_at}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
         ) : (
           <View style={{ flex: 1, justifyContent: "center" }}>
             <Text

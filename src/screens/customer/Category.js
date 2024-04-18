@@ -110,7 +110,7 @@ export default function CustomerCategory({ route }) {
         centerTitle={true}
         elevation={0}
         leading={
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => navigation.replace("CategoryList")}>
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}

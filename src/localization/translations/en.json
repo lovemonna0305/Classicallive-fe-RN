@@ -550,6 +550,12 @@
   "live_starting":"Live Starting",
   "live_stopping":"Live Stopping",
   "stop_live":"Stop Live",
+  "please_wait":"Please Wait...",
+  "waiting_for_performer":"Waiting for performer",
+  "to_start_live_streaming":"to start the live streaming",
+  "host_has_stopped":"Host has stopped",
+  "live_streaming":"the live streaming",
+  "performer_not_created_service":"Performer not created service yet",
 
   "default":"default",
 

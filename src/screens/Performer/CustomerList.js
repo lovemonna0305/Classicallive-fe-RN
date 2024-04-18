@@ -40,6 +40,7 @@ export default function PerformerCustomerList() {
   const { t } = useTranslation();
   const ref = React.useRef(null);
   const theme = useContext(themeContext);
+  const page = store.page;
   const program = store.program;
   const [reservations, setReservations] = useState();
 
@@ -48,40 +49,40 @@ export default function PerformerCustomerList() {
   const [modalVisible, setModalVisible] = useState(false);
   const handledeleteProgram = () => {
     setModalDeleteVisible(false);
-    changeStore({...store, isLoading:true});
+    changeStore({ ...store, isLoading: true });
     deleteProgram(program.id)
-    .then(res=>{
-      if(res){
-        Toast.show({
-          type: "success",
-          text1: "Success",
-          text2: t('delete_success'),
-        });
-      } else {
-        Toast.show({
-          type: "info",
-          text1: "Infor",
-          text2: t('delete_already'),
-        });
-      }
-      changeStore({...store, isLoading:false});
-    }).catch(err=>{
-      changeStore({...store, isLoading:false});
-    });
+      .then(res => {
+        if (res) {
+          Toast.show({
+            type: "success",
+            text1: "Success",
+            text2: t('delete_success'),
+          });
+        } else {
+          Toast.show({
+            type: "info",
+            text1: "Infor",
+            text2: t('delete_already'),
+          });
+        }
+        changeStore({ ...store, isLoading: false });
+      }).catch(err => {
+        changeStore({ ...store, isLoading: false });
+      });
     navigation.replace('HistoryList');
   };
 
   const enterProgram = () => {
     // check
-    // var start_time = program.date +" "+ program.start_time;
-    // var end_time = program.date +" "+ program.end_time;
-    // var five_diff = Math.abs(new Date() - new Date(start_time.replace(/-/g,'/')));
-    // var end_diff = Math.abs(new Date() - new Date(end_time.replace(/-/g,'/')));
-    // if((program.status=="reserv")&&(program.status!="completed")&&(five_diff< 5 * 60 * 1000)&&(end_diff<0)) {
+    var start_time = program.date + " " + program.start_time;
+    var end_time = program.date + " " + program.end_time;
+    var five_diff = Math.abs(new Date() - new Date(start_time.replace(/-/g, '/')));
+    var end_diff = Math.abs(new Date() - new Date(end_time.replace(/-/g, '/')));
+    if ((program.status == "reserv") && (program.status != "completed") && (five_diff < 5 * 60 * 1000) && (end_diff < 0)) {
       navigation.navigate("PerformerProgramEnter");
-    // } else {
-    //   setModalVisible(true)
-    // }
+    } else {
+      setModalVisible(true)
+    }
   };
 
   return (
@@ -95,7 +96,14 @@ export default function PerformerCustomerList() {
           centerTitle={true}
           elevation={0}
           leading={
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            <TouchableOpacity onPress={() => {
+              if(page.includes("HistoryList")){
+                  console.log(page);
+                  navigation.replace(page);
+                } else {
+                  navigation.replace('Home');
+                }
+              }}>
               <Avatar.Icon
                 icon="arrow-left"
                 style={{ backgroundColor: theme.bg }}
@@ -237,8 +245,8 @@ export default function PerformerCustomerList() {
             </View>
           </View>
         </Modal>
-        {store.isLoading && <Spinner />}            
-        <FlatPerformerPage2 title={"customer"}  />
+        {store.isLoading && <Spinner />}
+        <FlatPerformerPage2 title={"customer"} />
       </View>
       <View style={[style.row, style.bottompage_container]}>
         <TouchableOpacity

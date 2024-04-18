@@ -46,6 +46,7 @@ export default function CustomerPostDetail() {
   const navigation = useNavigation();
 
   const program = store.program;
+  const page = store.page;
   const currentUser = store.currentUser;
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -212,7 +213,7 @@ export default function CustomerPostDetail() {
         elevation={0}
         leading={
           <TouchableOpacity onPress={() => {
-            navigation.goBack()
+            navigation.replace(page);
           }
           }>
             <Avatar.Icon
@@ -299,6 +300,7 @@ export default function CustomerPostDetail() {
                       <TouchableOpacity
                         style={[style.modalbtn_confirm, { marginRight: 5 }]}
                         onPress={() => {
+                          changeStore({ ...store, page: "CustomerPostDetail" });
                           navigation.navigate("CustomerPoints")
                           setModalVisible(false);
                         }}
@@ -445,8 +447,9 @@ export default function CustomerPostDetail() {
                 </View>
                 <TouchableOpacity
                   style={{ paddingRight: 5, paddingTop: 5 }}
-                  onPress={() => {
-                    navigation.navigate("CustomerPostList")
+                  onPress={async () => {
+                    await changeStore({ ...store, page:"CustomerPostDetail"});
+                    navigation.replace("CustomerPostList")
                   }
                   }
                 >

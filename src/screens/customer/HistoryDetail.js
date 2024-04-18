@@ -51,8 +51,9 @@ export default function CustomerHistoryDetail({ route }) {
   const navigation = useNavigation();
   const [meetingId, setMeetingId] = useState('');
 
-  const token = store.streaming.token;
   const streaming = store.streaming;
+  const token = streaming.token;
+  const page = store.page;
 
   const program = store.program;
   const currentUser = store.currentUser;
@@ -60,6 +61,7 @@ export default function CustomerHistoryDetail({ route }) {
   const [status, setStatus] = useState(program.reserv_status);
   const [modalCancelProgram, setModalCancelProgram] = useState(false);
   const [modalReserve, setModalReserve] = useState(false);
+  const [modalWatch, setModalWatch] = useState(false);
   // const { status } = route.params;
 
   useEffect(() => {
@@ -67,7 +69,6 @@ export default function CustomerHistoryDetail({ route }) {
     (async () => {
       (api.getMeetingID(program.id))
         .then(res => {
-          console.log(res.data.data.meetingId);
           setMeetingId(res.data.data.meetingId);
           changeStore({ ...store, isLoading: false });
         }).catch(res => {
@@ -227,26 +228,28 @@ export default function CustomerHistoryDetail({ route }) {
 
   const watchprogram = () => {
 
+    var start_time = program.date + " " + program.start_time;
+    var end_time = program.date + " " + program.end_time;
+    var five_diff = Math.abs(
+      new Date() - new Date(start_time.replace(/-/g, "/"))
+    );
+    var end_diff = Math.abs(new Date() - new Date(end_time.replace(/-/g, "/")));
 
-    // var start_time = program.date + " " + program.start_time;
-    // var end_time = program.date + " " + program.end_time;
-    // var five_diff = Math.abs(
-    //   new Date() - new Date(start_time.replace(/-/g, "/"))
-    // );
-    // var end_diff = Math.abs(new Date() - new Date(end_time.replace(/-/g, "/")));
-
-    // if (
-    //   program.status == "reserve" &&
-    //   program.status != "completed" &&
-    //   five_diff < 5 * 60 * 1000 &&
-    //   end_diff < 0
-    // ) {
+    if (
+      program.status == "reserve" &&
+      program.status != "completed" &&
+      five_diff < 5 * 60 * 1000 &&
+      end_diff < 0
+    ) {
       // Enter page
+      if(meetingId==null){
+        setModalWatch(true);
+        return ;
+      }
       naviagateToViewer();
-      // navigation.navigate("ProgramEnter");
-    // } else {
-    //   setModalVisible(true);
-    // }
+    } else {
+      setModalVisible(true);
+    }
   };
 
   const handleCancel = async () => {
@@ -296,8 +299,7 @@ export default function CustomerHistoryDetail({ route }) {
         elevation={0}
         leading={
           <TouchableOpacity onPress={() => {
-            changeStore({ ...store, page: "HistoryList" });
-            navigation.replace('HistoryList')
+            navigation.replace(page)
           }}>
             <Avatar.Icon
               icon="arrow-left"
@@ -393,6 +395,67 @@ export default function CustomerHistoryDetail({ route }) {
                     onPress={() => setModalReserve(false)}
                   >
                     <Text style={style.modalbtn_text}>{t("cancel")}</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </View>
+        </Modal>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalWatch}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalWatch(!modalWatch);
+          }}
+        >
+          <View
+            style={{
+              flex: 1,
+              width: width,
+              backgroundColor: "#000000aa",
+            }}
+          >
+            <View
+              style={[
+                style.modalcontainer,
+                {
+                  backgroundColor: theme.bg,
+                  width: width - 30,
+                  marginVertical: 170,
+                },
+              ]}
+            >
+              <View style={{ paddingHorizontal: 20, marginBottom: 10 }}>
+                <View style={{ paddingTop: 10, alignSelf: "center" }}>
+                  <Avatar.Icon
+                    icon="help"
+                    color="#FF4747"
+                    size={80}
+                    style={{
+                      borderWidth: 5,
+                      borderColor: "#FF4747",
+                      backgroundColor: theme.bg,
+                    }}
+                  />
+                </View>
+                <View style={{ paddingTop: 20 }}>
+                  <Text
+                    style={[
+                      style.subtxt,
+                      { color: Colors.disable, textAlign: "center" },
+                    ]}
+                  >
+                    {t("performer_not_created_service")}
+                  </Text>
+                </View>
+                <View style={style.modalbtn_container}>
+                  <TouchableOpacity
+                    style={[style.modalbtn_confirm, { marginLeft: 5 }]}
+                    onPress={() => setModalWatch(false)}
+                  >
+                    <Text style={style.modalbtn_text}>{t("ok")}</Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -534,7 +597,7 @@ export default function CustomerHistoryDetail({ route }) {
             <View style={{ paddingTop: 10 }}>
               <Image
                 source={{ uri: server.media_url + program.image_file }}
-                resizeMode="contain"
+                resizeMode="cover"
                 style={[style.img, { height: 200 }]}
               />
             </View>
@@ -591,8 +654,9 @@ export default function CustomerHistoryDetail({ route }) {
                 <TouchableOpacity
                   style={{ paddingRight: 5, paddingTop: 5 }}
                   onPress={() => {
+                    changeStore({ ...store, page:"CustomerHistoryDetail"});
                     getProgramsByPerformer(program.member.id);
-                    navigation.navigate("CustomerPostList");
+                    navigation.replace("CustomerPostList")
                   }}
                 >
                   <Image

@@ -77,7 +77,9 @@ export default function PerformerPostCreate() {
   );
   const [visible, setVisible] = useState(false);
 
-  useEffect(() => { }, []);
+  useEffect(() => { 
+    changeStore({ ...store, isLoading: false });
+  }, []);
 
   useEffect(() => {
     setSubCategoryItems([]);
@@ -294,11 +296,22 @@ export default function PerformerPostCreate() {
         (async () => {
           createProgram(formdata)
             .then(res => {
-              changeStore({ ...store, isLoading: false });
-              navigation.goBack();
+              if(res.data.success){
+                changeStore({ ...store, isLoading: false });
+                navigation.replace('Category');
+              } else {
+                changeStore({ ...store, isLoading: false });
+                changeStore({ ...store, isLoading: false });
+                Toast.show({
+                  type: "error",
+                  text1: t("error"),
+                  text2: t(res.data.message),
+                });
+                return;
+              }
             }).catch(err => {
               changeStore({ ...store, isLoading: false });
-              navigation.goBack();
+              console.log('error')
             });
         })();
       }
@@ -327,7 +340,7 @@ export default function PerformerPostCreate() {
         centerTitle={true}
         elevation={0}
         leading={
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => navigation.replace('Category')}>
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
@@ -339,7 +352,7 @@ export default function PerformerPostCreate() {
       />
 
       <View style={[style.main, { backgroundColor: theme.bg }]}>
-        {isLoading && <Spinner />}
+        {/* {isLoading && <Spinner />} */}
         <ScrollView
           showsVerticalScrollIndicator={false}
           nestedScrollEnabled={true}
@@ -637,7 +650,7 @@ export default function PerformerPostCreate() {
               <Image
                 source={{ uri: selectedImage }}
                 style={{ width: width / 2, height: width / 4 }}
-                resizeMode="stretch"
+                resizeMode="cover"
               />
               <View
                 style={{

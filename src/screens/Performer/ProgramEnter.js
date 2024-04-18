@@ -62,6 +62,7 @@ export default function PerformerProgramEnter() {
   const currentUser = store.currentUser;
   const program = store.program;
 
+  console.log(streaming);
   useEffect(() => {
     async function fetchData() {
       const _meetingId = await createMeeting({token});

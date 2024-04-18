@@ -17,6 +17,7 @@ import {convertRFValue} from '../../../styles/spacing';
 import {usePubSub, useMeeting} from '@videosdk.live/react-native-sdk';
 import ControlsOverlay from './ControlsOverlay';
 import {useNavigation} from '@react-navigation/native';
+import { t } from 'i18next';
 
 export default function ViewerContainer({
   localParticipantId,
@@ -191,7 +192,7 @@ export default function ViewerContainer({
             fontWeight: 'bold',
             marginTop: 12,
           }}>
-          Waiting for speaker
+          {t('waiting_for_performer')}
         </Text>
         <Text
           style={{
@@ -199,7 +200,7 @@ export default function ViewerContainer({
             color: colors.primary[100],
             fontWeight: 'bold',
           }}>
-          to start the live streaming
+            {t('to_start_live_streaming')}
         </Text>
         <TouchableOpacity
           onPress={() => {
@@ -240,7 +241,7 @@ export default function ViewerContainer({
             fontWeight: 'bold',
             marginTop: 12,
           }}>
-          Host has stopped
+          {t('host_has_stopped')}
         </Text>
         <Text
           style={{
@@ -248,7 +249,7 @@ export default function ViewerContainer({
             color: colors.primary[100],
             fontWeight: 'bold',
           }}>
-          the live streaming
+          {t('live_streaming')}
         </Text>
         <TouchableOpacity
           onPress={() => {

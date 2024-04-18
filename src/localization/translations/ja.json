@@ -534,6 +534,18 @@
   "password_updated_successfully": "パスワードが正常に更新されました。",
 
 
+  "go_live": "ライブ配信を開始する",
+  "live_starting": "ライブ配信が開始されます",
+  "live_stopping": "ライブ配信が停止されます",
+  "stop_live": "ライブ配信を停止する",
+  "please_wait": "お待ちください...",
+  "waiting_for_performer": "出演者を待っています",
+  "to_start_live_streaming": "ライブ配信を開始するために",
+  "host_has_stopped": "ホストが停止しました",
+  "live_streaming": "ライブ配信",
+  "performer_not_created_service":"パフォーマーはまだサービスを作成していません",
+
+
   "default":"default",
   "amount":"Amount"
 }

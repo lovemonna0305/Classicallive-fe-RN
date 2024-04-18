@@ -34,7 +34,7 @@ import Spinner from "../../components/Spinner";
 import { getPProgramsByCategory } from "../../actions/performer";
 import { useStore } from "../../store/store";
 
-export default function PerformerCategory({ route }) {
+export default function PerformerCategory() {
   const { changeStore, store } = useStore();
   const { t } = useTranslation();
   const theme = useContext(themeContext);
@@ -44,11 +44,11 @@ export default function PerformerCategory({ route }) {
   const [postItem, setPostItem] = useState();
   const [pCPrograms, setpCPrograms] = useState(global.pCPrograms);
   const [allparentcategories, setAllparentcategories] = useState(global.allparentcategories);
-  const { id, slug } = route.params;
+  const { id, slug } = store.category;
 
 
   useEffect(() => {
-    changeStore({...store, isLoading:true});
+    changeStore({...store, isLoading:true, page:'Category'});
     (async () => {
       try {
         const data = await getPProgramsByCategory(id);
@@ -105,7 +105,7 @@ export default function PerformerCategory({ route }) {
         centerTitle={true}
         elevation={0}
         leading={
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => navigation.replace('CategoryList')}>
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
@@ -186,7 +186,6 @@ export default function PerformerCategory({ route }) {
               >
                 <TouchableOpacity
                   onPress={() => {
-                    console.log(postItem.id);
                     let formdata = new FormData();
                     formdata.append("post_id", postItem.id);
                     dispatch(deleteProgram(formdata));
@@ -246,8 +245,10 @@ export default function PerformerCategory({ route }) {
         }}
       >
         <TouchableOpacity
-          onPress={() => navigation.navigate("PostCreate")}
-        >
+          onPress={() => {
+            changeStore({ ...store, isLoading: false });
+            navigation.navigate("PostCreate")}
+          }>
           <Avatar.Image
             source={images.plus}
             style={{ backgroundColor: "" }}

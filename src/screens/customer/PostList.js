@@ -40,6 +40,7 @@ export default function CustomerPostList() {
 
   const program = store.program;
   const currentUser = store.currentUser;
+  const page = store.page;
 
   const [programs, setPrograms] = useState({});
 
@@ -62,8 +63,10 @@ export default function CustomerPostList() {
     const selectProgram = (item) => {
       changeStore({ ...store, program: item });
       if (item.reserv_status.includes('canceled')) {
+        changeStore({ ...store, page:"Home"});
         navigation.navigate("CustomerPostDetail");
       } else {
+        changeStore({ ...store, page:"HistoryList"});
         navigation.navigate("CustomerHistoryDetail");
       }
     };
@@ -181,7 +184,9 @@ export default function CustomerPostList() {
         centerTitle={true}
         elevation={0}
         leading={
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => {
+            changeStore({ ...store, page:"HistoryList"});
+            navigation.replace(page)}}>
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}

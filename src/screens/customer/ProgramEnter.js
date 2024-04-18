@@ -120,33 +120,33 @@ export default function CustomerProgramEnter() {
             justifyContent: 'center',
           }}>
           <View style={{ marginHorizontal: 32, marginVertical: 40 }}>
-          <View
-                  style={{
-                    height: 50,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    backgroundColor: '#202427',
-                    borderRadius: 12,
-                    marginVertical: 12,
-                    // flexDirection: 'row',
-                  }}>
-                  <Text
-                    style={{
-                      color: '#ffffff',
-                      fontSize: 16,
-                      fontWeight: 'bold',
-                    }}>
-                    Token : {token}
-                  </Text>
-                  <Text
-                    style={{
-                      color: '#ffffff',
-                      fontSize: 16,
-                      fontWeight: 'bold',
-                    }}>
-                    Meeting Code : {meetingId}
-                  </Text>
-                </View>
+            <View
+              style={{
+                height: 50,
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: '#202427',
+                borderRadius: 12,
+                marginVertical: 12,
+                // flexDirection: 'row',
+              }}>
+              <Text
+                style={{
+                  color: '#ffffff',
+                  fontSize: 16,
+                  fontWeight: 'bold',
+                }}>
+                Token : {token}
+              </Text>
+              <Text
+                style={{
+                  color: '#ffffff',
+                  fontSize: 16,
+                  fontWeight: 'bold',
+                }}>
+                Meeting Code : {meetingId}
+              </Text>
+            </View>
 
             <TouchableOpacity onPress={() => naviagateToViewer()}>
               <View

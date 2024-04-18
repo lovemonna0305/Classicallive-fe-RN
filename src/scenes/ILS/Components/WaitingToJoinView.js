@@ -18,7 +18,7 @@ export default function WaitingToJoinView() {
           fontSize: convertRFValue(18),
           color: colors.primary[100],
         }}>
-          {t('creating_room')}
+          {t('please_wait')}
       </Text>
     </View>
   );

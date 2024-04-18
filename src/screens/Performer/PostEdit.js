@@ -87,7 +87,7 @@ export default function PerformerPostEdit() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    global.isLoading = false;
+    // global.isLoading = false;
     const cateIndex = categoryArray["category"].findIndex(
       (item) => item.value === program.category.parent_id
     );
@@ -248,7 +248,6 @@ export default function PerformerPostEdit() {
   };
 
   const handleEditPost = async () => {
-    global.isLoading = true;
     try {
       if (data.title === "") {
         Toast.show({
@@ -306,8 +305,18 @@ export default function PerformerPostEdit() {
         (async () => {
           updateProgram(formdata)
             .then(res => {
-              changeStore({ ...store, isLoading: false });
-              navigation.goBack();
+              if(res.data.success){
+                changeStore({ ...store, isLoading: false });
+                navigation.replace('Home');
+              } else {
+                changeStore({ ...store, isLoading: false });
+                Toast.show({
+                  type: "error",
+                  text1: t("error"),
+                  text2: t(res.data.message),
+                });
+                return;
+              }
             }).catch(err => {
               changeStore({ ...store, isLoading: false });
               navigation.goBack();
@@ -370,10 +379,11 @@ export default function PerformerPostEdit() {
             <View style={{ paddingTop: 8 }}>
               <TextInput
                 value={data.title}
+                editable={false}
                 placeholder={t("title")}
                 selectionColor={Colors.primary}
                 placeholderTextColor={Colors.disable}
-                style={[style.txtinput, { backgroundColor: theme.bg }]}
+                style={[style.txtinput, { backgroundColor: theme.bg , borderColor:Colors.disable}]}
                 onChangeText={(e) => setData({ ...data, title: e })}
               />
             </View>
@@ -646,7 +656,7 @@ export default function PerformerPostEdit() {
               <Image
                 source={{ uri: selectedImage }}
                 style={{ width: width / 2, height: width / 4 }}
-                resizeMode="stretch"
+                resizeMode="cover"
               />
               <View
                 style={{
@@ -792,7 +802,7 @@ export default function PerformerPostEdit() {
             </View>
             <View style={{ paddingVertical: 30 }}>
               <TouchableOpacity onPress={handleEditPost} style={style.btn}>
-                <Text style={style.btntxt}>{t("send")}</Text>
+                <Text style={style.btntxt}>{t("update")}</Text>
               </TouchableOpacity>
             </View>
           </View>

@@ -48,9 +48,7 @@ import { storage } from "../utils/storage";
 // export const loginGoogle = (data) => async (dispatch) => {
 //   global.isLoading=true;
 //   try {
-//     console.log("dispatch data", data);
 //     const res = await api.loginGoogle(data);
-//     console.log("Google Login status->");
 //     await storage.setItem("access_token", res.data.access_token);
 //     dispatch({ type: LOGIN_SUCCESS, payload: res.data.user });
 //   } catch (err) {
@@ -201,8 +199,6 @@ import { storage } from "../utils/storage";
 // export const setNumNotification = (numMessages, friendRequests) => async (dispatch) => {
 //     global.isLoading=true;
 //     try {
-//       console.log("Current Message Num->", numMessages);
-//       console.log("Friend Request->", friendRequests);
 
 //       let numNotification = 0;
 //       for await (let numMessage of numMessages) {
@@ -211,7 +207,7 @@ import { storage } from "../utils/storage";
 //       numNotification += friendRequests.length;
 //       dispatch({ type: SET_NUM_NOTIFICATION, payload: numNotification });
 //     } catch (err) {
-//       console.log(err);
+//       console.error(err);
 //     }
 //   };
 

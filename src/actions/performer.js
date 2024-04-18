@@ -85,34 +85,16 @@ export const rejectionReservation = async (id) => {
 };
 
 export const createProgram = async (data) => {
-  global.isLoading = true;
-  try {
-    const res = await api.createProgram(data);
-    if (res.data.success) {
-
-    } else {
-
-    }
-  } catch (err) {
-
-  }
+  const res = await api.createProgram(data);
+  return res;
 };
 
 export const updateProgram = async (data) => {
-  global.isLoading = true;
-  try {
-    const res = await api.updateProgram(data);
-    if (res.data.success) {
-
-    } else {
-
-    }
-  } catch (err) {
-
-  }
+  const res = await api.updateProgram(data);
+  return res;
 };
 
 export const deleteProgram = async (id) => {
-    const res = await api.deleteProgram(id);
-    return res.data.success;
+  const res = await api.deleteProgram(id);
+  return res.data.success;
 };

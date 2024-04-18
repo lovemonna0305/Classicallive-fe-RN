@@ -291,6 +291,7 @@ export default function PerformerPostCreate() {
           });
         }
         formdata.append("is_changeImage", is_changeImage);
+        console.log(formdata);
 
         changeStore({ ...store, isLoading: true });
         (async () => {
@@ -300,7 +301,6 @@ export default function PerformerPostCreate() {
                 changeStore({ ...store, isLoading: false });
                 navigation.replace('Category');
               } else {
-                changeStore({ ...store, isLoading: false });
                 changeStore({ ...store, isLoading: false });
                 Toast.show({
                   type: "error",

@@ -22,7 +22,7 @@ export const setMessageNotification = async (numMessages) => {
     }
     global.numNotification = numNotification;
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
@@ -30,7 +30,6 @@ export const setNumMessages = async () => {
   global.isLoading = true;
   try {
     const res = await api.unreadNumMessage();
-    // console.log('Current Message Num->', numMessages)
     // let numMessages = 0;
     // for await (let numMessage of data) {
     //   numMessages += numMessage.num
@@ -38,7 +37,7 @@ export const setNumMessages = async () => {
     // dispatch({ type: SET_NUM_MESSAGES, payload: { numMessages: numMessages, unReadMessages: data } });
     // dispatch({ type: SET_NUM_MESSAGES, payload: { numMessages: numMessages, unReadMessages: data } });
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
@@ -53,7 +52,7 @@ export const getChats = async () => {
       return [];
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
@@ -77,7 +76,7 @@ export const getChat = async (id, post_id) => {
     //   });
     // }
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
@@ -100,7 +99,7 @@ export const getAllCategories = async () => {
       console.log(res.data.success);
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
@@ -124,7 +123,7 @@ export const getPopularCategories = async () => {
       console.log(res.data.success);
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
@@ -148,7 +147,7 @@ export const getSubCategory = async (id) => {
       console.log(res.data.success);
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
@@ -166,6 +165,6 @@ export const setCategory = async (data) => {
   try {
     global.pCategory = data;
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };

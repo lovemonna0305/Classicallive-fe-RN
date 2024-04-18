@@ -81,6 +81,7 @@ export default function CustomerCategoryList() {
   };
   const renderItem2 = ({ item, index }) => {
     const lastItem = index === allparentcategories.length - 1;
+    console.log(server.category_url + item.image_file);
     const selectCategory = async (item) => {
       let formdata = new FormData();
       formdata.append("category", item.id);

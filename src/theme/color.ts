@@ -12,5 +12,17 @@ export const Colors = {
   bord: "#E3E7EC",
   footbackground:"#000000B2",
   warn: 'red',
-  itemback:'#1b2123'
+  itemback:'#1b2123',
+  primary1: {
+    100: "#FFFFFF",
+    200: "#EFEFEF",
+    300: "#DADADA",
+    400: "#818181",
+    500: "#6F767E",
+    600: "#404B53",
+    700: "#232830",
+    800: "#1A1C22",
+    900: "#050A0E",
+    primary: "#1F4690",
+  },
 };

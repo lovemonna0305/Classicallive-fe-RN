@@ -12,13 +12,14 @@ export const StoreProvider = ({ children }) => {
     program: {},
     pPendingPoints: 0,
     streaming:{
+      name:'Test User',
       token:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiI2YzU4Zjg2Zi0zNWUyLTQxZGQtOTZiOC00YzZlZjg1ZmNlMmEiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTcxMzI4OTU0NSwiZXhwIjoxNzEzODk0MzQ1fQ.3hEz2HdkP0PC2CE4wUCztbNeouGEzmkjwndBXfeh0UM',
       meetingId:'',
       micEnabled:'',
       webcamEnabled:'',
-      name:'Test User',
       mode:'CONFERENCE',
-    }
+    },
+    iscomplete:false,
   });
 
   const changeStore = (newStore) => {

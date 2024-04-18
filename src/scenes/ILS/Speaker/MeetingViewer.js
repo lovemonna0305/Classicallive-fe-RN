@@ -32,6 +32,7 @@ import ParticipantView from './ParticipantView';
 import RemoteParticipantPresenter from './RemoteParticipantPresenter';
 import VideosdkRPK from '../../../../VideosdkRPK';
 import Toast from 'react-native-simple-toast';
+import { useStore } from '../../../store/store';
 
 const MemoizedParticipant = React.memo(
   ParticipantView,
@@ -43,8 +44,11 @@ import {useOrientation} from '../../../utils/useOrientation';
 import ChatViewer from '../Components/ChatViewer';
 import {convertRFValue} from '../../../styles/spacing';
 import Blink from '../../../components/Blink';
+import { t } from 'i18next';
 
 export default function MeetingViewer({setlocalParticipantMode}) {
+  
+  const { changeStore, store } = useStore();
   const {
     localParticipant,
     participants,
@@ -77,6 +81,9 @@ export default function MeetingViewer({setlocalParticipantMode}) {
   const bottomSheetRef = useRef();
   const hlsRef = useRef();
   const orientation = useOrientation();
+
+  const currentUser = store.currentUser;
+  const program = store.program;
 
   const [bottomSheetView, setBottomSheetView] = useState('');
 
@@ -162,7 +169,9 @@ export default function MeetingViewer({setlocalParticipantMode}) {
     }
   };
 
-  usePubSub(`CHANGE_MODE_${localParticipant.id}`, {
+  
+  // usePubSub(`CHANGE_MODE_${localParticipant.id}`, {
+  usePubSub(`CHANGE_MODE`, {
     onMessageReceived: data => {
       const {message} = data;
       if (message.mode === 'VIEWER') {
@@ -201,20 +210,9 @@ export default function MeetingViewer({setlocalParticipantMode}) {
                 fontSize: 16,
                 color: colors.primary[100],
               }}>
-              {meetingId ? meetingId : 'xxx - xxx - xxx'}
+              {program.title}
             </Text>
-
-            <TouchableOpacity
-              style={{
-                justifyContent: 'center',
-                marginLeft: 10,
-              }}
-              onPress={() => {
-                Clipboard.setString(meetingId);
-                Toast.show('Meeting Id copied Successfully');
-              }}>
-              <Copy fill={colors.primary[100]} width={18} height={18} />
-            </TouchableOpacity>
+            
           </View>
         </View>
         <View style={{flexDirection: 'row'}}>
@@ -243,13 +241,13 @@ export default function MeetingViewer({setlocalParticipantMode}) {
                     color: colors.primary[100],
                   }}>
                   {hlsState === 'HLS_STARTED'
-                    ? `Live Starting`
+                    ? t('live_starting')
                     : hlsState === 'HLS_STOPPING'
-                    ? `Live Stopping`
+                    ? t('live_stopping')
                     : hlsState === 'HLS_STARTING'
-                    ? `Live Starting`
+                    ? t('live_starting')
                     : hlsState === 'HLS_PLAYABLE'
-                    ? 'Stop Live'
+                    ? t('stop_live')
                     : null}
                 </Text>
               </TouchableOpacity>
@@ -274,7 +272,7 @@ export default function MeetingViewer({setlocalParticipantMode}) {
                   fontSize: convertRFValue(12),
                   color: colors.primary[100],
                 }}>
-                Go Live
+                {t('go_live')}
               </Text>
             </TouchableOpacity>
           )}
@@ -413,7 +411,7 @@ export default function MeetingViewer({setlocalParticipantMode}) {
             return <Chat height={22} width={22} fill="#FFF" />;
           }}
         />
-        <IconContainer
+        {/* <IconContainer
           style={{
             borderWidth: 1.5,
             borderColor: '#2B3034',
@@ -428,7 +426,7 @@ export default function MeetingViewer({setlocalParticipantMode}) {
           Icon={() => {
             return <ScreenShare height={22} width={22} fill="#FFF" />;
           }}
-        />
+        /> */}
       </View>
       <BottomSheet
         sheetBackgroundColor={'#2B3034'}

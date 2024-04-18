@@ -1,24 +1,60 @@
-import React from 'react';
-import {SafeAreaView} from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  Modal,
+  Dimensions,
+  Platform,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Clipboard,
+} from "react-native";
+
+
+import React, { useState, useContext, useEffect } from "react";
+import theme from "../../theme/theme";
+import themeContext from "../../theme/themeContex";
+
 import colors from '../../styles/colors';
 import {
   MeetingProvider,
   MeetingConsumer,
 } from '@videosdk.live/react-native-sdk';
 import ILSContainer from './ILSContainer';
+import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 import {SCREEN_NAMES} from '../../navigators/screenNames';
+const width = Dimensions.get("screen").width;
+const height = Dimensions.get("screen").height;
+import { server } from "../../constants";
+import { useStore } from "../../store/store";
 
-export default function Meeting({navigation, route}) {
-  const token = route.params.token;
-  const meetingId = route.params.meetingId;
-  const micEnabled = route.params.micEnabled
-    ? route.params.webcamEnabled
+export default function Meeting() {
+  const { store } = useStore();
+  const { t } = useTranslation();
+  const theme = useContext(themeContext);
+  const navigation = useNavigation();
+
+  const token = store.streaming.token;
+  const currentUser = store.currentUser;
+  const program = store.program;
+  const pPendingPoints = store.pPendingPoints;
+  
+  const meetingId = store.streaming.meetingId;
+  const micEnabled = store.streaming.micEnabled
+    ? store.streaming.webcamEnabled
     : false;
-  const webcamEnabled = route.params.webcamEnabled
-    ? route.params.webcamEnabled
+  const webcamEnabled = store.streaming.webcamEnabled
+    ? store.streaming.webcamEnabled
     : false;
-  const name = route.params.name ? route.params.name : 'Test User';
-  const mode = route.params.mode ? route.params.mode : 'CONFERENCE';
+  const name = store.streaming.name ? store.streaming.name : 'Test User';
+  const mode = store.streaming.mode ? store.streaming.mode : 'CONFERENCE';
+
+  console.log(store.streaming);
 
   return (
     <SafeAreaView
@@ -30,16 +66,27 @@ export default function Meeting({navigation, route}) {
           webcamEnabled: webcamEnabled,
           name,
           mode, // "CONFERENCE" || "VIEWER"
-          notification: {
-            title: 'Video SDK Meeting',
-            message: 'Meeting is running.',
-          },
+          // notification: {
+          //   title: 'Video SDK Meeting',
+          //   message: 'Meeting is running.',
+          // },
         }}
         token={token}>
         <MeetingConsumer
           {...{
             onMeetingLeft: () => {
-              navigation.navigate(SCREEN_NAMES.Home);
+                console.log('Left Meeting!!!')
+                // changeStore({ ...store, iscomplete: true, isLoading: true });
+                // (async () => {
+                //   completeProgram(program.id)
+                //     .then(points => {
+                //       currentUser.points += points;
+                //       changeStore({ ...store, isLoading: false, currentUser: currentUser, pPendingPoints: points });
+                //     }).catch(err => {
+                //       changeStore({ ...store, isLoading: false });
+                //     });
+                // })();
+              navigation.navigate('HistoryList');
             },
           }}>
           {() => {

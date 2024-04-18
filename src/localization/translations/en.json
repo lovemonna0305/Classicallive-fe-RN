@@ -541,6 +541,16 @@
   "doesnt_match_password":"Conform password doesn't match.",
   "password_updated_successfully":"Password updated Successfully.",
 
+
+
+
+
+
+  "go_live":"Go Live",
+  "live_starting":"Live Starting",
+  "live_stopping":"Live Stopping",
+  "stop_live":"Stop Live",
+
   "default":"default",
 
   "amount":"Amount"

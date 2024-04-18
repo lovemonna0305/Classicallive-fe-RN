@@ -18,12 +18,15 @@ export default function Viewer_Home({navigation}) {
   const [meetingId, setMeetingId] = useState('lv95-q3kl-p544');
   const [token, setToken] = useState('');
 
-  React.useEffect(async () => {
-    navigation.setOptions({
-      title: 'Join as a viewer',
-    });
-    const token = await getToken();
-    setToken(token);
+  React.useEffect(() => {
+    async function fetchData() {
+      navigation.setOptions({
+        title: 'Join as a viewer',
+      });
+      const token = await getToken();
+      setToken(token);
+    }
+    fetchData();
   }, [navigation]);
 
   const naviagateToViewer = () => {

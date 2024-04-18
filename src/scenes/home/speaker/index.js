@@ -30,16 +30,19 @@ export default function Speaker_Home({navigation, route}) {
 
   const isCreator = route.params.isCreator;
 
-  React.useEffect(async () => {
-    navigation.setOptions({
-      title: isCreator ? 'Create a meeting' : 'Join as a speaker',
-    });
-    const token = await getToken();
-    setToken(token);
-    if (isCreator) {
-      const _meetingId = await createMeeting({token});
-      setMeetingId(_meetingId);
+  React.useEffect( () => {
+    async function fetchData() {
+      navigation.setOptions({
+        title: isCreator ? 'Create a meeting' : 'Join as a speaker',
+      });
+      const token = await getToken();
+      setToken(token);
+      if (isCreator) {
+        const _meetingId = await createMeeting({token});
+        setMeetingId(_meetingId);
+      }
     }
+    fetchData();
   }, [navigation]);
 
   useFocusEffect(

@@ -42,12 +42,17 @@ const height = Dimensions.get("screen").height;
 import { server } from "../../constants";
 import Spinner from "../../components/Spinner";
 import { useStore } from "../../store/store";
+import { api } from "../../api";
 
 export default function CustomerHistoryDetail({ route }) {
   const { changeStore, store } = useStore();
   const { t } = useTranslation();
   const theme = useContext(themeContext);
   const navigation = useNavigation();
+  const [meetingId, setMeetingId] = useState('');
+
+  const token = store.streaming.token;
+  const streaming = store.streaming;
 
   const program = store.program;
   const currentUser = store.currentUser;
@@ -56,6 +61,33 @@ export default function CustomerHistoryDetail({ route }) {
   const [modalCancelProgram, setModalCancelProgram] = useState(false);
   const [modalReserve, setModalReserve] = useState(false);
   // const { status } = route.params;
+
+  useEffect(() => {
+    changeStore({ ...store, isLoading: true });
+    (async () => {
+      (api.getMeetingID(program.id))
+        .then(res => {
+          console.log(res.data.data.meetingId);
+          setMeetingId(res.data.data.meetingId);
+          changeStore({ ...store, isLoading: false });
+        }).catch(res => {
+          changeStore({ ...store, isLoading: false });
+        })
+    })();
+  }, []);
+
+  const naviagateToViewer = () => {
+
+    streaming.name = currentUser.name.trim()
+    streaming.meetingId = meetingId;
+    streaming.mode = 'VIEWER';
+
+    changeStore({
+      ...store,
+      streaming: streaming
+    });
+    navigation.navigate('Meeting');
+  };
 
   const handlechat = () => {
     navigation.navigate("LiveChat", {
@@ -196,24 +228,25 @@ export default function CustomerHistoryDetail({ route }) {
   const watchprogram = () => {
 
 
-    var start_time = program.date + " " + program.start_time;
-    var end_time = program.date + " " + program.end_time;
-    var five_diff = Math.abs(
-      new Date() - new Date(start_time.replace(/-/g, "/"))
-    );
-    var end_diff = Math.abs(new Date() - new Date(end_time.replace(/-/g, "/")));
+    // var start_time = program.date + " " + program.start_time;
+    // var end_time = program.date + " " + program.end_time;
+    // var five_diff = Math.abs(
+    //   new Date() - new Date(start_time.replace(/-/g, "/"))
+    // );
+    // var end_diff = Math.abs(new Date() - new Date(end_time.replace(/-/g, "/")));
 
-    if (
-      program.status == "reserve" &&
-      program.status != "completed" &&
-      five_diff < 5 * 60 * 1000 &&
-      end_diff < 0
-    ) {
+    // if (
+    //   program.status == "reserve" &&
+    //   program.status != "completed" &&
+    //   five_diff < 5 * 60 * 1000 &&
+    //   end_diff < 0
+    // ) {
       // Enter page
-      navigation.navigate("ProgramEnter");
-    } else {
-      setModalVisible(true);
-    }
+      naviagateToViewer();
+      // navigation.navigate("ProgramEnter");
+    // } else {
+    //   setModalVisible(true);
+    // }
   };
 
   const handleCancel = async () => {

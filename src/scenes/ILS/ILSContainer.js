@@ -45,6 +45,12 @@ export default function ILSContainer({webcamEnabled}) {
           setJoined(true);
         }, 500);
       },
+      leave:()=>{
+        setJoined(false);
+      },
+      end:()=>{
+        setJoined(false);
+      }
     });
 
   useEffect(() => {
@@ -75,7 +81,7 @@ export default function ILSContainer({webcamEnabled}) {
       <MeetingViewer setlocalParticipantMode={setlocalParticipantMode} />
     ) : (
       <ViewerContainer
-        localParticipantId={localParticipant.id}
+        localParticipantId={localParticipant&&localParticipant.id}
         setlocalParticipantMode={setlocalParticipantMode}
       />
     )

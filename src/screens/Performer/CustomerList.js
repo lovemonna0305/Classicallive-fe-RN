@@ -73,15 +73,15 @@ export default function PerformerCustomerList() {
 
   const enterProgram = () => {
     // check
-    var start_time = program.date +" "+ program.start_time;
-    var end_time = program.date +" "+ program.end_time;
-    var five_diff = Math.abs(new Date() - new Date(start_time.replace(/-/g,'/')));
-    var end_diff = Math.abs(new Date() - new Date(end_time.replace(/-/g,'/')));
-    if((program.status=="reserv")&&(program.status!="completed")&&(five_diff< 5 * 60 * 1000)&&(end_diff<0)) {
+    // var start_time = program.date +" "+ program.start_time;
+    // var end_time = program.date +" "+ program.end_time;
+    // var five_diff = Math.abs(new Date() - new Date(start_time.replace(/-/g,'/')));
+    // var end_diff = Math.abs(new Date() - new Date(end_time.replace(/-/g,'/')));
+    // if((program.status=="reserv")&&(program.status!="completed")&&(five_diff< 5 * 60 * 1000)&&(end_diff<0)) {
       navigation.navigate("PerformerProgramEnter");
-    } else {
-      setModalVisible(true)
-    }
+    // } else {
+    //   setModalVisible(true)
+    // }
   };
 
   return (

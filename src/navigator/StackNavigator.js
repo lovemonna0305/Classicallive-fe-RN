@@ -47,6 +47,9 @@ import PerformerPostCreate from "../screens/Performer/PostCreate";
 import PerformerPostEdit from "../screens/Performer/PostEdit";
 import PerformerProgramEnter from "../screens/Performer/ProgramEnter";
 import PerformerCustomerList from "../screens/Performer/CustomerList";
+import ViewerHome from '../scenes/home/viewer'
+import SpeakerHome from '../scenes/home/speaker';
+import Meeting from '../scenes/ILS';
 
 import Profile from "../screens/common/Settings";
 import Language from "../screens/common/Language";
@@ -205,6 +208,17 @@ export default function StackNavigator() {
                     component={CustomerProgramEnter}
                     options={{ headerShown: false }}
                   />
+                  <Stack.Screen
+                    name="ViewerHome"
+                    component={ViewerHome}
+                    options={{ headerShown: false }}
+                  />
+                  
+                  <Stack.Screen
+                    name="Meeting"
+                    component={Meeting}
+                    options={{ headerShown: false }}
+                  />
                 </>
               ) : (
                 <>
@@ -243,6 +257,18 @@ export default function StackNavigator() {
                   <Stack.Screen
                     name="PerformerProgramEnter"
                     component={PerformerProgramEnter}
+                    options={{ headerShown: false }}
+                  />
+
+                  <Stack.Screen
+                    name="SpeakerHome"
+                    component={SpeakerHome}
+                    options={{ headerShown: false }}
+                  />
+
+                  <Stack.Screen
+                    name="Meeting"
+                    component={Meeting}
                     options={{ headerShown: false }}
                   />
                   <Stack.Screen

@@ -4,8 +4,24 @@ import { server } from "../constants";
 
 const prefix = "/api";
 export const SERVER_URL = server.url + prefix;
+const API_BASE_URL = 'https://api.videosdk.live/v2';
 
 const jwtInterceoptor = axios.create({});
+
+const createMeeting = async ({token}) => {
+  const url = `${API_BASE_URL}/rooms`;
+  const options = {
+    method: 'POST',
+    headers: {Authorization: token, 'Content-Type': 'application/json'},
+  };
+
+  const {roomId} = await fetch(url, options)
+    .then(response => response.json())
+    .catch(error => console.error('error', error));
+
+  console.log('room', roomId);
+  return roomId;
+};
 
 jwtInterceoptor.interceptors.request.use(async (config) => {
   let tokens = await storage.getItem("tokens");
@@ -164,6 +180,9 @@ const downpost = (id) => {
   return jwtInterceoptor.get(`${SERVER_URL}/customer/downpost/${id}`)
 }
 
+const getMeetingID = (id) => {
+  return jwtInterceoptor.get(`${SERVER_URL}/customer/getMeetingID/${id}`)
+}
 
 
 
@@ -215,6 +234,14 @@ const deleteProgram = (id) => {
 
 const getReservations = (id) => {
   return jwtInterceoptor.get(`${SERVER_URL}/performer/reservusers/${id}`);
+}
+
+const createMeetingID = (data) => {
+  return jwtInterceoptor.post(`${SERVER_URL}/performer/createMeetingID`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 }
 
 const completePProgram = (id) => {
@@ -336,6 +363,7 @@ const getProfile = (id) =>
 
 
 export const api = {
+  createMeeting,
   login,
   getPrograms,
   getProgramsByPerformer,
@@ -376,6 +404,8 @@ export const api = {
   createProgram,
   updateProgram,
   deleteProgram,
+  createMeetingID,
+  getMeetingID,
   completePProgram,
 
 

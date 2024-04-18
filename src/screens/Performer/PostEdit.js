@@ -307,7 +307,7 @@ export default function PerformerPostEdit() {
             .then(res => {
               if(res.data.success){
                 changeStore({ ...store, isLoading: false });
-                navigation.replace('Home');
+                navigation.replace('Category');
               } else {
                 changeStore({ ...store, isLoading: false });
                 Toast.show({

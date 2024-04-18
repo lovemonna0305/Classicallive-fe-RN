@@ -11,6 +11,10 @@ import {
   StatusBar,
   Modal,
   Dimensions,
+  Platform,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 
 import React, { useState, useContext, useEffect } from "react";
@@ -36,10 +40,20 @@ import {
   completeProgram,
 } from "../../actions/customer";
 import { getChat } from "../../actions/common";
+
+import { RTCView, mediaDevices } from '@videosdk.live/react-native-sdk';
+import { Copy, MicOff, MicOn, VideoOff, VideoOn } from '../../assets/icons';
+import TextInputContainer from '../../components/TextInputContainer';
+import Button from '../../components/Button';
+import colors from '../../styles/colors';
+import { useFocusEffect } from '@react-navigation/native';
+import Toast from 'react-native-simple-toast';
+
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
 import { server } from "../../constants";
 import { useStore } from "../../store/store";
+import { api } from "../../api";
 
 export default function CustomerProgramEnter() {
   const { changeStore, store } = useStore();
@@ -47,20 +61,25 @@ export default function CustomerProgramEnter() {
   const theme = useContext(themeContext);
   const navigation = useNavigation();
 
-  const program = store.program;
+  const [meetingId, setMeetingId] = useState('');
+
+  const token = store.streaming.token;
+  const streaming = store.streaming;
   const currentUser = store.currentUser;
+  const program = store.program;
 
   const [modalVisible, setModalVisible] = useState(false);
   const [modalCancelProgram, setModalCancelProgram] = useState(false);
 
   useEffect(() => {
-    changeStore({...store, isLoading:true});
+    changeStore({ ...store, isLoading: true });
     (async () => {
-      (completeProgram(program.id))
-      .then(res=>{
-        changeStore({...store, isLoading:false});
-      }).catch(res=>{
-        changeStore({...store, isLoading:false});
+      (api.getMeetingID(program.id))
+        .then(res => {
+          setMeetingId(res.data.data.meetingId);
+          changeStore({ ...store, isLoading: false });
+        }).catch(res => {
+          changeStore({ ...store, isLoading: false });
       })
     })();
   }, []);

@@ -76,6 +76,8 @@ export default function FlatPerformerPage2({ items, title }) {
   };
 
   const handleRejectionProgram = async () => {
+
+    setEdit(0);
     try {
       await rejectionReservation(item.id);
       fetchdata()
@@ -219,8 +221,10 @@ export default function FlatPerformerPage2({ items, title }) {
             >
               <TouchableOpacity
                 onPress={() => {
+                  setEdit(0);
                   setItem(item);
-                  setModalVisible(true);
+                  handleRejectionProgram();
+                  // setModalVisible(true);
                 }}
               >
                 <View
@@ -239,8 +243,9 @@ export default function FlatPerformerPage2({ items, title }) {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  setItem(item);
-                  setModalVisible1(true);
+                  // setItem(item);
+                  setEdit(0);
+                  // setModalVisible1(true);
                 }}
               >
                 <View

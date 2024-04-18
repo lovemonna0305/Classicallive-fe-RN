@@ -42,6 +42,6 @@ export const images = {
   plus: require("../../assets/img/plus.png"),
   edit: require("../../assets/img/edit.png"),
   success: require("../../assets/img/success.png"),
-  notification: require("../../assets/img/notification.svg"),
+  // notification: require("../../assets/img/notification.svg"),
 }
 

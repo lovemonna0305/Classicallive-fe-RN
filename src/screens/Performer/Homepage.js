@@ -47,7 +47,7 @@ export default function PerformerHomepage() {
 
 
   useEffect(() => {
-    changeStore({ ...store, isLoading: true });
+    changeStore({ ...store, isLoading: true,  });
     (async () => {
       await getPrograms(1)
         .then(res => {
@@ -69,7 +69,7 @@ export default function PerformerHomepage() {
   const renderItem1 = ({ item, index }) => {
     const lastItem = index === programs["after"].length - 1;
     const selectProgram = (item) => {
-      changeStore({...store, program:item});
+      changeStore({...store, program:item, page:'Home'});
       navigation.navigate("CustomerList");
     };
     return (
@@ -100,7 +100,7 @@ export default function PerformerHomepage() {
 
   const renderItem2 = ({ item, index }) => {
     const selectProgram = (item) => {
-      changeStore({...store, program:item});
+      changeStore({...store, program:item, page:'Home'});
       navigation.navigate("CustomerList");
     };
     return (
@@ -164,7 +164,7 @@ export default function PerformerHomepage() {
   };
   const renderItem3 = ({ item, index }) => {
     const selectProgram = (item) => {
-      changeStore({...store, program:item});
+      changeStore({...store, program:item, page:'Home'});
       navigation.navigate("CustomerList");
     };
     return (

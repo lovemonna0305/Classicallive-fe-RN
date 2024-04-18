@@ -387,6 +387,34 @@ export default function Settings() {
               left={(props) => (
                 <Icon1
                   {...props}
+                  name="shield-outline"
+                  color={theme.txt}
+                  size={26}
+                ></Icon1>
+              )}
+              right={(props) => (
+                <Icon1
+                  {...props}
+                  name="chevron-right"
+                  color={Colors.disable}
+                  size={26}
+                ></Icon1>
+              )}
+            />
+          </TouchableOpacity>
+          
+          <TouchableOpacity onPress={() => navigation.navigate("Terms")}>
+            <List.Item
+              title={t("help_support")}
+              titleStyle={{
+                color: theme.txt,
+                fontSize: 16,
+                fontWeight: "600",
+                fontFamily: "Plus Jakarta Sans",
+              }}
+              left={(props) => (
+                <Icon1
+                  {...props}
                   name="help-circle-outline"
                   color={theme.txt}
                   size={26}

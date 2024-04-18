@@ -60,10 +60,8 @@ export default function NewPassword({ route }) {
       formdata.append("email", email);
       formdata.append("password", data.password);
       changeStore({ ...store, isLoading: true });
-      console.log(formdata);
       await api.newpassword(formdata)
         .then(res => {
-          console.log(res.data)
           if (res.data.success) {
             Toast.show({
               type: "success",

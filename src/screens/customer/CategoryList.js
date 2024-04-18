@@ -33,7 +33,7 @@ export default function CustomerCategoryList() {
   const theme = useContext(themeContext);
 
   useEffect(() => {
-    changeStore({...store, isLoading:true});
+    changeStore({ ...store, isLoading: true , page:"CategoryList"});
     (async () => {
       await getAllParentCategories()
       await getPopularCategories()
@@ -57,9 +57,8 @@ export default function CustomerCategoryList() {
   const renderItem1 = ({ item, index }) => {
     const lastItem = index === popularcategories.length - 1;
     const selectCategory = async (item) => {
-      navigation.navigate("CustomerCategory", {
-        id: item.id,
-      });
+      changeStore({ ...store, category: item });
+      navigation.navigate("Category");
     };
     return (
       <TouchableOpacity
@@ -68,7 +67,7 @@ export default function CustomerCategoryList() {
       >
         <View>
           <Image
-            source={{ uri: server.media_url + item.image_file }}
+            source={{ uri: server.category_url + item.image_file }}
             style={{ width: 60, height: 60, borderRadius: 3 }}
           />
         </View>
@@ -87,9 +86,8 @@ export default function CustomerCategoryList() {
       formdata.append("category", item.id);
       getSubCategory(formdata);
       setCategory(item);
-      navigation.navigate("CustomerCategory",{
-        id: item.id,
-      });
+      changeStore({ ...store, category: item });
+      navigation.navigate("Category");
     };
     return (
       <TouchableOpacity
@@ -98,7 +96,7 @@ export default function CustomerCategoryList() {
       >
         <View>
           <Image
-            source={{ uri: server.media_url + item.image_file }}
+            source={{ uri: server.category_url + item.image_file }}
             style={{ width: 60, height: 60, borderRadius: 3 }}
           />
         </View>
@@ -130,7 +128,7 @@ export default function CustomerCategoryList() {
             {t("popular_category")}
           </Text>
         </View>
-        <View style={{ marginTop: 10, height: 200, marginHorizontal: 18 }}>
+        <View style={{ marginTop: 10, height: height*0.3, marginHorizontal: 18 }}>
           {popularcategories && popularcategories != 0 ? (
             <>
               <FlatList
@@ -174,7 +172,7 @@ export default function CustomerCategoryList() {
             {t("all_category")}
           </Text>
         </View>
-        <View style={{ marginTop: 10, height: 200, marginHorizontal: 18 }}>
+        <View style={{ marginTop: 10, height: height*0.3, marginHorizontal: 18 }}>
           {allparentcategories && allparentcategories != 0 ? (
             <>
               <FlatList

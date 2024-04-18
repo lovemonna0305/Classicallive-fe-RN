@@ -32,18 +32,19 @@ import { server } from "../../constants";
 import Spinner from "../../components/Spinner";
 import { useStore } from "../../store/store";
 
-export default function CustomerCategory({ route }) {
+export default function CustomerCategory() {
   const { changeStore, store } = useStore();
   const { t } = useTranslation();
   const theme = useContext(themeContext);
   const navigation = useNavigation();
 
   const currentUser = store.currentUser;
+  const page = store.page;
   const [cCPrograms, setCCPrograms] = useState({});
-  const { id } = route.params;
+  const { id, slug } = store.category;
 
   useEffect(() => {
-    changeStore({...store, isLoading:true});
+    changeStore({...store, page:'Category'});
     (async () => {
       await getCProgramsByCategory(id)
       .then(res=>{
@@ -69,7 +70,7 @@ export default function CustomerCategory({ route }) {
   const renderTabBar = (props) => (
     <TabBar
       {...props}
-      indicatorStyle={{ backgroundColor: "white" }}
+      indicatorStyle={{ backgroundColor: theme.txt }}
       style={{ backgroundColor: theme.bg }}
     />
   );
@@ -110,7 +111,8 @@ export default function CustomerCategory({ route }) {
         centerTitle={true}
         elevation={0}
         leading={
-          <TouchableOpacity onPress={() => navigation.replace("CategoryList")}>
+          <TouchableOpacity onPress={() => {
+            navigation.replace("CategoryList")}}>
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}

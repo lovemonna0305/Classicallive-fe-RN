@@ -59,6 +59,7 @@ export default function Settings() {
 
     await logout();
     await changeStore({
+      ...store,
       isLoggedin:false,
       showSplashScreen:false,
       role: ''

@@ -32,7 +32,7 @@ import {
 import CheckBox from "../../components/CheckBox";
 import Spinner from "../../components/Spinner";
 import { api } from "../../api";
-import { images } from "../../constants";
+import { images, videosdk } from "../../constants";
 import { useStore } from "../../store/store";
 import { getAllCategories, getAllParentCategories, getCategoryArray, getPopularCategories, setLoading } from "../../actions/common";
 
@@ -62,7 +62,15 @@ export default function Login() {
         // global.currentUser = res.data.data.user;
         // if (!check) {
         // }
-        changeStore({ ...store, currentUser: res.data.data.user, isLoggedin: true, isLoading: false, page:"Home" });
+        let streamingdata = {
+          name:'Test User',
+          token:videosdk.token,
+          meetingId:'',
+          micEnabled:'',
+          webcamEnabled:'',
+          mode:'CONFERENCE',
+        };
+        changeStore({ ...store, currentUser: res.data.data.user, isLoggedin: true, isLoading: false, page:"Home", streaming:streamingdata });
       } else {
         Toast.show({
           type: "error",

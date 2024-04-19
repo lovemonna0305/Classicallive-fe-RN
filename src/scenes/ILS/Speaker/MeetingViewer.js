@@ -361,7 +361,8 @@ export default function MeetingViewer({setlocalParticipantMode}) {
             return <CallEnd height={26} width={26} fill="#FFF" />;
           }}
           onPress={() => {
-            leaveMenu.current.show();
+            leave();
+            // leaveMenu.current.show();
           }}
         />
         <IconContainer

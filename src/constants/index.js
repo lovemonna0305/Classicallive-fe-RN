@@ -34,6 +34,10 @@ export const _pusher = {
   cluster:"ap1",
 }
 
+export const videosdk = {
+  token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiI2YzU4Zjg2Zi0zNWUyLTQxZGQtOTZiOC00YzZlZjg1ZmNlMmEiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTcxMzI4OTU0NSwiZXhwIjoxNzEzODk0MzQ1fQ.3hEz2HdkP0PC2CE4wUCztbNeouGEzmkjwndBXfeh0UM",
+}
+
 export const images = {
   sendmessage: require("../../assets/img/sendmessage.png"),
   media: require("../../assets/img/media.png"),

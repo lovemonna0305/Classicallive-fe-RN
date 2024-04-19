@@ -51,7 +51,7 @@ import Toast from 'react-native-simple-toast';
 
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
-import { server } from "../../constants";
+import { server, videosdk } from "../../constants";
 import { useStore } from "../../store/store";
 import { api } from "../../api";
 
@@ -63,7 +63,7 @@ export default function CustomerProgramEnter() {
 
   const [meetingId, setMeetingId] = useState('');
 
-  const token = store.streaming.token;
+  const token = videosdk.token;
   const streaming = store.streaming;
   const currentUser = store.currentUser;
   const program = store.program;

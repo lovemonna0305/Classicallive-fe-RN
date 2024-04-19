@@ -30,16 +30,17 @@ import { useTranslation } from "react-i18next";
 import {SCREEN_NAMES} from '../../navigators/screenNames';
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
-import { server } from "../../constants";
+import { server, videosdk } from "../../constants";
 import { useStore } from "../../store/store";
+import { completeProgram } from "../../actions/performer";
 
 export default function Meeting() {
-  const { store } = useStore();
+  const { store, changeStore } = useStore();
   const { t } = useTranslation();
   const theme = useContext(themeContext);
   const navigation = useNavigation();
 
-  const token = store.streaming.token;
+  const token = videosdk.token;
   const currentUser = store.currentUser;
   const program = store.program;
   const pPendingPoints = store.pPendingPoints;
@@ -64,16 +65,15 @@ export default function Meeting() {
           webcamEnabled: webcamEnabled,
           name,
           mode, // "CONFERENCE" || "VIEWER"
-          // notification: {
-          //   title: 'Video SDK Meeting',
-          //   message: 'Meeting is running.',
-          // },
+          notification: {
+            title: t('video_streaming'),
+            message: t('meeting_is_running'),
+          },
         }}
         token={token}>
         <MeetingConsumer
           {...{
             onMeetingLeft: () => {
-              console.log('Left Meeting!!!')
               if(currentUser.role_id==3){
                 changeStore({ ...store, iscomplete: true, isLoading: true });
                 (async () => {

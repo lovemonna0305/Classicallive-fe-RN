@@ -534,6 +534,9 @@
   "password_updated_successfully": "パスワードが正常に更新されました。",
 
 
+  "create_meeting":"会議の作成",
+  "video_streaming":"ビデオストリーミング",
+  "meeting_is_running":"会議は実行中です。",
   "go_live": "ライブ配信を開始する",
   "live_starting": "ライブ配信が開始されます",
   "live_stopping": "ライブ配信が停止されます",

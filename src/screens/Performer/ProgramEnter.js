@@ -37,7 +37,7 @@ import { createMeeting } from '../../api/api';
 
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
-import { server } from "../../constants";
+import { server, videosdk } from "../../constants";
 import { useStore } from "../../store/store";
 
 import {
@@ -58,11 +58,10 @@ export default function PerformerProgramEnter() {
   const [meetingId, setMeetingId] = useState('');
 
   const streaming = store.streaming;
-  const token = streaming.token;
+  const token = videosdk.token;
   const currentUser = store.currentUser;
   const program = store.program;
 
-  console.log(streaming);
   useEffect(() => {
     async function fetchData() {
       const _meetingId = await createMeeting({token});
@@ -71,7 +70,6 @@ export default function PerformerProgramEnter() {
       let formdata = new FormData();
       formdata.append("post_id", program.id);
       formdata.append("meetingId", _meetingId);
-      console.log(formdata);
 
       changeStore({ ...store, isLoading: true });
 

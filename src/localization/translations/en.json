@@ -546,6 +546,9 @@
 
 
 
+  "create_meeting":"Create Meeting",
+  "video_streaming":"Video Streaming",
+  "meeting_is_running":"Meeting is running.",
   "go_live":"Go Live",
   "live_starting":"Live Starting",
   "live_stopping":"Live Stopping",

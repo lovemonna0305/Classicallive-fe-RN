@@ -54,7 +54,6 @@ export default function CustomerHistoryDetail({ route }) {
   const [meetingId, setMeetingId] = useState('');
 
   const streaming = store.streaming;
-  const token = videosdk.token;
   const program = store.program;
   const currentUser = store.currentUser;
   const [modalVisible, setModalVisible] = useState(false);
@@ -262,15 +261,15 @@ export default function CustomerHistoryDetail({ route }) {
     await requestcancelProgram(program.id)
       .then(res => {
         if (res.data.success) {
-          currentUser.points += program.points;
-          changeStore({ ...store, currentUser: currentUser });
+          setStatus('request_cancel');
+          program.reserv_status = 'request_cancel';
+          changeStore({ ...store, program: program });
           Toast.show({
             type: "success",
             text1: t('success'),
             text2: t(res.data.message),
           });
           changeStore({ ...store, isLoading: false });
-          setStatus("canceled")
         }
         else {
           Toast.show({

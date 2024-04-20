@@ -85,6 +85,10 @@ const getProgramsByPerformer = (id) => {
 const reservProgram = (id) => {
   return jwtInterceoptor.get(`${SERVER_URL}/customer/reserve/${id}`);
 };
+const requestcancelProgram = (id) => {
+  return jwtInterceoptor.get(`${SERVER_URL}/customer/requestcancel/${id}`);
+};
+
 const cancelProgram = (id) => {
   return jwtInterceoptor.get(`${SERVER_URL}/customer/cancel/${id}`);
 };
@@ -391,6 +395,7 @@ export const api = {
   getReservations,
   getPerformer,
   reservProgram,
+  requestcancelProgram,
   cancelProgram,
   completeCProgram,
 

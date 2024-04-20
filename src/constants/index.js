@@ -12,16 +12,17 @@ export const genderList = [
 ];
 
 export const server = {
-  // url:"https://classical613.xsrv.jp",
-  // member_url:"https://classical613.xsrv.jp/uploads/member/",
-  // media_url:"https://classical613.xsrv.jp/uploads/media/",
-  // default_url:"https://classical613.xsrv.jp/uploads/default/",
+  url:"https://classical613.xsrv.jp",
+  member_url:"https://classical613.xsrv.jp/uploads/member/",
+  media_url:"https://classical613.xsrv.jp/uploads/media/",
+  default_url:"https://classical613.xsrv.jp/uploads/default/",
+  category_url:"https://classical613.xsrv.jp/uploads/category/",
 
-  url:"http://192.168.145.168:8000",
-  member_url:"http://192.168.145.168:8000/uploads/member/",
-  media_url:"http://192.168.145.168:8000/uploads/media/",
-  default_url:"http://192.168.145.168:8000/uploads/default/",
-  category_url:"http://192.168.145.168:8000/uploads/category/",
+  // url:"http://192.168.145.168:8000",
+  // member_url:"http://192.168.145.168:8000/uploads/member/",
+  // media_url:"http://192.168.145.168:8000/uploads/media/",
+  // default_url:"http://192.168.145.168:8000/uploads/default/",
+  // category_url:"http://192.168.145.168:8000/uploads/category/",
 }
 
 export const _stripe = {
@@ -35,7 +36,7 @@ export const _pusher = {
 }
 
 export const videosdk = {
-  token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiI2YzU4Zjg2Zi0zNWUyLTQxZGQtOTZiOC00YzZlZjg1ZmNlMmEiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTcxMzI4OTU0NSwiZXhwIjoxNzEzODk0MzQ1fQ.3hEz2HdkP0PC2CE4wUCztbNeouGEzmkjwndBXfeh0UM",
+  token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiIwMWU3Y2I3My05OTFlLTQ2NTAtYTIzYy03MTQwOWE3NWQ3MTMiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTcxMzUzMjM4OSwiZXhwIjoxNzE0MTM3MTg5fQ.7qmseUzIcEEELb5HPE4rfq18q6uceNZ8NOrTLkcITm0",
 }
 
 export const images = {

@@ -33,6 +33,7 @@ import { launchCamera } from "react-native-image-picker";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import CheckBox from "../../components/CheckBox";
 import { useStore } from "../../store/store";
+import moment from "moment";
 
 
 const width = Dimensions.get("screen").width;
@@ -56,12 +57,12 @@ export default function PerformerPostCreate() {
     category: 0,
     subcategory: 0,
     points: "",
-    date: "", // Choose date
-    start_time: "", // Choose time
-    end_time: "", // Choose time,
-    d_date: new Date(), // Choose date
-    d_start_time: new Date(), // Choose time
-    d_end_time: new Date(), // Choose time
+    date: moment(new Date()).utcOffset('+0900').format('YYYY-MM-DD'), // Choose date
+    start_time: moment(new Date()).utcOffset('+0900').format('HH:mm'), // Choose time
+    end_time: moment(new Date()).utcOffset('+0900').format('HH:mm'), // Choose time,
+    d_date: new Date(moment(new Date()).utcOffset('+0900').format('YYYY-MM-DD HH:mm')), // Choose date
+    d_start_time: new Date(moment(new Date()).utcOffset('+0900').format('YYYY-MM-DD HH:mm')), // Choose time
+    d_end_time: new Date(moment(new Date()).utcOffset('+0900').format('YYYY-MM-DD HH:mm')), // Choose time
     is_chat: false,
     description: "", // Choose time
   });
@@ -109,7 +110,7 @@ export default function PerformerPostCreate() {
 
   const handleConfirm = (date) => {
     hideDatePicker();
-    var currentDate = new Date();
+    var currentDate = new Date(moment(new Date()).utcOffset('+0900').format('YYYY-MM-DD HH:mm'));
     const datetime = new Date(date);
     const day = datetime.getDate(); // Get the day (1-31)
     const month = datetime.getMonth(); // Get the month (0-11)
@@ -311,7 +312,7 @@ export default function PerformerPostCreate() {
               }
             }).catch(err => {
               changeStore({ ...store, isLoading: false });
-              console.log('error')
+              console.log(err)
             });
         })();
       }
@@ -335,7 +336,7 @@ export default function PerformerPostCreate() {
 
       <AppBar
         color={theme.bg}
-        title="Create Post"
+        title={t('post_program')}
         titleStyle={{ color: theme.txt }}
         centerTitle={true}
         elevation={0}

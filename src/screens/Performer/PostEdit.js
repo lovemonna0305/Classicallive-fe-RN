@@ -33,6 +33,8 @@ import { launchCamera } from "react-native-image-picker";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { getPrograms, updateProgram } from "../../actions/performer";
 import { getPProgramsByCategory } from "../../actions/performer";
+import moment from "moment";
+
 
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
@@ -87,7 +89,7 @@ export default function PerformerPostEdit() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    // global.isLoading = false;
+    console.log(moment(new Date()).utcOffset('+0900').format('YYYY-MM-DD HH:mm'));   
     const cateIndex = categoryArray["category"].findIndex(
       (item) => item.value === program.category.parent_id
     );
@@ -117,7 +119,7 @@ export default function PerformerPostEdit() {
 
   const handleConfirm = (date) => {
     hideDatePicker();
-    var currentDate = new Date();
+    var currentDate = new Date(moment(new Date()).utcOffset('+0900').format('YYYY-MM-DD HH:mm'));
     const datetime = new Date(date);
     const day = datetime.getDate(); // Get the day (1-31)
     const month = datetime.getMonth(); // Get the month (0-11)

@@ -18,8 +18,8 @@ const languageDetectorPlugin = {
                     //if language was stored before, use this language in the app
                     return callback(language);
                 } else {
-                    //if language was not stored yet, use english
-                    return callback("en");
+                    //if language was not stored yet, use Japanese
+                    return callback("ja");
                 }
             });
         } catch (error) {
@@ -46,7 +46,7 @@ i18n.use(initReactI18next).use(languageDetectorPlugin).init({
     resources,
     compatibilityJSON: 'v3',
     // fallback language is set to english
-    fallbackLng: "en",
+    fallbackLng: "ja",
     interpolation: {
         escapeValue: false,
     },

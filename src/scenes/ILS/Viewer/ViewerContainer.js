@@ -205,7 +205,7 @@ export default function ViewerContainer({
         <TouchableOpacity
           onPress={() => {
             leave();
-            navigation.goBack();
+            // navigation.goBack();
           }}
           style={{
             height: 30,
@@ -254,7 +254,7 @@ export default function ViewerContainer({
         <TouchableOpacity
           onPress={() => {
             leave();
-            navigation.goBack();
+            // navigation.goBack();
           }}
           style={{
             height: 30,

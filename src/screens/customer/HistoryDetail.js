@@ -35,6 +35,7 @@ import {
   getPrograms,
   getProgramsByPerformer,
   reservProgram,
+  requestcancelProgram,
 } from "../../actions/customer";
 import { getChat, getReviewsByPost, setLoading } from "../../actions/common";
 const width = Dimensions.get("screen").width;
@@ -43,6 +44,7 @@ import { server, videosdk } from "../../constants";
 import Spinner from "../../components/Spinner";
 import { useStore } from "../../store/store";
 import { api } from "../../api";
+import moment from "moment";
 
 export default function CustomerHistoryDetail({ route }) {
   const { changeStore, store } = useStore();
@@ -55,7 +57,7 @@ export default function CustomerHistoryDetail({ route }) {
   const token = videosdk.token;
   const program = store.program;
   const currentUser = store.currentUser;
-    const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const [status, setStatus] = useState(program.reserv_status);
   const [modalCancelProgram, setModalCancelProgram] = useState(false);
   const [modalReserve, setModalReserve] = useState(false);
@@ -105,7 +107,7 @@ export default function CustomerHistoryDetail({ route }) {
         setStatus("reserved")
         Toast.show({
           type: "success",
-          text1: "Success",
+          text1: t('success'),
           text2: t("reserve_success"),
         });
       }).catch((err) => {
@@ -121,20 +123,20 @@ export default function CustomerHistoryDetail({ route }) {
         if (res.includes("yes")) {
           Toast.show({
             type: "success",
-            text1: "Success",
+            text1: t('success'),
             text2: t('user_follow'),
           });
         } else {
           Toast.show({
             type: "success",
-            text1: "Success",
+            text1: t('success'),
             text2: t('not_user_follow'),
           });
         }
       }).catch(err => {
         Toast.show({
           type: "error",
-          text1: "Error",
+          text1: t('error'),
           text2: t('server_error'),
         });
       })
@@ -148,20 +150,20 @@ export default function CustomerHistoryDetail({ route }) {
         if (res.includes("yes")) {
           Toast.show({
             type: "success",
-            text1: "Success",
+            text1: t('success'),
             text2: t('post_like'),
           });
         } else {
           Toast.show({
             type: "success",
-            text1: "Success",
+            text1: t('success'),
             text2: t('not_post_like'),
           });
         }
       }).catch(err => {
         Toast.show({
           type: "error",
-          text1: "Error",
+          text1: t('error'),
           text2: t('server_error'),
         });
       });
@@ -174,20 +176,20 @@ export default function CustomerHistoryDetail({ route }) {
         if (res.includes("yes")) {
           Toast.show({
             type: "success",
-            text1: "Success",
+            text1: t('success'),
             text2: t('post_up'),
           });
         } else {
           Toast.show({
             type: "success",
-            text1: "Success",
+            text1: t('success'),
             text2: t('not_post_up'),
           });
         }
       }).catch(err => {
         Toast.show({
           type: "error",
-          text1: "Error",
+          text1: t('error'),
           text2: t('server_error'),
         });
       });
@@ -200,20 +202,20 @@ export default function CustomerHistoryDetail({ route }) {
         if (res.includes("yes")) {
           Toast.show({
             type: "success",
-            text1: "Success",
+            text1: t('success'),
             text2: t('post_down'),
           });
         } else {
           Toast.show({
             ttype: "success",
-            text1: "Success",
+            text1: t('success'),
             text2: t('not_post_down'),
           });
         }
       }).catch(err => {
         Toast.show({
           type: "error",
-          text1: "Error",
+          text1: t('error'),
           text2: t('server_error'),
         });
       });
@@ -227,42 +229,45 @@ export default function CustomerHistoryDetail({ route }) {
   const watchprogram = () => {
 
 
-    // var start_time = program.date + " " + program.start_time;
-    // var end_time = program.date + " " + program.end_time;
-    // var five_diff = Math.abs(
-    //   new Date() - new Date(start_time.replace(/-/g, "/"))
-    // );
-    // var end_diff = Math.abs(new Date() - new Date(end_time.replace(/-/g, "/")));
+    const currentdate = moment(moment(new Date()).utcOffset('+0900').format('YYYY-MM-DD HH:mm'))
 
-    // if (
-    //   program.status == "reserve" &&
-    //   program.status != "completed" &&
-    //   five_diff < 5 * 60 * 1000 &&
-    //   end_diff < 0
-    // ) {
-      // Enter page
-      if(meetingId==null){
-        setModalWatch(true);
-        return ;
+    var start_time = moment(program.date + " " + program.start_time);
+    var end_time = moment(program.date + " " + program.end_time);
+    const five_diff = start_time.diff(currentdate,'minutes');
+    const end_diff = end_time.diff(currentdate,'minutes');
+    if (five_diff < 6) {
+      if(end_diff>0) {
+        //  Enter page
+        if(meetingId==null){
+          setModalWatch(true);
+          return ;
+        }
+        naviagateToViewer();
+      } else {
+        Toast.show({
+          type: "error",
+          text1: t('error'),
+          text2: t('program_completed_already'),
+        });
       }
-      naviagateToViewer();
-    // } else {
-    //   setModalVisible(true);
-    // }
+     
+    } else {
+      setModalVisible(true);
+    }
   };
 
   const handleCancel = async () => {
     setModalCancelProgram(false);
     changeStore({ ...store, isLoading: true });
-    await cancelProgram(program.id)
+    await requestcancelProgram(program.id)
       .then(res => {
-        if (res) {
+        if (res.data.success) {
           currentUser.points += program.points;
           changeStore({ ...store, currentUser: currentUser });
           Toast.show({
             type: "success",
-            text1: "Success",
-            text2: t("cancel_success"),
+            text1: t('success'),
+            text2: t(res.data.message),
           });
           changeStore({ ...store, isLoading: false });
           setStatus("canceled")
@@ -270,8 +275,8 @@ export default function CustomerHistoryDetail({ route }) {
         else {
           Toast.show({
             type: "error",
-            text1: "Error",
-            text2: "Error",
+            text1: t('error'),
+            text2: t(res.data.message),
           });
           changeStore({ ...store, isLoading: false });
         }
@@ -298,7 +303,7 @@ export default function CustomerHistoryDetail({ route }) {
         elevation={0}
         leading={
           <TouchableOpacity onPress={() => {
-            navigation.replace(page)
+            navigation.goBack();
           }}>
             <Avatar.Icon
               icon="arrow-left"
@@ -653,7 +658,7 @@ export default function CustomerHistoryDetail({ route }) {
                 <TouchableOpacity
                   style={{ paddingRight: 5, paddingTop: 5 }}
                   onPress={() => {
-                    changeStore({ ...store, page:"CustomerHistoryDetail"});
+                    changeStore({ ...store, page: "CustomerHistoryDetail" });
                     getProgramsByPerformer(program.member.id);
                     navigation.replace("CustomerPostList")
                   }}
@@ -809,7 +814,7 @@ export default function CustomerHistoryDetail({ route }) {
                 {program.description}
               </Text>
             </View>
-            {(!status.includes("complete"))&&(!program.is_past) && (
+            {(!status.includes("complete")) && (!program.is_past) && (
               <View style={{ paddingTop: 10 }}>
                 <View
                   style={[
@@ -817,7 +822,7 @@ export default function CustomerHistoryDetail({ route }) {
                     { justifyContent: "center", alignItems: "center" },
                   ]}
                 >
-                  {(status.includes("reserv")) && <View style={{ flex: 1, justifyContent: "center" }}>
+                  {(status.includes("reserv") || status.includes("request_cancel")) && <View style={{ flex: 1, justifyContent: "center" }}>
                     <TouchableOpacity onPress={() => watchprogram()}>
                       <View
                         style={{
@@ -931,27 +936,27 @@ export default function CustomerHistoryDetail({ route }) {
               </>
             )}
           </TouchableOpacity>
-          {!status.includes("complete")?(
+          {!status.includes("complete") ? (
             <>
-            <TouchableOpacity
-              style={{ alignItems: "center", justifyContent: "center" }}
-              onPress={() => handleReview()}
-              disabled={true}
-            >
-              <Icon name="arrow-right" size={20} color={Colors.disable} />
-              <Text style={[style.activetext,{color:Colors.disable}]}>{t("review")}</Text>
-            </TouchableOpacity>
-            </>):(
-              <>
-                <TouchableOpacity
-                  style={{ alignItems: "center", justifyContent: "center" }}
-                  onPress={() => handleReview()}
-                >
-                  <Icon name="arrow-right" size={20} color={theme.txt} />
-                  <Text style={style.activetext}>{t("review")}</Text>
-                </TouchableOpacity>
-              </>
-            )}
+              <TouchableOpacity
+                style={{ alignItems: "center", justifyContent: "center" }}
+                onPress={() => handleReview()}
+                disabled={true}
+              >
+                <Icon name="arrow-right" size={20} color={Colors.disable} />
+                <Text style={[style.activetext, { color: Colors.disable }]}>{t("review")}</Text>
+              </TouchableOpacity>
+            </>) : (
+            <>
+              <TouchableOpacity
+                style={{ alignItems: "center", justifyContent: "center" }}
+                onPress={() => handleReview()}
+              >
+                <Icon name="arrow-right" size={20} color={theme.txt} />
+                <Text style={style.activetext}>{t("review")}</Text>
+              </TouchableOpacity>
+            </>
+          )}
         </View>
       </View>
     </SafeAreaView>

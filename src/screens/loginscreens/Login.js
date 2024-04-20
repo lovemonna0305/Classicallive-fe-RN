@@ -74,7 +74,7 @@ export default function Login() {
       } else {
         Toast.show({
           type: "error",
-          text1: "Error",
+          text1: t('error'),
           text2: t(res.data.message),
         });
         changeStore({ ...store, isLoading: false });
@@ -82,16 +82,16 @@ export default function Login() {
     } catch (err) {
       Toast.show({
         type: "error",
-        text1: "Error",
-        text2: "No Server!",
+        text1: t('error'),
+        text2: t('server_error'),
       });
       changeStore({ ...store, isLoading: false });
     }
   };
 
   useEffect(() => {
-    setEmail("performer@gmail.com");
-    setPassword("123123");
+    // setEmail("customer1@gmail.com");
+    // setPassword("123123");
     // console.log("global.isRemember",global.isRemember);
     // console.log("global.tokens",global.tokens);
     // console.log("global.currentUser",global.currentUser);

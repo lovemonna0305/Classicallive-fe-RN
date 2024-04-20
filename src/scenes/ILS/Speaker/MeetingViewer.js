@@ -328,8 +328,8 @@ export default function MeetingViewer({setlocalParticipantMode}) {
         menuBackgroundColor={colors.primary[700]}
         placement="left">
         <MenuItem
-          title={'Leave'}
-          description={'Only you will leave the call'}
+          title={t('leave')}
+          description={t('only_you_will_leave')}
           icon={<Leave width={22} height={22} />}
           onPress={() => {
             leave();
@@ -342,10 +342,11 @@ export default function MeetingViewer({setlocalParticipantMode}) {
           }}
         />
         <MenuItem
-          title={'End'}
-          description={'End call for all participants'}
+          title={t('end')}
+          description={t('end_call_for_all')}
           icon={<EndForAll />}
           onPress={() => {
+            changeStore({ ...store, iscomplete: true });
             end();
           }}
         />
@@ -361,8 +362,7 @@ export default function MeetingViewer({setlocalParticipantMode}) {
             return <CallEnd height={26} width={26} fill="#FFF" />;
           }}
           onPress={() => {
-            leave();
-            // leaveMenu.current.show();
+            leaveMenu.current.show();
           }}
         />
         <IconContainer

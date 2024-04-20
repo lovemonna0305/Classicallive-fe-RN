@@ -43,6 +43,7 @@
   "choose_picture": "Choose Picture",
   "camera": "Camera",
   "gallery": "Gallery",
+  "ok": "Ok",
   "cancel": "Cancel",
   "yes": "Yes",
   "no": "No",
@@ -169,6 +170,7 @@
   "colorful_bouquet": "Colorful Bouquet",
   "bouquet": "Bouquet",
   "payment_done": "Your payment was done successfully.",
+  "success": "Success",
   "payment_failed": "The payment failed.",
   "error": "Error",
   "choose_": "Choose...",
@@ -438,6 +440,11 @@
   "contract_list":"Contact List",
   "reserv_sure": "Are you Sure Reserve Program?",
   "cancel_sure": "Are you Sure Cancel Program?",
+  "request_cancel": "Request cancel",
+  "you_already_request_cancel": "You already request cancel the Program.",
+  "request_cancel_program_successfully": "You requst cancel program successfully.",
+  "program_completed_already": "Program was completed already.",
+  
   "description":"Description",
   "enter_your_description":"Enter your description",
 
@@ -559,6 +566,10 @@
   "host_has_stopped":"Host has stopped",
   "live_streaming":"the live streaming",
   "performer_not_created_service":"Performer not created service yet",
+  "end":"End",
+  "end_call_for_all":"End call for all participants",
+  "leave":"Leave",
+  "only_you_will_leave":"Only you will leave the call",
 
   "default":"default",
 

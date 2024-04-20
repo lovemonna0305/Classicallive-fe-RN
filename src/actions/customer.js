@@ -66,6 +66,10 @@ export const cancelProgram = async (id) => {
     }
 
 };
+export const requestcancelProgram = async (id) => {
+    const res = await api.requestcancelProgram(id);
+    return res;
+};
 export const completeProgram = async (id) => {
     global.isLoading = true;
     try {

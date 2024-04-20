@@ -28,11 +28,11 @@ export default function Introduction() {
 
   const { t, i18n  } = useTranslation();
 
-  const HandleSkip = async () => {
-    await storage.setItem("skipIntro", true);
-    store.dispatch({ type: SKIP_INTRO, payload: true });
-    navigation.navigate("FinalOnBoarding");
-  };
+  // const HandleSkip = async () => {
+  //   await storage.setItem("skipIntro", true);
+  //   store.dispatch({ type: SKIP_INTRO, payload: true });
+  //   navigation.navigate("FinalOnBoarding");
+  // };
 
   useEffect(() => {
     const fetch = async () => {

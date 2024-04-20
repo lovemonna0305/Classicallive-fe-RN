@@ -48,6 +48,13 @@ export default function StatusView({ status = "reserv" }) {
           </View>
         </View>)
       }
+      {status.includes('request_cancel')&&(
+        <View style={[style.row, { alignItems: "center" }]}>
+          <View style={[style.statusContainer, {backgroundColor:Colors.cancel}]}>
+            <Text style={{ color: "white", fontSize: 10 }}>{t("request_cancel")}</Text>
+          </View>
+        </View>)
+      }
       {status.includes('deleted')&&(
         <View style={[style.row, { alignItems: "center" }]}>
           <View style={[style.statusContainer, {backgroundColor:Colors.cancel}]}>

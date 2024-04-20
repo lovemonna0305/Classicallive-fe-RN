@@ -33,6 +33,7 @@ import { api } from "../../api";
 import { deleteProgram } from "../../actions/performer";
 import { useStore } from "../../store/store";
 import Toast from "react-native-toast-message";
+import moment from "moment";
 
 export default function PerformerCustomerList() {
   const { changeStore, store } = useStore();
@@ -73,16 +74,20 @@ export default function PerformerCustomerList() {
   };
 
   const enterProgram = () => {
-    // check
-    // var start_time = program.date +" "+ program.start_time;
-    // var end_time = program.date +" "+ program.end_time;
-    // var five_diff = Math.abs(new Date() - new Date(start_time.replace(/-/g,'/')));
-    // var end_diff = Math.abs(new Date() - new Date(end_time.replace(/-/g,'/')));
-    // if((program.status=="reserv")&&(program.status!="completed")&&(five_diff< 5 * 60 * 1000)&&(end_diff<0)) {
+    const currentdate = moment(moment(new Date()).utcOffset('+0900').format('YYYY-MM-DD HH:mm'))
+    var start_time = moment(program.date + " " + program.start_time);
+    var end_time = moment(program.date + " " + program.end_time);
+    // const five_diff = start_time.diff(currentdate,'minutes');
+    const end_diff = end_time.diff(currentdate,'minutes');
+    if(end_diff>0) {
       navigation.navigate("PerformerProgramEnter");
-    // } else {
-    //   setModalVisible(true)
-    // }
+    } else {
+      Toast.show({
+        type: "error",
+        text1: t('error'),
+        text2: t('program_completed_already'),
+      });
+    }
   };
 
   return (

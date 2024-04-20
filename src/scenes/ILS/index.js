@@ -43,6 +43,7 @@ export default function Meeting() {
   const token = videosdk.token;
   const currentUser = store.currentUser;
   const program = store.program;
+  const iscomplete = store.iscomplete;
   const pPendingPoints = store.pPendingPoints;
   
   const meetingId = store.streaming.meetingId;
@@ -74,8 +75,8 @@ export default function Meeting() {
         <MeetingConsumer
           {...{
             onMeetingLeft: () => {
-              if(currentUser.role_id==3){
-                changeStore({ ...store, iscomplete: true, isLoading: true });
+              if((currentUser.role_id==3)&&iscomplete){
+                changeStore({ ...store, isLoading: true });
                 (async () => {
                   completeProgram(program.id)
                     .then(points => {

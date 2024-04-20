@@ -184,7 +184,7 @@ export default function FlatPage({ items, title = "default" }) {
                 style={[
                   style.row,
                   {
-                    width: width / 3.5,
+                    width: width / 2.8,
                     alignItems: "center",
                     justifyContent: "space-between",
                   },

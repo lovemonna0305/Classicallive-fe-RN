@@ -116,7 +116,7 @@ export default function CustomerReviewList() {
         centerTitle={true}
         elevation={0}
         leading={
-          <TouchableOpacity onPress={() => navigation.navigate("CustomerHistoryDetail")}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}

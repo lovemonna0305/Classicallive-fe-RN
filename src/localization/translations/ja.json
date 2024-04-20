@@ -44,6 +44,7 @@
   "choose_picture" : "画像を選択",
   "camera" : "カメラ",
   "gallery" : "ギャラリー",
+  "ok" : "確認",
   "cancel" : "キャンセル",
   "yes" : "はい",
   "no" : "いいえ",
@@ -169,6 +170,7 @@
   "colorful_bouquet" : "カラフル花束",
   "bouquet" : "ブーケ花束",
   "payment_done" : "支払いは正常に完了しました。",
+  "success" : "成功",
   "payment_failed" : "支払いに失敗しました。",
   "error" : "エラー",
   "choose_" : "選ぶ...",
@@ -431,6 +433,10 @@
   "all_category":"すべてカテゴリ",
   "reserv_sure": "本当に予約しますか？",
   "cancel_sure": "プログラムをキャンセルしてもよろしいですか?",
+  "request_cancel": "リクエストのキャンセル",
+  "you_already_request_cancel": "すでにプログラムのキャンセルをリクエストしています。",
+  "request_cancel_program_successfully": "プログラムのキャンセルをリクエストしています。",
+  "program_completed_already": "プログラムはすでに完了しています。",
   "choose_date":"日付を選択してください",
   "choose_time":"時間を選択してください",
   "change_your_picutre":"写真を変更する",
@@ -548,6 +554,10 @@
   "live_streaming": "ライブ配信",
   "performer_not_created_service":"パフォーマーはまだサービスを作成していません",
 
+  "end":"終了",
+  "end_call_for_all":"参加者全員の通話を終了",
+  "leave":"離れる",
+  "only_you_will_leave":"あなただけが通話を終了します",
 
   "default":"default",
   "amount":"Amount"

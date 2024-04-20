@@ -540,7 +540,7 @@
   "password_updated_successfully": "パスワードが正常に更新されました。",
 
 
-  "create_meeting":"会議の作成",
+  "create_meeting":"演奏の作成",
   "video_streaming":"ビデオストリーミング",
   "meeting_is_running":"会議は実行中です。",
   "go_live": "ライブ配信を開始する",
@@ -555,9 +555,9 @@
   "performer_not_created_service":"パフォーマーはまだサービスを作成していません",
 
   "end":"終了",
-  "end_call_for_all":"参加者全員の通話を終了",
+  "end_call_for_all":"参加者全員の演奏を終了",
   "leave":"離れる",
-  "only_you_will_leave":"あなただけが通話を終了します",
+  "only_you_will_leave":"あなただけが演奏を終了します",
   "sent_msg_successfully": "メッセージが正常に送信されました。",
   "created_report_successfully": "レポートが正常に作成されました.",
 

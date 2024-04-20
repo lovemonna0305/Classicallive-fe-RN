@@ -57,6 +57,10 @@ import Privacy from "../screens/common/Privacy";
 import Notification from "../screens/common/Notification";
 import AccountProfile from "../screens/common/AccountProfile";
 import LiveChat from "../screens/common/LiveChat";
+import Terms from "../screens/common/Terms";
+import Law from "../screens/common/Law";
+import ContactUs from "../screens/common/ContactUs";
+import Report from "../screens/common/Report";
 
 import { Colors } from "../theme/color";
 import { storage } from "../utils/storage";
@@ -69,7 +73,7 @@ import Message from "../screens/common/Message";
 
 import PerformerCategoryList from "../screens/Performer/CategoryList";
 import PerformerHistoryList from "../screens/Performer/HistoryList";
-import Terms from "../screens/common/Terms";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -318,6 +322,21 @@ export default function StackNavigator() {
               <Stack.Screen
                 name="Terms"
                 component={Terms}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Law"
+                component={Law}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="ContactUs"
+                component={ContactUs}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Report"
+                component={Report}
                 options={{ headerShown: false }}
               />
               <Stack.Screen

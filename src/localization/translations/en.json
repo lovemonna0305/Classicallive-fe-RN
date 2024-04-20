@@ -444,6 +444,8 @@
   "you_already_request_cancel": "You already request cancel the Program.",
   "request_cancel_program_successfully": "You requst cancel program successfully.",
   "program_completed_already": "Program was completed already.",
+  "sent_msg_successfully": "Sent message successfully.",
+  "created_report_successfully": "Created report successfully.",
   
   "description":"Description",
   "enter_your_description":"Enter your description",

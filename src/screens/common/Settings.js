@@ -76,7 +76,7 @@ export default function Settings() {
         centerTitle={true}
         elevation={0}
         leading={
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => navigation.replace('Home')}>
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
@@ -348,9 +348,9 @@ export default function Settings() {
             {t("about")}
           </Text>
 
-          <TouchableOpacity onPress={() => navigation.navigate("Privacy")}>
+          <TouchableOpacity onPress={() => navigation.navigate("Report")}>
             <List.Item
-              title={t("privacy")}
+              title={t("report")}
               titleStyle={{
                 color: theme.txt,
                 fontSize: 16,
@@ -358,12 +358,12 @@ export default function Settings() {
                 fontFamily: "Plus Jakarta Sans",
               }}
               left={(props) => (
-                <Icon
+                <Icon1
                   {...props}
                   name="shield-outline"
                   color={theme.txt}
                   size={26}
-                ></Icon>
+                ></Icon1>
               )}
               right={(props) => (
                 <Icon1
@@ -375,7 +375,6 @@ export default function Settings() {
               )}
             />
           </TouchableOpacity>
-
           <TouchableOpacity onPress={() => navigation.navigate("Terms")}>
             <List.Item
               title={t("terms_use")}
@@ -403,10 +402,67 @@ export default function Settings() {
               )}
             />
           </TouchableOpacity>
-          
-          <TouchableOpacity onPress={() => navigation.navigate("Terms")}>
+
+          <TouchableOpacity onPress={() => navigation.navigate("Privacy")}>
             <List.Item
-              title={t("help_support")}
+              title={t("privacy")}
+              titleStyle={{
+                color: theme.txt,
+                fontSize: 16,
+                fontWeight: "600",
+                fontFamily: "Plus Jakarta Sans",
+              }}
+              left={(props) => (
+                <Icon
+                  {...props}
+                  name="shield-outline"
+                  color={theme.txt}
+                  size={26}
+                ></Icon>
+              )}
+              right={(props) => (
+                <Icon1
+                  {...props}
+                  name="chevron-right"
+                  color={Colors.disable}
+                  size={26}
+                ></Icon1>
+              )}
+            />
+          </TouchableOpacity>
+          
+          <TouchableOpacity onPress={() => navigation.navigate("Law")}>
+            <List.Item
+              title={t("law")}
+              titleStyle={{
+                color: theme.txt,
+                fontSize: 16,
+                fontWeight: "600",
+                fontFamily: "Plus Jakarta Sans",
+              }}
+              left={(props) => (
+                <Icon
+                  {...props}
+                  name="shield-outline"
+                  color={theme.txt}
+                  size={26}
+                ></Icon>
+              )}
+              right={(props) => (
+                <Icon1
+                  {...props}
+                  name="chevron-right"
+                  color={Colors.disable}
+                  size={26}
+                ></Icon1>
+              )}
+            />
+          </TouchableOpacity>
+          
+          
+          <TouchableOpacity onPress={() => navigation.navigate("ContactUs")}>
+            <List.Item
+              title={t("contactus")}
               titleStyle={{
                 color: theme.txt,
                 fontSize: 16,

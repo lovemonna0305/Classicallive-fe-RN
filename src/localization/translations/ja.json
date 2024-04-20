@@ -558,6 +558,8 @@
   "end_call_for_all":"参加者全員の通話を終了",
   "leave":"離れる",
   "only_you_will_leave":"あなただけが通話を終了します",
+  "sent_msg_successfully": "メッセージが正常に送信されました。",
+  "created_report_successfully": "レポートが正常に作成されました.",
 
   "default":"default",
   "amount":"Amount"

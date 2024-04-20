@@ -32,7 +32,7 @@ import {
 import CheckBox from "../../components/CheckBox";
 import Spinner from "../../components/Spinner";
 import { api } from "../../api";
-import { images, videosdk } from "../../constants";
+import { images, server, videosdk } from "../../constants";
 import { useStore } from "../../store/store";
 import { getAllCategories, getAllParentCategories, getCategoryArray, getPopularCategories, setLoading } from "../../actions/common";
 
@@ -80,6 +80,7 @@ export default function Login() {
         changeStore({ ...store, isLoading: false });
       }
     } catch (err) {
+      console.log(err);
       Toast.show({
         type: "error",
         text1: t('error'),
@@ -90,8 +91,8 @@ export default function Login() {
   };
 
   useEffect(() => {
-    // setEmail("customer1@gmail.com");
-    // setPassword("123123");
+    setEmail("performer@gmail.com");
+    setPassword("123123");
     // console.log("global.isRemember",global.isRemember);
     // console.log("global.tokens",global.tokens);
     // console.log("global.currentUser",global.currentUser);
@@ -175,7 +176,7 @@ export default function Login() {
           <View style={{ justifyContent: "center", alignItems: "center" }}>
             <Image
               style={{ width: 140, height: 140 }}
-              source={require("../../../assets/img/apple-icon.png")}
+              source={images.logo}
             />
           </View>
           <View

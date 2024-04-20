@@ -68,6 +68,7 @@ export default function FlatPerformerPage2({ items, title }) {
     try {
       await approveReservation(item.id);
       fetchdata()
+      navigation.replace('CustomerList');
       
     } catch (err) {
       console.log(err)

@@ -561,6 +561,9 @@
   "sent_msg_successfully": "メッセージが正常に送信されました。",
   "created_report_successfully": "レポートが正常に作成されました.",
 
+  "change_your_video":"ビデオを変更する",
+  "take_video":"ビデオを撮る",
+
   "default":"default",
   "amount":"Amount"
 }

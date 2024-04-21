@@ -13,7 +13,7 @@ import {
   Modal,
 } from "react-native";
 import Swiper from "react-native-swiper";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useRef, useState, useContext, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { AppBar } from "@react-native-material/core";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -33,6 +33,7 @@ import { launchCamera } from "react-native-image-picker";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import CheckBox from "../../components/CheckBox";
 import { useStore } from "../../store/store";
+import Video from 'react-native-video';
 import moment from "moment";
 
 
@@ -61,8 +62,8 @@ export default function PerformerPostCreate() {
     start_time: moment(new Date()).utcOffset('+0900').format('HH:mm'), // Choose time
     end_time: moment(new Date()).utcOffset('+0900').format('HH:mm'), // Choose time,
     d_date: new Date(moment(new Date()).utcOffset('+0900').format('YYYY-MM-DD HH:mm')), // Choose date
-    d_start_time: new Date(moment(new Date()).utcOffset('+0900').format('YYYY-MM-DD HH:mm')), // Choose time
-    d_end_time: new Date(moment(new Date()).utcOffset('+0900').format('YYYY-MM-DD HH:mm')), // Choose time
+    d_start_time: new Date(moment(new Date()).utcOffset('+0900')), // Choose time
+    d_end_time: new Date(moment(new Date()).utcOffset('+0900')), // Choose time
     is_chat: false,
     description: "", // Choose time
   });
@@ -76,7 +77,88 @@ export default function PerformerPostCreate() {
   const [subcategoryitems, setSubCategoryItems] = useState(
     categoryArray["subcategory"][0]
   );
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      paddingTop: 50,
+    },
+    tabBar: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      // backgroundColor: theme.background,
+      marginBottom: 20,
+    },
+    tabButton: {
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      // backgroundColor: theme.background,
+    },
+    tabButtonText: {
+      fontSize: 14,
+      fontWeight: 'bold',
+      color: Colors.disable
+
+    },
+    activeTabText: {
+      borderBottomWidth: 2,
+      borderColor: Colors.primary,
+
+    },
+    activeTabView: {
+      backgroundColor: Colors.primary,
+      width: 30,
+      height: 5,
+      alignSelf: "center",
+      marginTop: 10,
+      borderRadius: 10
+    },
+    activeColor: {
+      color: theme.txt,
+    },
+    renderItem2View: {
+      flexDirection: "row",
+      paddingVertical: 15,
+      paddingHorizontal: 30,
+      justifyContent: "space-between",
+      width: width - 40,
+      height: height * 0.09,
+      borderBottomColor: Colors.disable, borderBottomWidth: 2
+    },
+    tabContent: {
+      // flex: 1,
+      // justifyContent: 'center',
+      // alignItems: 'center',
+    },
+  });
   const [visible, setVisible] = useState(false);
+  const [activeTab, setActiveTab] = useState(1);
+  const [isChangeImage, setIsChangeImage] = useState(0);
+  const [isChangeVideo, setIsChangeVideo] = useState(0);
+  const [video, setVideo] = useState('');
+  const [selectedvideo, setSelectedVideo] = useState('https://vjs.zencdn.net/v/oceans.mp4');
+
+  const handleTabChange = (tabNumber) => {
+    setActiveTab(tabNumber);
+  };
+  const [videovisible, setVideoVisible] = useState(false);
+
+  const [progress, setProgrss] = useState(0);
+  const [playableDuration, setplayableDuration] = useState(0);
+
+  const [isChatVisible, setisChatVisible] = useState(false);
+  const [pause, setPause] = useState(false);
+
+  const videoPlayer = useRef(null);
+
+  const seekTo = sec => {
+    videoPlayer &&
+      videoPlayer.current &&
+      typeof videoPlayer.current.seek === 'function' &&
+      videoPlayer.current.seek(sec);
+  };
+
+
 
   useEffect(() => { 
     changeStore({ ...store, isLoading: false });
@@ -210,6 +292,7 @@ export default function PerformerPostCreate() {
         let imageUri = response.uri || response.assets?.[0]?.uri;
         setSelectedImage(imageUri);
         setImage(response);
+        setIsChangeImage(1);
       }
     });
   };
@@ -234,7 +317,31 @@ export default function PerformerPostCreate() {
         let imageUri = response.uri || response.assets?.[0]?.uri;
         setSelectedImage(imageUri);
         setImage(response);
-        console.log(imageUri);
+        setIsChangeImage(1);
+      }
+    });
+  };
+
+  const handleCamera = () => {
+    setVideoVisible(false);
+    launchCamera({ mediaType: 'video' }, (response) => {
+      if (!response.didCancel) {
+        let videoUri = response.uri || response.assets?.[0]?.uri;
+        setSelectedVideo(videoUri);
+        setVideo(response);
+        setIsChangeVideo(1);
+      }
+    });
+  };
+
+  const handleLibrary = () => {
+    setVideoVisible(false);
+    launchImageLibrary({ mediaType: 'video' }, (response) => {
+      if (!response.didCancel) {
+        let videoUri = response.uri || response.assets?.[0]?.uri;
+        setSelectedVideo(videoUri);
+        setVideo(response);
+        setIsChangeVideo(1);
       }
     });
   };
@@ -282,18 +389,28 @@ export default function PerformerPostCreate() {
         formdata.append("description", data.description);
         formdata.append("is_chat", chat);
 
-        let is_changeImage = false;
-        if (image) {
-          let is_changeImage = true;
-          formdata.append("file", {
-            name: image.assets?.[0].fileName,
-            uri: image.assets?.[0]?.uri,
-            type: image.assets?.[0]?.type,
-          });
+        if(activeTab==1){
+          if (image) {
+            formdata.append("file", {
+              name: image.assets?.[0].fileName,
+              uri: image.assets?.[0]?.uri,
+              type: image.assets?.[0]?.type,
+            });
+          }
+          formdata.append("is_video", 0);
+          formdata.append("is_changeImage", isChangeImage);
+        } else {
+          if (video) {
+            formdata.append("videofile", {
+              name: video.assets?.[0].fileName,
+              uri: video.assets?.[0]?.uri,
+              type: video.assets?.[0]?.type,
+            });
+          }
+          formdata.append("is_video", 1);
+          formdata.append("is_changeVideo", isChangeVideo);
+          
         }
-        formdata.append("is_changeImage", is_changeImage);
-        console.log(formdata);
-
         changeStore({ ...store, isLoading: true });
         (async () => {
           createProgram(formdata)
@@ -353,7 +470,7 @@ export default function PerformerPostCreate() {
       />
 
       <View style={[style.main, { backgroundColor: theme.bg }]}>
-        {/* {isLoading && <Spinner />} */}
+        {store.isLoading && <Spinner />}
         <ScrollView
           showsVerticalScrollIndicator={false}
           nestedScrollEnabled={true}
@@ -640,127 +757,301 @@ export default function PerformerPostCreate() {
               </View>
             </View>
 
-            <View
-              style={{
-                flex: 1,
-                alignItems: "center",
-                paddingTop: 8,
-                justifyContent: "center",
-              }}
-            >
-              <Image
-                source={{ uri: selectedImage }}
-                style={{ width: width / 2, height: width / 4 }}
-                resizeMode="cover"
-              />
-              <View
-                style={{
-                  position: "absolute",
-                  bottom: -10,
-                  alignItems: "center",
-                  right: width / 4 - 35,
-                }}
+             <View style={styles.tabBar}>
+              <TouchableOpacity
+                style={[styles.tabButton,]}
+                onPress={() => handleTabChange(1)}
               >
-                <TouchableOpacity onPress={() => setVisible(true)}>
-                  <Avatar.Image
-                    source={images.edit}
-                    size={30}
-                    style={{}}
-                  ></Avatar.Image>
-                  <Modal transparent={true} visible={visible}>
-                    <View
-                      style={{
-                        width: width,
-                        flex: 1,
-                        backgroundColor: "#000000aa",
-                        transparent: "true",
-                      }}
-                    >
-                      <View
-                        style={[
-                          style.modalcontainer,
-                          { backgroundColor: theme.bg, width: width - 20 },
-                        ]}
-                      >
+                <Text style={[styles.tabButtonText, activeTab === 1 && styles.activeColor]}>{t('images')}</Text>
+                <View style={activeTab === 1 && styles.activeTabView}></View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.tabButton, activeTab === 2]}
+                onPress={() => handleTabChange(2)}
+              >
+                <Text style={[styles.tabButtonText, activeTab === 2 && styles.activeColor]}>{t('video')}</Text>
+                <View style={activeTab === 2 && styles.activeTabView}></View>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.tabContent}>
+              {activeTab === 1 && <View style={{ marginTop: 5, marginBottom: 20, }}>
+                <View
+                  style={{
+                    flex: 1,
+                    alignItems: "center",
+                    paddingTop: 8,
+                    justifyContent: "center",
+                  }}
+                >
+
+                  <Image
+                    source={{ uri: selectedImage }}
+                    style={{ width: width / 2, height: width / 4 }}
+                    resizeMode="cover"
+                  />
+                  <View
+                    style={{
+                      position: "absolute",
+                      bottom: -10,
+                      alignItems: "center",
+                      right: width / 4 - 35,
+                    }}
+                  >
+                    <TouchableOpacity onPress={() => setVisible(true)}>
+                      <Avatar.Image
+                        source={images.edit}
+                        size={30}
+                        style={{}}
+                      ></Avatar.Image>
+                      <Modal transparent={true} visible={visible}>
                         <View
                           style={{
-                            paddingHorizontal: 20,
-                            alignSelf: "flex-end",
+                            width: width,
+                            flex: 1,
+                            backgroundColor: "#000000aa",
+                            transparent: "true",
                           }}
                         >
-                          <TouchableOpacity onPress={() => setVisible(false)}>
-                            <Icon name="close-sharp" color="black" size={20} />
-                          </TouchableOpacity>
-                        </View>
-                        <Text
-                          style={[
-                            style.title,
-                            { color: theme.txt, alignSelf: "center" },
-                          ]}
-                        >
-                          {t("change_your_picutre")}
-                        </Text>
-                        <View
-                          style={[
-                            style.divider1,
-                            { color: Colors.disable, marginBottom: 20 },
-                          ]}
-                        ></View>
-                        <TouchableOpacity
-                          onPress={handleCameraLaunch}
-                          style={{
-                            // paddingTop: 15 ,
-                            paddingVertical: 15,
-                            backgroundColor: theme.bg,
-                            // theme == "dark" ? "#434E58" : "#E3E7EC",
-                            borderRadius: 10,
-                            paddingHorizontal: 20,
-                            flexDirection: "row",
-                          }}
-                        >
-                          <Icon name="camera" size={25} color={theme.txt} />
-                          <Text
+                          <View
                             style={[
-                              style.subtitle,
-                              { color: theme.txt, paddingLeft: 15 },
+                              style.modalcontainer,
+                              { backgroundColor: theme.bg, width: width - 20 },
                             ]}
                           >
-                            {t("take_photo")}
-                          </Text>
-                        </TouchableOpacity>
-                        <View style={{ paddingTop: 15 }}>
-                          <TouchableOpacity
-                            onPress={openImagePicker}
-                            style={{
-                              //  paddingTop: 15 ,
-                              paddingVertical: 15,
-                              backgroundColor: theme.bg,
-                              // theme == "light" ? "#4A4A65" : "#E3E7EC",
-                              borderRadius: 10,
-                              paddingHorizontal: 20,
-                              flexDirection: "row",
-                            }}
-                          >
-                            <Icon
-                              name="folder-open-outline"
-                              size={25}
-                              color={theme.txt}
-                            />
+                            <View
+                              style={{
+                                paddingHorizontal: 20,
+                                alignSelf: "flex-end",
+                              }}
+                            >
+                              <TouchableOpacity onPress={() => setVisible(false)}>
+                                <Icon name="close-sharp" color="black" size={20} />
+                              </TouchableOpacity>
+                            </View>
                             <Text
                               style={[
-                                style.subtitle,
-                                { color: theme.txt, paddingLeft: 15 },
+                                style.title,
+                                { color: theme.txt, alignSelf: "center" },
                               ]}
                             >
-                              {t("choose_from_your_file")}
+                              {t("change_your_picutre")}
                             </Text>
-                          </TouchableOpacity>
+                            <View
+                              style={[
+                                style.divider1,
+                                { color: Colors.disable, marginBottom: 20 },
+                              ]}
+                            ></View>
+                            <TouchableOpacity
+                              onPress={handleCameraLaunch}
+                              style={{
+                                // paddingTop: 15 ,
+                                paddingVertical: 15,
+                                backgroundColor: theme.bg,
+                                // theme == "dark" ? "#434E58" : "#E3E7EC",
+                                borderRadius: 10,
+                                paddingHorizontal: 20,
+                                flexDirection: "row",
+                              }}
+                            >
+                              <Icon name="camera" size={25} color={theme.txt} />
+                              <Text
+                                style={[
+                                  style.subtitle,
+                                  { color: theme.txt, paddingLeft: 15 },
+                                ]}
+                              >
+                                {t("take_photo")}
+                              </Text>
+                            </TouchableOpacity>
+                            <View style={{ paddingTop: 15 }}>
+                              <TouchableOpacity
+                                onPress={openImagePicker}
+                                style={{
+                                  //  paddingTop: 15 ,
+                                  paddingVertical: 15,
+                                  backgroundColor: theme.bg,
+                                  // theme == "light" ? "#4A4A65" : "#E3E7EC",
+                                  borderRadius: 10,
+                                  paddingHorizontal: 20,
+                                  flexDirection: "row",
+                                }}
+                              >
+                                <Icon
+                                  name="folder-open-outline"
+                                  size={25}
+                                  color={theme.txt}
+                                />
+                                <Text
+                                  style={[
+                                    style.subtitle,
+                                    { color: theme.txt, paddingLeft: 15 },
+                                  ]}
+                                >
+                                  {t("choose_from_your_file")}
+                                </Text>
+                              </TouchableOpacity>
+                            </View>
+                          </View>
                         </View>
-                      </View>
-                    </View>
-                  </Modal>
-                </TouchableOpacity>
-              </View>
+                      </Modal>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>}
+              {activeTab === 2 && <View style={{ marginTop: 5, marginBottom: 20, }}>
+                <View
+                  style={{
+                    flex: 1,
+                    alignItems: "center",
+                    paddingTop: 8,
+                    justifyContent: "center",
+                  }}
+                >
+
+                <View style={{ marginVertical: 20, marginBottom: 20, width: width / 2, height: width / 4 }}>
+                <Video
+                    ref={videoPlayer}
+                    source={{
+                      uri: selectedvideo,
+                    }} // Can be a URL or a local file.
+                    style={{
+                      flex: 1,
+                      backgroundColor: 'black',
+                    }}
+                    onError={e => console.log('error', e)}
+                    paused={pause}
+                    onProgress={({currentTime, playableDuration}) => {
+                      setProgrss(currentTime);
+                      setplayableDuration(playableDuration);
+                    }}
+                    onLoad={data => {
+                      const {duration} = data;
+                      setplayableDuration(duration);
+                    }}
+                  />
+                  {/* <ControlsOverlay
+                    playableDuration={playableDuration}
+                    setPause={setPause}
+                    pause={pause}
+                    progress={progress}
+                    seekTo={sec => {
+                      seekTo(sec);
+                    }}
+                    isChatVisible={isChatVisible}
+                    setisChatVisible={setisChatVisible}
+                  /> */}
+                </View>
+                  <View
+                    style={{
+                      position: "absolute",
+                      bottom: -10,
+                      alignItems: "center",
+                      right: width / 4 - 35,
+                    }}
+                  >
+                    <TouchableOpacity onPress={() => setVideoVisible(true)}>
+                      <Avatar.Image
+                        source={images.edit}
+                        size={30}
+                        style={{}}
+                      ></Avatar.Image>
+                      <Modal transparent={true} visible={videovisible}>
+                        <View
+                          style={{
+                            width: width,
+                            flex: 1,
+                            backgroundColor: "#000000aa",
+                            transparent: "true",
+                          }}
+                        >
+                          <View
+                            style={[
+                              style.modalcontainer,
+                              { backgroundColor: theme.bg, width: width - 20 },
+                            ]}
+                          >
+                            <View
+                              style={{
+                                paddingHorizontal: 20,
+                                alignSelf: "flex-end",
+                              }}
+                            >
+                              <TouchableOpacity onPress={() => setVideoVisible(false)}>
+                                <Icon name="close-sharp" color="black" size={20} />
+                              </TouchableOpacity>
+                            </View>
+                            <Text
+                              style={[
+                                style.title,
+                                { color: theme.txt, alignSelf: "center" },
+                              ]}
+                            >
+                              {t("change_your_video")}
+                            </Text>
+                            <View
+                              style={[
+                                style.divider1,
+                                { color: Colors.disable, marginBottom: 20 },
+                              ]}
+                            ></View>
+                            <TouchableOpacity
+                              onPress={handleCamera}
+                              style={{
+                                // paddingTop: 15 ,
+                                paddingVertical: 15,
+                                backgroundColor: theme.bg,
+                                // theme == "dark" ? "#434E58" : "#E3E7EC",
+                                borderRadius: 10,
+                                paddingHorizontal: 20,
+                                flexDirection: "row",
+                              }}
+                            >
+                              <Icon name="camera" size={25} color={theme.txt} />
+                              <Text
+                                style={[
+                                  style.subtitle,
+                                  { color: theme.txt, paddingLeft: 15 },
+                                ]}
+                              >
+                                {t("take_video")}
+                              </Text>
+                            </TouchableOpacity>
+                            <View style={{ paddingTop: 15 }}>
+                              <TouchableOpacity
+                                onPress={handleLibrary}
+                                style={{
+                                  //  paddingTop: 15 ,
+                                  paddingVertical: 15,
+                                  backgroundColor: theme.bg,
+                                  // theme == "light" ? "#4A4A65" : "#E3E7EC",
+                                  borderRadius: 10,
+                                  paddingHorizontal: 20,
+                                  flexDirection: "row",
+                                }}
+                              >
+                                <Icon
+                                  name="folder-open-outline"
+                                  size={25}
+                                  color={theme.txt}
+                                />
+                                <Text
+                                  style={[
+                                    style.subtitle,
+                                    { color: theme.txt, paddingLeft: 15 },
+                                  ]}
+                                >
+                                  {t("choose_from_your_file")}
+                                </Text>
+                              </TouchableOpacity>
+                            </View>
+                          </View>
+                        </View>
+                      </Modal>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>}
             </View>
 
             <View style={{ paddingTop: 5 }}>

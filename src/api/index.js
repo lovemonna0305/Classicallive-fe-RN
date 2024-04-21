@@ -263,6 +263,22 @@ const rejectionReservation = (id) => {
 
 
 
+const sendcontactus = (data) => {
+  return jwtInterceoptor.post(`${SERVER_URL}/sendcontactus`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
+const sendReport = (data) => {
+  return jwtInterceoptor.post(`${SERVER_URL}/sendReport`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
 const sendMessage = (data) => {
   return jwtInterceoptor.post(`${SERVER_URL}/message`, data, {
     headers: {
@@ -436,8 +452,9 @@ export const api = {
   getChat,
   readNotification,
 
+  sendcontactus,
+  sendReport,
   getMessage,
   sendMessage,
   unreadNumMessage,
-
 };

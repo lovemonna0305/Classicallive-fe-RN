@@ -1,4 +1,4 @@
-use_modular_headers!
+# use_modular_headers!
 
 # Resolve react_native_pods.rb with node to allow for hoisting
 require Pod::Executable.execute_command('node', ['-p',
@@ -41,10 +41,12 @@ target 'classicallive' do
     # you should disable the next line.
     :flipper_configuration => flipper_config,
     # An absolute path to your application root.
-    :app_path => "#{Pod::Config.instance.installation_root}/.."
+    :app_path => "#{Pod::Config.instance.installation_root}/..",
   )
-  pod 'react-native-webrtc', :path => '../node_modules/@videosdk.live/react-native-webrtc'
-  pod 'react-native-video', :path => '../node_modules/react-native-video'
+  pod 'react-native-webrtc', :path => '../node_modules/@videosdk.live/react-native-webrtc', :modular_headers => true
+  pod 'react-native-video', :path => '../node_modules/react-native-video', :modular_headers => true
+  # pod 'lottie-ios', '4.4.1'
+
 
   target 'classicalliveTests' do
     inherit! :complete

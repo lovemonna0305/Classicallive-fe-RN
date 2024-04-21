@@ -573,6 +573,9 @@
   "leave":"Leave",
   "only_you_will_leave":"Only you will leave the call",
 
+  "change_your_video":"Change your Video",
+  "take_video":"Take a video",
+
   "default":"default",
 
   "amount":"Amount"

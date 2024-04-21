@@ -96,7 +96,7 @@ export default function FlatPage({ items, title = "default" }) {
             >
               <View style={{ paddingLeft: 10 }}>
                 <Text style={[style.secondarytext, { fontSize: 12 }]}>
-                  {t(item.category.slug)} 演奏者：{item.member.name}
+                  {t(item.category.ja_name)} 演奏者：{item.member.name}
                 </Text>
               </View>
               <View style={{}}></View>

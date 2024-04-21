@@ -26,6 +26,7 @@ import { useTranslation } from "react-i18next";
 import { color } from "@rneui/base";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { getReviewsByPost } from "../../actions/common";
+import VideoPlayer from 'react-native-media-console';
 
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
@@ -90,13 +91,29 @@ export default function PerformerHistoryDetail() {
         {store.isLoading && <Spinner />}
         <ScrollView showsVerticalScrollIndicator={false} style={{ marginBottom: 10 }}>
           <View style={{ flex: 1, marginHorizontal: 20 }}>
+            {/* {(program.is_video==0)?(
+              <View style={{ paddingTop: 10 }}>
+                <Image
+                  source={{ uri: server.media_url + program.image_file }}
+                  resizeMode="contain"
+                  style={[style.img, { height: 200 }]}
+                />
+              </View>
+            ):(
+              <View style={{ paddingTop: 10 }}>
+                <VideoPlayer source={{ uri: server.media_url + program.video_file }}
+                  containerStyle={{ height: 200, }}
+                  resizeMode={"cover"}
+                />
+              </View>
+            )} */}
             <View style={{ paddingTop: 10 }}>
-              <Image
-                source={{ uri: server.media_url + program.image_file }}
-                resizeMode="contain"
-                style={[style.img, { height: 200 }]}
-              />
-            </View>
+                <Image
+                  source={{ uri: server.media_url + program.image_file }}
+                  resizeMode="contain"
+                  style={[style.img, { height: 200 }]}
+                />
+              </View>
             <View style={{ paddingTop: 25 }}>
               <Text style={[style.activetext, {}]}>{program.title}</Text>
             </View>

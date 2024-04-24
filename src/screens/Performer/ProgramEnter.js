@@ -243,7 +243,7 @@ export default function PerformerProgramEnter() {
                   marginLeft: 10,
                 }}>
                 <Text style={[style.activetext, { textAlign: "center" }]}>
-                  {t("create_meeting")}
+                  {t("create_playing_room")}
                 </Text>
               </View>
             </TouchableOpacity>

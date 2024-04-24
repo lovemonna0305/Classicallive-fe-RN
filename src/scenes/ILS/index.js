@@ -68,7 +68,7 @@ export default function Meeting() {
           mode, // "CONFERENCE" || "VIEWER"
           notification: {
             title: t('video_streaming'),
-            message: t('meeting_is_running'),
+            message: t('playing_is_running'),
           },
         }}
         token={token}>

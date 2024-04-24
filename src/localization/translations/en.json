@@ -555,9 +555,9 @@
 
 
 
-  "create_meeting":"Create Program",
+  "create_playing_room":"Create Playing room",
   "video_streaming":"Video Streaming",
-  "meeting_is_running":"Program is running.",
+  "playing_is_running":"Playing is running.",
   "go_live":"Go Live",
   "live_starting":"Live Starting",
   "live_stopping":"Live Stopping",

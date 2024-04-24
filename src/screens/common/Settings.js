@@ -21,6 +21,8 @@ import { AppBar } from "@react-native-material/core";
 import { Avatar } from "react-native-paper";
 import Icons from "react-native-vector-icons/FontAwesome";
 import { List } from "react-native-paper";
+import IconMaterialIcon from "react-native-vector-icons/MaterialIcons";
+import IconEntypo from "react-native-vector-icons/Entypo";
 import Icon1 from "react-native-vector-icons/MaterialCommunityIcons";
 import { EventRegister } from "react-native-event-listeners";
 import { useNavigation } from "@react-navigation/native";
@@ -358,12 +360,12 @@ export default function Settings() {
                 fontFamily: "Plus Jakarta Sans",
               }}
               left={(props) => (
-                <Icon1
+                <IconMaterialIcon
                   {...props}
-                  name="shield-outline"
+                  name="report"
                   color={theme.txt}
                   size={26}
-                ></Icon1>
+                ></IconMaterialIcon>
               )}
               right={(props) => (
                 <Icon1
@@ -385,12 +387,12 @@ export default function Settings() {
                 fontFamily: "Plus Jakarta Sans",
               }}
               left={(props) => (
-                <Icon1
+                <IconEntypo
                   {...props}
-                  name="shield-outline"
+                  name="text-document"
                   color={theme.txt}
                   size={26}
-                ></Icon1>
+                ></IconEntypo>
               )}
               right={(props) => (
                 <Icon1
@@ -441,12 +443,12 @@ export default function Settings() {
                 fontFamily: "Plus Jakarta Sans",
               }}
               left={(props) => (
-                <Icon
+                <Icon1
                   {...props}
-                  name="shield-outline"
+                  name="scale-balance"
                   color={theme.txt}
                   size={26}
-                ></Icon>
+                ></Icon1>
               )}
               right={(props) => (
                 <Icon1

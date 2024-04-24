@@ -65,7 +65,7 @@ export default function ContactUs() {
         <View style={{ flex: 1 }}>
           {/* {store.isLoading && <Spinner />} */}
           <View style={{ paddingTop: 15 }}>
-            <View style={{ paddingTop: 10 }}>
+            {/* <View style={{ paddingTop: 10 }}>
               <Text
                 style={[
                   style.txt1,
@@ -92,7 +92,7 @@ export default function ContactUs() {
                 {'support@classicallive.jp'}
               </Text>
               </View>
-            </View>
+            </View> */}
 
             <View style={{ paddingTop: 10 }}>
               <Text

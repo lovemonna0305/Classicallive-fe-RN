@@ -8,7 +8,6 @@ import {
 import React, { useState, useContext, useEffect } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
-import FastImage from 'react-native-fast-image';
 import { BlurView } from '@react-native-community/blur';
 import Swiper from 'react-native-swiper';
 import LinearGradient from 'react-native-linear-gradient';
@@ -20,8 +19,12 @@ export default CardSlider = () => {
 
     const navigation = useNavigation();
 
-    const { currentUser } = useSelector((state) => state.auth);
-    const { flexers } = useSelector((state) => state.common);
+    const datas =[
+        {fullname:"Full Name1"},
+        {fullname:"Full Name2"},
+        {fullname:"Full Name3"},
+        {fullname:"Full Name4"},
+    ];
 
     const styles = StyleSheet.create({
         wrapper: { height: 700 },
@@ -56,7 +59,6 @@ export default CardSlider = () => {
         }
     });
     useEffect(() => {
-        console.log('flex', flexers)
     }, [])
 
     const IntrdouctionComponent = (props) => {
@@ -71,7 +73,7 @@ export default CardSlider = () => {
                         height: 250, paddingLeft: 10, width: '95%'
                     }}
                 >
-                    <Text style={{ color: theme.txt, fontSize: 30, fontWeight: 700, }}>{props.flexer.fullname}</Text>
+                    <Text style={{ color: theme.txt, fontSize: 30, fontWeight: 700, }}>{props.fullname}</Text>
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
                         <Icon name="location-outline" size={40} style={{ color: theme.txt, fontSize: 20, marginTop: 5 }}></Icon>
                         <Text style={{ color: theme.txt, fontSize: 20, fontWeight: 700, }}>100 miles away</Text>
@@ -81,18 +83,13 @@ export default CardSlider = () => {
                         marginTop: 5
                     }}>
                         <TouchableOpacity onPress={() => {
-                            navigation.navigate("Livechat", {
-                                id: props.flexer._id,
-                                fullname: props.flexer.fullname,
-                            })
+
                         }}>
                             <Icon name="chatbubble-ellipses-outline" size={60} style={{ color: "#FFFF91", marginTop: 8 }}>
                             </Icon>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => {
-                            navigation.navigate("FriendProfile", {
-                                flexer: props.flexer,
-                            })
+ 
                         }}>
                             <Icon name="person-outline" size={70} style={{ color: "#FF6085" }}>
                             </Icon>
@@ -120,14 +117,14 @@ export default CardSlider = () => {
 
     return (
         <Swiper style={styles.wrapper} autoplay={false}>
-            {flexers.map((flexer, index) => (
+            {datas.map((data, index) => (
                 <View key={index} style={styles.slide}>
                     <Image
                         // source={require('../../assets/image/f1.jpg')}
                         style={[styles.image, { position: "relative" }]}
                         resizeMode="cover"
                     />
-                    <IntrdouctionComponent flexer={flexer} />
+                    <IntrdouctionComponent data={data} />
                 </View>
             ))}
         </Swiper>

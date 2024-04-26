@@ -14,6 +14,15 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-classicallive-classicalliveTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-classicallive-classicalliveTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8463641B2BDB466C00A2AEBF /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8463641A2BDB466C00A2AEBF /* ReplayKit.framework */; };
+		8463641E2BDB466D00A2AEBF /* SampleHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463641D2BDB466D00A2AEBF /* SampleHandler.swift */; };
+		846364222BDB466D00A2AEBF /* ScreenBroadcast.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 846364192BDB466C00A2AEBF /* ScreenBroadcast.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		846364352BDB4F3600A2AEBF /* SocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846364342BDB4F3500A2AEBF /* SocketConnection.swift */; };
+		846364372BDB4FEA00A2AEBF /* DarwinNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846364362BDB4FE900A2AEBF /* DarwinNotificationCenter.swift */; };
+		846364392BDB501E00A2AEBF /* SampleUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846364382BDB501D00A2AEBF /* SampleUploader.swift */; };
+		8463643B2BDB514D00A2AEBF /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463643A2BDB514C00A2AEBF /* Atomic.swift */; };
+		846364442BDB85E100A2AEBF /* VideosdkPRK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846364432BDB85E100A2AEBF /* VideosdkPRK.swift */; };
+		846364462BDB862600A2AEBF /* VideosdkPRK.m in Sources */ = {isa = PBXBuildFile; fileRef = 846364452BDB862600A2AEBF /* VideosdkPRK.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,7 +33,28 @@
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = classicallive;
 		};
+		846364202BDB466D00A2AEBF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 846364182BDB466C00A2AEBF;
+			remoteInfo = ScreenBroadcast;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		846364232BDB466D00A2AEBF /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				846364222BDB466D00A2AEBF /* ScreenBroadcast.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		00E356EE1AD99517003FC87E /* classicalliveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = classicalliveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -42,6 +72,19 @@
 		5B7EB9410499542E8C5724F5 /* Pods-classicallive-classicalliveTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-classicallive-classicalliveTests.debug.xcconfig"; path = "Target Support Files/Pods-classicallive-classicalliveTests/Pods-classicallive-classicalliveTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-classicallive.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-classicallive.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = classicallive/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		846364192BDB466C00A2AEBF /* ScreenBroadcast.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ScreenBroadcast.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8463641A2BDB466C00A2AEBF /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = System/Library/Frameworks/ReplayKit.framework; sourceTree = SDKROOT; };
+		8463641D2BDB466D00A2AEBF /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
+		8463641F2BDB466D00A2AEBF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		846364342BDB4F3500A2AEBF /* SocketConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketConnection.swift; sourceTree = "<group>"; };
+		846364362BDB4FE900A2AEBF /* DarwinNotificationCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DarwinNotificationCenter.swift; sourceTree = "<group>"; };
+		846364382BDB501D00A2AEBF /* SampleUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleUploader.swift; sourceTree = "<group>"; };
+		8463643A2BDB514C00A2AEBF /* Atomic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Atomic.swift; sourceTree = "<group>"; };
+		8463643C2BDB80B600A2AEBF /* classicallive.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = classicallive.entitlements; path = classicallive/classicallive.entitlements; sourceTree = "<group>"; };
+		8463643D2BDB816A00A2AEBF /* ScreenBroadcast.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScreenBroadcast.entitlements; sourceTree = "<group>"; };
+		846364422BDB85E000A2AEBF /* classicallive-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "classicallive-Bridging-Header.h"; sourceTree = "<group>"; };
+		846364432BDB85E100A2AEBF /* VideosdkPRK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosdkPRK.swift; sourceTree = "<group>"; };
+		846364452BDB862600A2AEBF /* VideosdkPRK.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideosdkPRK.m; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-classicallive-classicalliveTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-classicallive-classicalliveTests.release.xcconfig"; path = "Target Support Files/Pods-classicallive-classicalliveTests/Pods-classicallive-classicalliveTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -60,6 +103,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C80B921A6F3F58F76C31292 /* libPods-classicallive.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		846364162BDB466C00A2AEBF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8463641B2BDB466C00A2AEBF /* ReplayKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,12 +137,16 @@
 		13B07FAE1A68108700A75B9A /* classicallive */ = {
 			isa = PBXGroup;
 			children = (
+				8463643C2BDB80B600A2AEBF /* classicallive.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				846364432BDB85E100A2AEBF /* VideosdkPRK.swift */,
+				846364422BDB85E000A2AEBF /* classicallive-Bridging-Header.h */,
+				846364452BDB862600A2AEBF /* VideosdkPRK.m */,
 			);
 			name = classicallive;
 			sourceTree = "<group>";
@@ -102,6 +157,7 @@
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				5DCACB8F33CDC322A6C60F78 /* libPods-classicallive.a */,
 				19F6CBCC0A4E27FBF8BF4A61 /* libPods-classicallive-classicalliveTests.a */,
+				8463641A2BDB466C00A2AEBF /* ReplayKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -119,6 +175,7 @@
 				13B07FAE1A68108700A75B9A /* classicallive */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* classicalliveTests */,
+				8463641C2BDB466C00A2AEBF /* ScreenBroadcast */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
@@ -133,8 +190,23 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* classicallive.app */,
 				00E356EE1AD99517003FC87E /* classicalliveTests.xctest */,
+				846364192BDB466C00A2AEBF /* ScreenBroadcast.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8463641C2BDB466C00A2AEBF /* ScreenBroadcast */ = {
+			isa = PBXGroup;
+			children = (
+				8463643D2BDB816A00A2AEBF /* ScreenBroadcast.entitlements */,
+				8463643A2BDB514C00A2AEBF /* Atomic.swift */,
+				846364382BDB501D00A2AEBF /* SampleUploader.swift */,
+				846364362BDB4FE900A2AEBF /* DarwinNotificationCenter.swift */,
+				846364342BDB4F3500A2AEBF /* SocketConnection.swift */,
+				8463641D2BDB466D00A2AEBF /* SampleHandler.swift */,
+				8463641F2BDB466D00A2AEBF /* Info.plist */,
+			);
+			path = ScreenBroadcast;
 			sourceTree = "<group>";
 		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
@@ -183,15 +255,34 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
 				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
+				846364232BDB466D00A2AEBF /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				846364212BDB466D00A2AEBF /* PBXTargetDependency */,
 			);
 			name = classicallive;
 			productName = classicallive;
 			productReference = 13B07F961A680F5B00A75B9A /* classicallive.app */;
 			productType = "com.apple.product-type.application";
+		};
+		846364182BDB466C00A2AEBF /* ScreenBroadcast */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 846364262BDB466D00A2AEBF /* Build configuration list for PBXNativeTarget "ScreenBroadcast" */;
+			buildPhases = (
+				846364152BDB466C00A2AEBF /* Sources */,
+				846364162BDB466C00A2AEBF /* Frameworks */,
+				846364172BDB466C00A2AEBF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ScreenBroadcast;
+			productName = ScreenBroadcast;
+			productReference = 846364192BDB466C00A2AEBF /* ScreenBroadcast.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -199,6 +290,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1530;
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -206,7 +298,10 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1530;
+					};
+					846364182BDB466C00A2AEBF = {
+						CreatedOnToolsVersion = 15.3;
 					};
 				};
 			};
@@ -225,6 +320,7 @@
 			targets = (
 				13B07F861A680F5B00A75B9A /* classicallive */,
 				00E356ED1AD99517003FC87E /* classicalliveTests */,
+				846364182BDB466C00A2AEBF /* ScreenBroadcast */,
 			);
 		};
 /* End PBXProject section */
@@ -243,6 +339,13 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		846364172BDB466C00A2AEBF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,7 +496,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
+				846364442BDB85E100A2AEBF /* VideosdkPRK.swift in Sources */,
+				846364462BDB862600A2AEBF /* VideosdkPRK.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		846364152BDB466C00A2AEBF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				846364352BDB4F3600A2AEBF /* SocketConnection.swift in Sources */,
+				846364392BDB501E00A2AEBF /* SampleUploader.swift in Sources */,
+				846364372BDB4FEA00A2AEBF /* DarwinNotificationCenter.swift in Sources */,
+				8463641E2BDB466D00A2AEBF /* SampleHandler.swift in Sources */,
+				8463643B2BDB514D00A2AEBF /* Atomic.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,6 +522,11 @@
 			target = 13B07F861A680F5B00A75B9A /* classicallive */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
+		846364212BDB466D00A2AEBF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 846364182BDB466C00A2AEBF /* ScreenBroadcast */;
+			targetProxy = 846364202BDB466D00A2AEBF /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -412,6 +534,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-classicallive-classicalliveTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -487,6 +610,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-classicallive-classicalliveTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = classicalliveTests/Info.plist;
@@ -559,8 +683,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-classicallive.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = classicallive/classicallive.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QJD4Q76SC2;
 				ENABLE_BITCODE = NO;
@@ -569,14 +695,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.app.classicallive;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.classicalliveupgrade;
 				PRODUCT_NAME = classicallive;
+				SWIFT_OBJC_BRIDGING_HEADER = "classicallive-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -587,8 +714,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-classicallive.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = classicallive/classicallive.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QJD4Q76SC2;
 				INFOPLIST_FILE = classicallive/Info.plist;
@@ -596,14 +725,15 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.app.classicallive;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.classicalliveupgrade;
 				PRODUCT_NAME = classicallive;
+				SWIFT_OBJC_BRIDGING_HEADER = "classicallive-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -754,6 +884,89 @@
 			};
 			name = Release;
 		};
+		846364242BDB466D00A2AEBF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = ScreenBroadcast/ScreenBroadcast.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = QJD4Q76SC2;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScreenBroadcast/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScreenBroadcast;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.classicalliveupgrade.ScreenBroadcast;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		846364252BDB466D00A2AEBF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = ScreenBroadcast/ScreenBroadcast.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = QJD4Q76SC2;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScreenBroadcast/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScreenBroadcast;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.classicalliveupgrade.ScreenBroadcast;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -780,6 +993,15 @@
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		846364262BDB466D00A2AEBF /* Build configuration list for PBXNativeTarget "ScreenBroadcast" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				846364242BDB466D00A2AEBF /* Debug */,
+				846364252BDB466D00A2AEBF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

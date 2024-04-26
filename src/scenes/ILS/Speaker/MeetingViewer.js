@@ -149,6 +149,7 @@ export default function MeetingViewer({setlocalParticipantMode}) {
       });
 
       return () => {
+        // VideosdkRPK.removeSubscription('onScreenShare');
         VideosdkRPK.removeAllListeners('onScreenShare');
       };
     }

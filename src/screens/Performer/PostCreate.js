@@ -650,7 +650,6 @@ export default function PerformerPostCreate() {
                     isVisible={isDatePickerVisible}
                     mode="date"
                     locale="ja-JP"
-                    timeZoneOffsetInMinutes={540}
                     date={data.d_date}
                     onConfirm={handleConfirm}
                     onCancel={hideDatePicker}
@@ -693,7 +692,6 @@ export default function PerformerPostCreate() {
                     isVisible={isStimePickerVisible}
                     mode="time"
                     locale="ja-JP"
-                    timeZoneOffsetInMinutes={540}
                     date={data.d_start_time}
                     onConfirm={handleConfirmStime}
                     onCancel={hideStimePicker}
@@ -736,7 +734,6 @@ export default function PerformerPostCreate() {
                     isVisible={isEtimePickerVisible}
                     mode="time"
                     locale="ja-JP"
-                    timeZoneOffsetInMinutes={540}
                     date={data.d_end_time}
                     onConfirm={handleConfirmEtime}
                     onCancel={hideEtimePicker}

@@ -44,10 +44,9 @@ target 'classicallive' do
     :app_path => "#{Pod::Config.instance.installation_root}/..",
   )
   pod 'react-native-webrtc', :path => '../node_modules/@videosdk.live/react-native-webrtc', :modular_headers => true
-  pod 'react-native-video', :path => '../node_modules/react-native-video', :modu lar_headers => true
-  # pod 'google-signin', :path => '../node_modules/@react-native-google-signin/google-signin', :modular_headers => true
+  pod 'react-native-video', :path => '../node_modules/react-native-video', :modular_headers => true
+
   # pod 'lottie-ios', '4.4.1'
-  pod 'GoogleSignIn'
 
 
   target 'classicalliveTests' do

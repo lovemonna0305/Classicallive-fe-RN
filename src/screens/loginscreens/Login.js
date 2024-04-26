@@ -91,8 +91,8 @@ export default function Login() {
   };
 
   useEffect(() => {
-    setEmail("performer@gmail.com");
-    setPassword("123123");
+    // setEmail("performer@gmail.com");
+    // setPassword("123123");
     // console.log("global.isRemember",global.isRemember);
     // console.log("global.tokens",global.tokens);
     // console.log("global.currentUser",global.currentUser);
@@ -101,37 +101,37 @@ export default function Login() {
     // if (storage.getItem('isRemember') == 1) {
     //   changeStore({ ...store, currentUser: storage.getItem('currentUser'), isLoggedin: true, role: storage.getItem('role'), isLoading: false });
     // }
-    GoogleSignin.configure({
-      webClientId:
-        "439003880186-ovf6uveql2sk5qmcq6vcp7ugekt3sqhp.apps.googleusercontent.com",
-      offlineAccess: true,
-    });
+    // GoogleSignin.configure({
+    //   webClientId:
+    //     "439003880186-ovf6uveql2sk5qmcq6vcp7ugekt3sqhp.apps.googleusercontent.com",
+    //   offlineAccess: true,
+    // });
   }, []);
 
   const handleGoogleSign = async () => {
-    try {
-      await GoogleSignin.hasPlayServices();
-      const userInfo = await GoogleSignin.signIn();
+    // try {
+    //   await GoogleSignin.hasPlayServices();
+    //   const userInfo = await GoogleSignin.signIn();
 
-      // console.log('userInfor', userInfo.user._id);
+    //   // console.log('userInfor', userInfo.user._id);
 
-      // const res = await api.getUser(userInfo.user._id)
+    //   // const res = await api.getUser(userInfo.user._id)
 
-      console.log("google Login");
-      await store.dispatch(loginGoogle({ email: userInfo.user.email }));
+    //   console.log("google Login");
+    //   await store.dispatch(loginGoogle({ email: userInfo.user.email }));
 
-      // setState({ userInfo });
-    } catch (error) {
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        // user cancelled the login flow
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-        // operation (e.g. sign in) is in progress already
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        // play services not available or outdated
-      } else {
-        // some other error happened
-      }
-    }
+    //   // setState({ userInfo });
+    // } catch (error) {
+    //   if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+    //     // user cancelled the login flow
+    //   } else if (error.code === statusCodes.IN_PROGRESS) {
+    //     // operation (e.g. sign in) is in progress already
+    //   } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+    //     // play services not available or outdated
+    //   } else {
+    //     // some other error happened
+    //   }
+    // }
   };
 
   const styles = StyleSheet.create({

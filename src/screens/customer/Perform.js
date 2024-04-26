@@ -74,7 +74,7 @@ export default function CustomerPerform() {
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
-              color="white"
+              color={theme.txt}
               size={40}
             />
           </TouchableOpacity>
@@ -91,7 +91,7 @@ export default function CustomerPerform() {
               />
             </View>
             <View style={{ paddingRight: 20 }}>
-              <Text style={{ color: "white", fontSize: 15 }}>{reservation.points}</Text>
+              <Text style={{ color: theme.txt, fontSize: 15 }}>{reservation.points}</Text>
             </View>
           </HStack>
         )}
@@ -225,7 +225,7 @@ export default function CustomerPerform() {
                 />
               </View>
               <View style={{ paddingRight: 10 ,paddingHorizontal:5}}>
-                <Text style={{ color: "white", fontSize: 15 }}>{reservation.points}</Text>
+                <Text style={{ color: theme.txt, fontSize: 15 }}>{reservation.points}</Text>
               </View>
             </View>
           </View>
@@ -262,7 +262,7 @@ export default function CustomerPerform() {
             <Icon
                name="envelope"
                size={20}
-               color="white"
+               color={theme.txt}
             />
             <Text style={style.activetext}>{t("message")}</Text>
         </View>
@@ -272,7 +272,7 @@ export default function CustomerPerform() {
             <Icon
                name="arrow-right"
                size={20}
-               color="white"
+               color={theme.txt}
             />
             <Text style={style.activetext}>{t("review")}</Text>
         </TouchableOpacity>

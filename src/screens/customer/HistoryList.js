@@ -82,8 +82,9 @@ export default function CustomerHistoryList() {
   const renderTabBar = (props) => (
     <TabBar
       {...props}
-      indicatorStyle={{ backgroundColor: "white" }}
-      style={{ backgroundColor: theme.bg }}
+      indicatorStyle={{ backgroundColor: theme.txt }}
+      style={{ backgroundColor: theme.bg, color:theme.txt }}
+      labelStyle={{color:theme.txt}}
     />
   );
 
@@ -126,7 +127,7 @@ export default function CustomerHistoryList() {
               <Avatar.Icon
                 icon="arrow-left"
                 style={{ backgroundColor: theme.bg }}
-                color="white"
+                color=theme.txt
                 size={40}
               />
             </TouchableOpacity> */}
@@ -144,7 +145,7 @@ export default function CustomerHistoryList() {
               />
             </View>
             <View style={{ paddingRight: 20 }}>
-              <Text style={{ color: "white", fontSize: 15 }}>
+              <Text style={{ color: theme.txt, fontSize: 15 }}>
                 {currentUser.points}
               </Text>
             </View>

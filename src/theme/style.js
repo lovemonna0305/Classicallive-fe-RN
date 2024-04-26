@@ -1,9 +1,10 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { theme } from "../theme/theme";
 import { Colors } from "./color";
 import themeContext from "./themeContex";
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
+import React, { useState, useContext, useEffect } from "react";
+const theme = useContext(themeContext);
 
 export default StyleSheet.create({
   row: {
@@ -54,7 +55,7 @@ export default StyleSheet.create({
   },
   main: {
     flex: 1,
-    backgrondColor: "white",
+    backgrondColor: theme.txt,
     marginHorizontal: 20,
     fontFamily: "Plus Jakarta Sans",
   },
@@ -346,7 +347,7 @@ export default StyleSheet.create({
   },
   modalbtn_text: {
     fontSize: 14,
-    color: "white",
+    color: theme.txt,
     fontFamily: "Plus Jakarta Sans",
     textAlign: "center",
   },
@@ -426,7 +427,7 @@ export default StyleSheet.create({
   modalView: {
     // flex:1,
     margin: 15,
-    backgroundColor: "white",
+    backgroundColor: theme.txt,
     borderRadius: 5,
     padding: 35,
     alignItems: "center",
@@ -457,7 +458,7 @@ export default StyleSheet.create({
   },
   textStyle: {
     paddingTop: 5,
-    color: "white",
+    color: theme.txt,
     fontWeight: "bold",
     textAlign: "center",
   },

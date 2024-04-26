@@ -259,7 +259,7 @@ export default function PerformerCustomerList() {
           onPress={() => setModalDeleteVisible(true)}
         >
           <Icon name="times" size={20} color={theme.txt} />
-          <Text style={style.activetext}>{t("delete")}</Text>
+          <Text style={[style.activetext,{color:theme.txt}]}>{t("delete")}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{ alignItems: "center", justifyContent: "center" }}
@@ -268,7 +268,7 @@ export default function PerformerCustomerList() {
             navigation.navigate("PerformerPostEdit")
           }}>
           <Icon name="edit" size={20} color={theme.txt} />
-          <Text style={style.activetext}>{t("edit")}</Text>
+          <Text style={[style.activetext,{color:theme.txt}]}>{t("edit")}</Text>
         </TouchableOpacity>
         {program.is_past?(
           <>
@@ -288,7 +288,7 @@ export default function PerformerCustomerList() {
             onPress={() => enterProgram()}
           >
             <Icon name="play-circle" size={20} color={theme.txt} />
-            <Text style={style.activetext}>{t("play")}</Text>
+            <Text style={[style.activetext,{color:theme.txt}]}>{t("play")}</Text>
           </TouchableOpacity>
           </>
         )}

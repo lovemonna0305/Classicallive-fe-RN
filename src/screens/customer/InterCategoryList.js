@@ -108,7 +108,7 @@ export default function CustomerInterCategoryList() {
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
-              color="white" 
+              color={theme.txt} 
               size={40}
             />
           </TouchableOpacity>
@@ -122,7 +122,7 @@ export default function CustomerInterCategoryList() {
               style={{
                 marginVertical: 8,
                 fontWeight: 800,
-                color: "white",
+                color: theme.txt,
                 fontSize: 20,
                 marginHorizontal: 20,
               }}
@@ -155,7 +155,7 @@ export default function CustomerInterCategoryList() {
             <View key={`category-${index}`} style={{margin:10}}>
               <Text style={{
                 fontWeight: 800,
-                color: "white",
+                color: theme.txt,
                 fontSize: 20,
                 marginHorizontal: 10,}}>{t(item.label)}</Text>
                 <View

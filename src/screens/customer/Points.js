@@ -76,20 +76,36 @@ export default function CustomerPoints() {
 
   const coinsdata = [
     {
-      "points": 100,
-      "amount": Math.floor(100 * 1.1),
+      "points": 140,
+      "amount": Math.floor(140 * 1.14),
     },
     {
-      "points": 200,
-      "amount": Math.floor(200 * 1.1),
+      "points": 430,
+      "amount": Math.floor(430 * 1.12),
     },
     {
-      "points": 500,
-      "amount": Math.floor(500 * 1.1),
+      "points": 720,
+      "amount": Math.floor(720 * 1.11),
     },
     {
-      "points": 1000,
-      "amount": Math.floor(1000 * 1.1),
+      "points": 1450,
+      "amount": Math.floor(1450 * 1.1),
+    },
+    {
+      "points": 4360,
+      "amount": Math.floor(4360 * 1.1),
+    },
+    {
+      "points": 7300,
+      "amount": Math.floor(7300 * 1.1),
+    },
+    {
+      "points": 13500,
+      "amount": Math.floor(13500 * 1.1),
+    },
+    {
+      "points": 25000,
+      "amount": Math.floor(25000 * 1.1),
     },
   ];
 
@@ -110,13 +126,18 @@ export default function CustomerPoints() {
           googlePay: {
             testEnv: true,
             merchantName: 'My merchant name',
-            merchantCountryCode: 'US',
-            currencyCode: 'USD',
+            merchantCountryCode: 'JP',
+            currencyCode: 'JPY',
             // billingAddressConfig: {
             //   format: PlatformPay.BillingAddressFormat.Full,
             //   isPhoneNumberRequired: true,
             //   isRequired: true,
             // },
+          },
+          paymentMethodData: {
+            billingDetails: {
+              country: 'JP', // Set the country to Japan
+            },
           },
         }
       );
@@ -202,9 +223,9 @@ export default function CustomerPoints() {
               <Text style={style.activetext}>{Math.floor(item.points)}</Text>
             </View>
           </View>
-          <TouchableOpacity style={{ backgroundColor: "#D05A35", borderColor: "white", borderRadius: 5, borderWidth: 1, width: 100 }}
+          <TouchableOpacity style={{ backgroundColor: Colors.coins, borderColor: theme.txt, borderRadius: 5, borderWidth: 1, width: 120 }}
             onPress={() => selectcoins(item)}>
-            <Text style={[style.activetext, { paddingHorizontal: 30, paddingVertical: 10, textAlign: "center" }]}>{item.amount}</Text>
+            <Text style={[style.activetext, { paddingHorizontal: 10, paddingVertical: 10, textAlign: "center" }]}>{item.amount}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -227,7 +248,7 @@ export default function CustomerPoints() {
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
-              color="white"
+              color={theme.txt}
               size={40}
             />
           </TouchableOpacity>

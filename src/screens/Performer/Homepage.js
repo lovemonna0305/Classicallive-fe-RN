@@ -74,7 +74,7 @@ export default function PerformerHomepage() {
     };
     return (
       <TouchableOpacity
-        style={[style.item1, { maxWidth: lastItem ? "47%" : "100%" }]}
+        style={[style.item1, { maxWidth: lastItem ? "47%" : "100%", backgroundColor:theme.itembackground }]}
         onPress={() => selectProgram(item)}
       >
         <View>
@@ -86,11 +86,11 @@ export default function PerformerHomepage() {
         <View style={{ marginLeft: 5 }}>
           <Text
             numberOfLines={1}
-            style={[style.activetext, { fontSize: 12, width: width / 2 - 100 }]}
+            style={[style.activetext, { fontSize: 12, width: width / 2 - 100, color:theme.txt }]}
           >
             {item.title}
           </Text>
-          <Text style={[style.activetext, { fontSize: 9 }]}>
+          <Text style={[style.activetext, { fontSize: 9 , color:theme.txt}]}>
             {item.date} {item.start_time}
           </Text>
         </View>
@@ -233,7 +233,7 @@ export default function PerformerHomepage() {
                 style={{
                   marginVertical: 8,
                   fontWeight: 800,
-                  color: "white",
+                  color: theme.txt,
                   fontSize: 20,
                   marginHorizontal: 20,
                 }}
@@ -262,7 +262,7 @@ export default function PerformerHomepage() {
                     style={{
                       marginVertical: 8,
                       fontWeight: 800,
-                      color: "white",
+                      color: theme.txt,
                       fontSize: 14,
                       textAlign: "center",
                       opacity: 0.4,
@@ -281,7 +281,7 @@ export default function PerformerHomepage() {
                 style={{
                   marginVertical: 8,
                   fontWeight: 800,
-                  color: "white",
+                  color: theme.txt,
                   fontSize: 20,
                 }}
               >
@@ -308,7 +308,7 @@ export default function PerformerHomepage() {
                     style={{
                       marginVertical: 8,
                       fontWeight: 800,
-                      color: "white",
+                      color: theme.txt,
                       fontSize: 14,
                       textAlign: "center",
                       opacity: 0.4,
@@ -322,7 +322,12 @@ export default function PerformerHomepage() {
           </View>
           <View style={{}}>
             <View style={{ marginTop: 10, marginHorizontal: 20 }}>
-              <Text style={style.title}>{t("today")}</Text>
+              <Text style={{
+                  marginVertical: 8,
+                  fontWeight: 800,
+                  color: theme.txt,
+                  fontSize: 20,
+                }}>{t("today")}</Text>
             </View>
             <View style={{ flex: 1, marginTop: 10, marginLeft: 20 }}>
               {programs["today"] && programs["today"].length != 0 ? (
@@ -344,7 +349,7 @@ export default function PerformerHomepage() {
                     style={{
                       marginVertical: 8,
                       fontWeight: 800,
-                      color: "white",
+                      color: theme.txt,
                       fontSize: 14,
                       textAlign: "center",
                       opacity: 0.4,

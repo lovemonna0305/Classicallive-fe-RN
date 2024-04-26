@@ -69,7 +69,7 @@ export default function PerformerPostDetail1() {
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
-              color="white"
+              color={theme.txt}
               size={40}
             />
           </TouchableOpacity>
@@ -136,7 +136,7 @@ export default function PerformerPostDetail1() {
                 />
               </View>
               <View style={{ paddingRight: 10 ,paddingHorizontal:5}}>
-                <Text style={{ color: "white", fontSize: 15 }}>{pProgram.points}</Text>
+                <Text style={{ color: theme.txt, fontSize: 15 }}>{pProgram.points}</Text>
               </View>
             </View>
           </View>

@@ -355,6 +355,27 @@ export default function PerformerPostCreate() {
           text2: t("title_required"),
         });
         return;
+      } else if (data.category === 0) {
+        Toast.show({
+          type: "error",
+          text1: t("error"),
+          text2: t("category_required"),
+        });
+        return;
+      } else if (data.subcategory === 0) {
+        Toast.show({
+          type: "error",
+          text1: t("error"),
+          text2: t("subcategory_required"),
+        });
+        return;
+      } else if (data.points == 0) {
+        Toast.show({
+          type: "error",
+          text1: t("error"),
+          text2: t("points_required"),
+        });
+        return;
       } else if (data.date === "") {
         Toast.show({
           type: "error",
@@ -462,7 +483,7 @@ export default function PerformerPostCreate() {
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
-              color="white"
+              color={theme.txt}
               size={40}
             />
           </TouchableOpacity>
@@ -515,6 +536,7 @@ export default function PerformerPostCreate() {
                     color: theme.txt,
                     fontFamily: "Plus Jakarta Sans",
                   }}
+                  placeholder={t('select_category')}
                   listMode="MODAL"
                   theme="DARK"
                   open={openCategory}
@@ -555,6 +577,7 @@ export default function PerformerPostCreate() {
                     height: 50,
                     fontFamily: "Plus Jakarta Sans",
                   }}
+                  placeholder={t('select_subcategory')}
                   listMode="MODAL"
                   theme="DARK"
                   open={openSubCategory}

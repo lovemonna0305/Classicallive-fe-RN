@@ -57,7 +57,7 @@ export default function Language() {
               <Avatar.Icon
                 icon="arrow-left"
                 style={{ backgroundColor: theme.bg }}
-                color="white"
+                color={theme.txt}
                 size={35}
               />
             </TouchableOpacity>
@@ -104,7 +104,7 @@ export default function Language() {
                 <Avatar.Icon
                   icon="check"
                   style={{ backgroundColor: Colors.primary }}
-                  color="white"
+                  color={theme.txt}
                   size={30}
                 />
               ) : null}
@@ -130,7 +130,7 @@ export default function Language() {
                 <Avatar.Icon
                   icon="check"
                   style={{ backgroundColor: Colors.primary }}
-                  color="white"
+                  color={theme.txt}
                   size={30}
                 />
               ) : null}

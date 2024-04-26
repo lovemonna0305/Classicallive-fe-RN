@@ -280,9 +280,6 @@ export default function CustomerHistoryDetail({ route }) {
           changeStore({ ...store, isLoading: false });
         }
       })
-      ;
-    // changeStore({...store, isLoading:true});
-
   };
 
   const cancelprogram = () => {
@@ -924,7 +921,7 @@ export default function CustomerHistoryDetail({ route }) {
               program.is_chat.includes("yes") ? (
               <>
                 <Icon name="envelope" size={20} color={theme.txt} />
-                <Text style={style.activetext}>{t("message")}</Text>
+                <Text style={[style.activetext,{color:theme.txt}]}>{t("message")}</Text>
               </>
             ) : (
               <>
@@ -952,7 +949,7 @@ export default function CustomerHistoryDetail({ route }) {
                 onPress={() => handleReview()}
               >
                 <Icon name="arrow-right" size={20} color={theme.txt} />
-                <Text style={style.activetext}>{t("review")}</Text>
+                <Text style={[style.activetext,{color:theme.txt}]}>{t("review")}</Text>
               </TouchableOpacity>
             </>
           )}

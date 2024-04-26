@@ -169,6 +169,14 @@ export default function PerformerPostEdit() {
 
 
   useEffect(() => {
+    let start_time = program.start_time.split(':').map(Number);
+    let end_time = program.end_time.split(':').map(Number);
+    setData({
+      ...data,
+      d_start_time: new Date(program.date + "T" + padZero(start_time[0] + 1) + ":" + padZero(start_time[1]) + ":00"),
+      d_end_time: new Date(program.date + "T" + padZero(end_time[0] + 1) + ":" + padZero(end_time[1]) + ":00"),
+    });
+
     const cateIndex = categoryArray["category"].findIndex(
       (item) => item.value === program.category.parent_id
     );
@@ -362,6 +370,27 @@ export default function PerformerPostEdit() {
           text2: t("title_required"),
         });
         return;
+      } else if (data.category === 0) {
+        Toast.show({
+          type: "error",
+          text1: t("error"),
+          text2: t("category_required"),
+        });
+        return;
+      } else if (data.subcategory === 0) {
+        Toast.show({
+          type: "error",
+          text1: t("error"),
+          text2: t("subcategory_required"),
+        });
+        return;
+      } else if (data.points == 0) {
+        Toast.show({
+          type: "error",
+          text1: t("error"),
+          text2: t("points_required"),
+        });
+        return;
       } else if (data.date === "") {
         Toast.show({
           type: "error",
@@ -471,7 +500,7 @@ export default function PerformerPostEdit() {
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
-              color="white"
+              color={theme.txt}
               size={40}
             />
           </TouchableOpacity>

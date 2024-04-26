@@ -72,6 +72,7 @@ export default function CustomerCategory() {
       {...props}
       indicatorStyle={{ backgroundColor: theme.txt }}
       style={{ backgroundColor: theme.bg }}
+      labelStyle={{color:theme.txt}}
     />
   );
 
@@ -116,7 +117,7 @@ export default function CustomerCategory() {
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
-              color="white"
+              color={theme.txt}
               size={40}
             />
           </TouchableOpacity>
@@ -133,7 +134,7 @@ export default function CustomerCategory() {
               />
             </View>
             <View style={{ paddingRight: 20 }}>
-              <Text style={{ color: "white", fontSize: 15 }}>
+              <Text style={{ color: theme.txt, fontSize: 15 }}>
                 {currentUser.points}
               </Text>
             </View>

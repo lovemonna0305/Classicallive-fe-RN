@@ -235,7 +235,7 @@ export default function CustomerHomepage() {
                   style={{
                     marginVertical: 8,
                     fontWeight: 800,
-                    color: "white",
+                    color: theme.txt,
                     fontSize: 20,
                     marginHorizontal: 20,
                   }}
@@ -266,7 +266,7 @@ export default function CustomerHomepage() {
                       style={{
                         marginVertical: 8,
                         fontWeight: 800,
-                        color: "white",
+                        color: theme.txt,
                         fontSize: 14,
                         textAlign: "center",
                         opacity: 0.4,
@@ -284,7 +284,7 @@ export default function CustomerHomepage() {
                   style={{
                     marginVertical: 8,
                     fontWeight: 800,
-                    color: "white",
+                    color: theme.txt,
                     fontSize: 20,
                   }}
                 >
@@ -313,7 +313,7 @@ export default function CustomerHomepage() {
                       style={{
                         marginVertical: 8,
                         fontWeight: 800,
-                        color: "white",
+                        color: theme.txt,
                         fontSize: 14,
                         textAlign: "center",
                         opacity: 0.4,
@@ -331,7 +331,7 @@ export default function CustomerHomepage() {
                   style={{
                     marginVertical: 8,
                     fontWeight: 800,
-                    color: "white",
+                    color: theme.txt,
                     fontSize: 20,
                   }}
                 >
@@ -365,7 +365,7 @@ export default function CustomerHomepage() {
                       style={{
                         marginVertical: 8,
                         fontWeight: 800,
-                        color: "white",
+                        color: theme.txt,
                         fontSize: 14,
                         textAlign: "center",
                         opacity: 0.4,

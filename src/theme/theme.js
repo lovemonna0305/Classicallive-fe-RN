@@ -5,7 +5,7 @@ const theme = {
     background: "#1F4690",
     itembackground:"#F8F9FE",
     txt: "#000000",
-    icon: "#9F0CE3",
+    icon: "#00C2CB",
     box: "#E3E7EC",
     barstyle: "dark-content",
     // img: require("../../assets/image/Progress.png"),

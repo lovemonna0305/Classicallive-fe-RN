@@ -132,7 +132,7 @@ export default function Notification() {
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
-              color="white"
+              color={theme.txt}
               size={40}
             />
           </TouchableOpacity>
@@ -161,7 +161,7 @@ export default function Notification() {
               style={{
                 marginVertical: 8,
                 fontWeight: 800,
-                color: "white",
+                color: theme.txt,
                 fontSize: 14,
                 textAlign: "center",
                 opacity: 0.4,

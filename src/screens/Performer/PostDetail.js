@@ -71,7 +71,7 @@ export default function PerformerPostDetail() {
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
-              color="white"
+              color={theme.txt}
               size={40}
             />
           </TouchableOpacity>
@@ -303,7 +303,7 @@ export default function PerformerPostDetail() {
                 />
               </View>
               <View style={{ paddingRight: 10, paddingHorizontal: 5 }}>
-                <Text style={{ color: "white", fontSize: 15 }}>
+                <Text style={{ color: theme.txt, fontSize: 15 }}>
                   {program.points}
                 </Text>
               </View>
@@ -331,7 +331,7 @@ export default function PerformerPostDetail() {
           {/* <Icon
                name="envelope"
                size={20}
-               color="white"
+               color=theme.txt
             />
             <Text style={style.activetext}>{t("message")}</Text> */}
         </View>
@@ -339,7 +339,7 @@ export default function PerformerPostDetail() {
           style={{ alignItems: "center", justifyContent: "center" }}
           onPress={() => enterProgram()}
         >
-          <Icon name="arrow-right" size={20} color="white" />
+          <Icon name="arrow-right" size={20} color={theme.txt} />
           <Text style={style.activetext}>{t("enter")}</Text>
         </TouchableOpacity>
       </View>

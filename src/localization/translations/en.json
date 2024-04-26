@@ -482,6 +482,8 @@
   "canceled":"Canceled",
   "rejected":"Rejected",
   "deleted":"Deleted",
+  "canceled_successfully":"Canceled Successfully.",
+  "canceled_already":"Canceled Already.",
   
   "sure_approve":"Are you sure Approval?",
   "sure_rejection":"Are you sure Rejection?",
@@ -577,6 +579,14 @@
   "take_video":"Take a video",
 
   "default":"default",
+  "select_category":"Select Category",
+  "select_subcategory":"Select Subcategory",
+
+  "title_required":"Title required.",
+  "category_required":"Category required",
+  "subcategory_required":"Subcategory required",
+  "points_required":"Points required",
+
 
   "amount":"Amount"
 

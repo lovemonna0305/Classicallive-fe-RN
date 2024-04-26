@@ -68,8 +68,9 @@ export default function PerformerHistoryList() {
   const renderTabBar = (props) => (
     <TabBar
       {...props}
-      indicatorStyle={{ backgroundColor: "white" }}
+      indicatorStyle={{ backgroundColor: theme.txt }}
       style={{ backgroundColor: theme.bg }}
+      labelStyle={{color:theme.txt}}
     />
   );
 

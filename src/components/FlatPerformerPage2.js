@@ -35,6 +35,7 @@ import { api } from "../api";
 import { approveReservation, getReservations, rejectionReservation } from "../actions/performer";
 import Spinner from "./Spinner";
 import { useStore } from "../store/store";
+import Toast from "react-native-toast-message";
 
 export default function FlatPerformerPage2({ items, title }) {
   const { changeStore, store } = useStore();
@@ -65,6 +66,7 @@ export default function FlatPerformerPage2({ items, title }) {
   },[]);
 
   const handleApproveProgram = async () => {
+    console.log(item);
     try {
       await approveReservation(item.id);
       fetchdata()
@@ -77,11 +79,28 @@ export default function FlatPerformerPage2({ items, title }) {
   };
 
   const handleRejectionProgram = async () => {
-
     setEdit(0);
     try {
-      await rejectionReservation(item.id);
-      fetchdata()
+      await rejectionReservation(item.id)
+      .then((res) =>{
+        if(res.data.success){
+          Toast.show({
+            type: "success",
+            text1: t('success'),
+            text2: t(res.data.message),
+          });
+          fetchdata();
+        } else {
+          Toast.show({
+            type: "error",
+            text1: t('error'),
+            text2: t(res.data.message),
+          });
+        }
+      }).catch((err)=>{
+        console.log(err)
+      })
+      
     } catch (err) {
       console.log(err)
     }
@@ -181,7 +200,7 @@ export default function FlatPerformerPage2({ items, title }) {
                   />
                 </View>
                 <View style={{ paddingHorizontal: 5 }}>
-                  <Text style={{ color: "white", fontSize: 11 }}>
+                  <Text style={{ color: theme.txt, fontSize: 11 }}>
                     {"item.points"}
                   </Text>
                 </View>
@@ -431,7 +450,7 @@ export default function FlatPerformerPage2({ items, title }) {
               style={{
                 marginVertical: 8,
                 fontWeight: 800,
-                color: "white",
+                color: theme.txt,
                 fontSize: 14,
                 textAlign: "center",
                 opacity: 0.4,

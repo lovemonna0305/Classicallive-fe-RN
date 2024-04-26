@@ -114,7 +114,7 @@ export default function CustomerProgramEnter() {
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
-              color="white"
+              color={theme.txt}
               size={40}
             />
           </TouchableOpacity>
@@ -131,7 +131,7 @@ export default function CustomerProgramEnter() {
               />
             </View>
             <View style={{ paddingRight: 20 }}>
-              <Text style={{ color: "white", fontSize: 15 }}>
+              <Text style={{ color: theme.txt, fontSize: 15 }}>
                 {program.points}
               </Text>
             </View>
@@ -472,7 +472,7 @@ export default function CustomerProgramEnter() {
                 />
               </View>
               <View style={{ paddingRight: 10, paddingHorizontal: 5 }}>
-                <Text style={{ color: "white", fontSize: 15 }}>
+                <Text style={{ color: theme.txt, fontSize: 15 }}>
                   {program.points}
                 </Text>
               </View>

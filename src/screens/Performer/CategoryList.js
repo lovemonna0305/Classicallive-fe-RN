@@ -137,7 +137,7 @@ export default function PerformerCategoryList() {
               style={{
                 marginVertical: 8,
                 fontWeight: 800,
-                color: "white",
+                color: theme.txt,
                 fontSize: 20,
                 marginHorizontal: 20,
               }}
@@ -160,7 +160,7 @@ export default function PerformerCategoryList() {
             style={{
               marginVertical: 8,
               fontWeight: 800,
-              color: "white",
+              color: theme.txt,
               fontSize: 20,
               marginHorizontal: 20,
             }}

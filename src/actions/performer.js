@@ -72,16 +72,8 @@ export const approveReservation = async (id) => {
 };
 
 export const rejectionReservation = async (id) => {
-  global.isLoading = true;
-  try {
-    const res = await api.rejectionReservation(id);
-    if (res.data.success) {
-    } else {
-
-    }
-  } catch (err) {
-
-  }
+  const res = await api.rejectionReservation(id);
+  return res;
 };
 
 export const createProgram = async (data) => {

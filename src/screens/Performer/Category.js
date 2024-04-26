@@ -71,8 +71,9 @@ export default function PerformerCategory() {
   const renderTabBar = (props) => (
     <TabBar
       {...props}
-      indicatorStyle={{ backgroundColor: "white" }}
+      indicatorStyle={{ backgroundColor: theme.txt }}
       style={{ backgroundColor: theme.bg }}
+      labelStyle={{color:theme.txt}}
     />
   );
 
@@ -109,7 +110,7 @@ export default function PerformerCategory() {
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
-              color="white"
+              color={theme.txt}
               size={40}
             />
           </TouchableOpacity>

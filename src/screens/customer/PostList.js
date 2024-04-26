@@ -160,7 +160,7 @@ export default function CustomerPostList() {
                       />
                     </View>
                     <View style={{ paddingHorizontal: 5 }}>
-                      <Text style={{ color: "white", fontSize: 11 }}>{item.points}</Text>
+                      <Text style={{ color: theme.txt, fontSize: 11 }}>{item.points}</Text>
                     </View>
                   </View>
                 </View>
@@ -190,7 +190,7 @@ export default function CustomerPostList() {
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
-              color="white"
+              color={theme.txt}
               size={40}
             />
           </TouchableOpacity>
@@ -218,7 +218,7 @@ export default function CustomerPostList() {
                 style={{
                   marginVertical: 8,
                   fontWeight: 800,
-                  color: "white",
+                  color: theme.txt,
                   fontSize: 14,
                   textAlign: "center",
                   opacity: 0.4,

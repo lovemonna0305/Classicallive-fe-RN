@@ -211,7 +211,7 @@ export default function CustomerLiveChat({ route }) {
                   size={40}
                 />
                 {/* <View style={{
-                  backgroundColor: "#38A169", width: 15, height: 15, borderRadius: 15, borderWidth: 2, borderColor: "white",
+                  backgroundColor: "#38A169", width: 15, height: 15, borderRadius: 15, borderWidth: 2, borderColor: theme.txt,
                   position: "absolute", top: 58, right: 10
                 }}>
                 </View> */}
@@ -220,7 +220,7 @@ export default function CustomerLiveChat({ route }) {
                 <Text style={{ fontSize: 14, fontWeight: 700, color: theme.txt }}>
                   {member.name}{" "}
                 </Text>
-                {/* <Text style={{ fontSize: 14, color: "white" }}>Online </Text> */}
+                {/* <Text style={{ fontSize: 14, color: theme.txt }}>Online </Text> */}
               </View>
               {/* <TouchableOpacity>
                 <Icon name="create-outline" size={30} style={{ marginTop: 30, marginLeft: 100 }}></Icon>

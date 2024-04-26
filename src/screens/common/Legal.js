@@ -39,7 +39,7 @@ export default function Legal() {
               <Avatar.Icon
                 icon="arrow-left"
                 style={{ backgroundColor: theme.bg }}
-                color="white"
+                color={theme.txt}
                 size={40}
               />
             </TouchableOpacity>

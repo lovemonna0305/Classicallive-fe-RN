@@ -219,7 +219,7 @@ export default function CustomerPostDetail() {
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
-              color="white"
+              color={theme.txt}
               size={40}
             />
           </TouchableOpacity>
@@ -236,7 +236,7 @@ export default function CustomerPostDetail() {
               />
             </View>
             <View style={{ paddingRight: 20 }}>
-              <Text style={{ color: "white", fontSize: 15 }}>
+              <Text style={{ color: theme.txt, fontSize: 15 }}>
                 {currentUser.points}
               </Text>
             </View>
@@ -593,7 +593,7 @@ export default function CustomerPostDetail() {
                   />
                 </View>
                 <View style={{ paddingRight: 10, paddingHorizontal: 5 }}>
-                  <Text style={{ color: "white", fontSize: 15 }}>
+                  <Text style={{ color: theme.txt, fontSize: 15 }}>
                     {program.points}
                   </Text>
                 </View>
@@ -614,8 +614,8 @@ export default function CustomerPostDetail() {
           >
             {program.is_chat.includes("yes") ? (
               <>
-                <Icon name="envelope" size={20} color="white" />
-                <Text style={style.activetext}>{t("message")}</Text>
+                <Icon name="envelope" size={20} color={theme.txt} />
+                <Text style={[style.activetext,{color:theme.txt}]}>{t("message")}</Text>
               </>
             ) : (
               <>
@@ -630,8 +630,8 @@ export default function CustomerPostDetail() {
             style={{ alignItems: "center", justifyContent: "center" }}
             onPress={() => checkProgram()}
           >
-            <Icon name="plus" size={20} color="white" />
-            <Text style={style.activetext}>{t("reservation")}</Text>
+            <Icon name="plus" size={20} color={theme.txt} />
+            <Text style={[style.activetext,{color:theme.txt}]}>{t("reservation")}</Text>
           </TouchableOpacity>
         </View>
       </View>

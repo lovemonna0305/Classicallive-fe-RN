@@ -196,7 +196,7 @@ export default function FlatPerformerPage({ items, title }) {
                   />
                 </View>
                 <View style={{ paddingHorizontal: 5 }}>
-                  <Text style={{ color: "white", fontSize: 11 }}>
+                  <Text style={{ color: theme.txt, fontSize: 11 }}>
                     {item.points}
                   </Text>
                 </View>
@@ -228,7 +228,7 @@ export default function FlatPerformerPage({ items, title }) {
             style={{
               marginVertical: 8,
               fontWeight: 800,
-              color: "white",
+              color: theme.txt,
               fontSize: 14,
               textAlign: "center",
               opacity: 0.4,

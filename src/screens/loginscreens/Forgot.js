@@ -61,7 +61,7 @@ export default function Forgot() {
           <Avatar.Icon
             icon="information-variant"
             style={{ backgroundColor: "#BDBDBD" }}
-            color="white"
+            color={theme.txt}
             size={25}
           />
           <View style={{ marginLeft: 10, marginRight: 10 }}>

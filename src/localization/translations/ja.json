@@ -476,6 +476,9 @@
   "canceled":"キャンセル",
   "rejected":"拒否",
   "deleted":"削除",
+  "canceled_ successly":"正常にキャンセルされました。",
+  "canceled_already":"すでにキャンセルされました。",
+  
 
   "sure_approve":"承認してよろしいですか?",
   "sure_rejection":"本当に拒否しますか?",
@@ -564,6 +567,13 @@
   "change_your_video":"ビデオを変更する",
   "take_video":"ビデオを撮る",
 
-  "default":"default",
-  "amount":"Amount"
+  "select_category":"カテゴリーを選択",
+  "select_subcategory":"子カテゴリーを選択",
+
+  "category_required":"Category required",
+  "subcategory_required":"Subcategory required",
+  "points_required":"Points required",
+
+  "default":"デフォルト",
+  "amount":"総額"
 }

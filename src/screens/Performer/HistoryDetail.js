@@ -81,7 +81,7 @@ export default function PerformerHistoryDetail() {
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
-              color="white"
+              color={theme.txt}
               size={40}
             />
           </TouchableOpacity>
@@ -177,7 +177,7 @@ export default function PerformerHistoryDetail() {
                   />
                 </View>
                 <View style={{ paddingRight: 10, paddingHorizontal: 5 }}>
-                  <Text style={{ color: "white", fontSize: 15 }}>{program.points}</Text>
+                  <Text style={{ color: theme.txt, fontSize: 15 }}>{program.points}</Text>
                 </View>
               </View>
             </View>

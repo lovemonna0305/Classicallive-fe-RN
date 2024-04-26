@@ -14,6 +14,7 @@ import Swiper from 'react-native-swiper';
 import LinearGradient from 'react-native-linear-gradient';
 
 import { useSelector, useDispatch } from "react-redux";
+import theme from "../theme/theme";
 
 export default CardSlider = () => {
 
@@ -70,10 +71,10 @@ export default CardSlider = () => {
                         height: 250, paddingLeft: 10, width: '95%'
                     }}
                 >
-                    <Text style={{ color: "white", fontSize: 30, fontWeight: 700, }}>{props.flexer.fullname}</Text>
+                    <Text style={{ color: theme.txt, fontSize: 30, fontWeight: 700, }}>{props.flexer.fullname}</Text>
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
-                        <Icon name="location-outline" size={40} style={{ color: "white", fontSize: 20, marginTop: 5 }}></Icon>
-                        <Text style={{ color: "white", fontSize: 20, fontWeight: 700, }}>100 miles away</Text>
+                        <Icon name="location-outline" size={40} style={{ color: theme.txt, fontSize: 20, marginTop: 5 }}></Icon>
+                        <Text style={{ color: theme.txt, fontSize: 20, fontWeight: 700, }}>100 miles away</Text>
                     </View>
                     <View style={{
                         display: "flex", flexDirection: 'row',

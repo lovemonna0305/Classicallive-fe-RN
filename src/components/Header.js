@@ -68,10 +68,10 @@ export default function Header() {
             }}
           />
           <View style={{ paddingLeft: 5 }}>
-            <Text style={{ marginTop: 8, fontWeight: 600, color: "white" }}>
+            <Text style={{ marginTop: 8, fontWeight: 600, color: theme.txt }}>
               {t("welcome")}
             </Text>
-            <Text style={{ color: "white" }}>{currentUser.name}</Text>
+            <Text style={{ color: theme.txt }}>{currentUser.name}</Text>
           </View>
         </View>
         <View>
@@ -86,7 +86,7 @@ export default function Header() {
                         right: 40,
                       }}
                     >
-                      <Icon name="notifications" color="white" size={20} />
+                      <Icon name="notifications" color=theme.txt size={20} />
                     </View>
                   </TouchableOpacity>
                 </View> */}
@@ -112,7 +112,7 @@ export default function Header() {
                 >
                   <Icon
                     name="notifications"
-                    color="white"
+                    color={theme.txt}
                     size={22}
                   />
                 </View>
@@ -126,7 +126,7 @@ export default function Header() {
                     right: 0,
                   }}
                 >
-                  <Icon name="settings" color="white" size={20} />
+                  <Icon name="settings" color={theme.txt} size={20} />
                 </View>
               </TouchableOpacity>
             </View>

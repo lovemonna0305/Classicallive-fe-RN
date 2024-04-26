@@ -60,13 +60,13 @@ export const RenderProgram = async () => {
               //         style={{
               //           marginTop: 8,
               //           fontWeight: 800,
-              //           color: "white",
+              //           color: theme.txt,
               //           fontSize: 10,
               //         }}
               //       >
               //         {item.title}
               //       </Text>
-              //       <Text style={{ color: "white" }}>03/03 10:10</Text>
+              //       <Text style={{ color: theme.txt }}>03/03 10:10</Text>
               //     </View>
               //   </TouchableOpacity>
             }}
@@ -158,13 +158,13 @@ const styles = StyleSheet.create({
 //           style={{
 //             marginTop: 8,
 //             fontWeight: 800,
-//             color: "white",
+//             color: theme.txt,
 //             fontSize: 10,
 //           }}
 //         >
 //           {item.title}
 //         </Text>
-//         <Text style={{ color: "white" }}>03/03 10:10</Text>
+//         <Text style={{ color: theme.txt }}>03/03 10:10</Text>
 //       </View>
 //     </TouchableOpacity>
 //   );

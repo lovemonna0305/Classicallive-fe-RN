@@ -218,7 +218,7 @@ export default function CustomerProgramList() {
                   />
                 </View>
                 <View style={{ paddingHorizontal: 5 }}>
-                  <Text style={{ color: "white", fontSize: 11 }}>
+                  <Text style={{ color: theme.txt, fontSize: 11 }}>
                     {item.points}
                   </Text>
                 </View>
@@ -242,7 +242,7 @@ export default function CustomerProgramList() {
   const renderTabBar = (props) => (
     <TabBar
       {...props}
-      indicatorStyle={{ backgroundColor: "white" }}
+      indicatorStyle={{ backgroundColor: theme.txt }}
       style={{ backgroundColor: theme.bg }}
     />
   );
@@ -311,7 +311,7 @@ export default function CustomerProgramList() {
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
-              color="white"
+              color={theme.txt}
               size={40}
             />
           </TouchableOpacity>
@@ -328,7 +328,7 @@ export default function CustomerProgramList() {
               />
             </View>
             <View style={{ paddingRight: 20 }}>
-              <Text style={{ color: "white", fontSize: 15 }}>{currentUser.points}</Text>
+              <Text style={{ color: theme.txt, fontSize: 15 }}>{currentUser.points}</Text>
             </View>
           </HStack>
         )}

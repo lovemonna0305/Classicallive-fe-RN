@@ -85,7 +85,7 @@ export default function PerformerHomepage() {
               style={{
                 marginVertical: 8,
                 fontWeight: 800,
-                color: "white",
+                color: theme.txt,
                 fontSize: 20,
               }}
             >
@@ -103,7 +103,7 @@ export default function PerformerHomepage() {
               style={{
                 marginVertical: 8,
                 fontWeight: 800,
-                color: "white",
+                color: theme.txt,
                 fontSize: 20,
               }}
             >
@@ -121,7 +121,7 @@ export default function PerformerHomepage() {
               style={{
                 marginVertical: 8,
                 fontWeight: 800,
-                color: "white",
+                color: theme.txt,
                 fontSize: 20,
               }}
             >

@@ -544,6 +544,7 @@
 
 
   "create_playing_room":"演奏の部屋作成",
+  "not_create_room":"出演者がルームを作成できませんでした。",
   "video_streaming":"ビデオストリーミング",
   "playing_is_running":"演奏は実行中です。",
   "go_live": "ライブ配信を開始する",

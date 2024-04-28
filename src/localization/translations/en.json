@@ -558,6 +558,7 @@
 
 
   "create_playing_room":"Create Playing room",
+  "not_create_room":"Performer was not created room.",
   "video_streaming":"Video Streaming",
   "playing_is_running":"Playing is running.",
   "go_live":"Go Live",

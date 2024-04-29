@@ -22,8 +22,10 @@ import { Avatar } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { t } from "i18next";
 import i18n from "../../localization/i18n";
+import { useStore } from "../../store/store";
 
 export default function Language() {
+  const { changeStore, store } = useStore();
   const theme = useContext(themeContext);
   const navigation = useNavigation();
   const [darkMode, setDarkMode] = useState(false);
@@ -33,10 +35,8 @@ export default function Language() {
     const language = i18n.language
     if(language.includes("en")){
       setEnglish(true);
-      console.log(language);
     } else {
       setEnglish(false);
-      console.log(language);
     }
   }, []);
 
@@ -53,7 +53,10 @@ export default function Language() {
           centerTitle={true}
           elevation={0}
           leading={
-            <TouchableOpacity onPress={() => navigation.replace("Home")}>
+            <TouchableOpacity onPress={() => {
+              changeStore({ ...store, page: 'Home' });
+              navigation.replace("Home")
+              }}>
               <Avatar.Icon
                 icon="arrow-left"
                 style={{ backgroundColor: theme.bg }}

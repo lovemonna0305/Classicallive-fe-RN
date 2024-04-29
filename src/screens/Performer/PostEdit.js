@@ -173,8 +173,8 @@ export default function PerformerPostEdit() {
     let end_time = program.end_time.split(':').map(Number);
     setData({
       ...data,
-      d_start_time: new Date(program.date + "T" + padZero(start_time[0] + 1) + ":" + padZero(start_time[1]) + ":00"),
-      d_end_time: new Date(program.date + "T" + padZero(end_time[0] + 1) + ":" + padZero(end_time[1]) + ":00"),
+      d_start_time: new Date(program.date + "T" + padZero(start_time[0] ) + ":" + padZero(start_time[1]) + ":00"),
+      d_end_time: new Date(program.date + "T" + padZero(end_time[0] ) + ":" + padZero(end_time[1]) + ":00"),
     });
 
     const cateIndex = categoryArray["category"].findIndex(
@@ -248,7 +248,7 @@ export default function PerformerPostEdit() {
     const seconds = datetime.getSeconds(); // Get the second (0-59)
     setData({
       ...data,
-      start_time: padZero(hours + 1) + ":" + padZero(minutes),
+      start_time: padZero(hours) + ":" + padZero(minutes),
       d_start_time: datetime,
     });
     setFirsttime(time);
@@ -274,7 +274,7 @@ export default function PerformerPostEdit() {
 
       setData({
         ...data,
-        end_time: padZero(hours + 1) + ":" + padZero(minutes),
+        end_time: padZero(hours) + ":" + padZero(minutes),
         d_end_time: datetime,
       });
     } else {
@@ -382,13 +382,6 @@ export default function PerformerPostEdit() {
           type: "error",
           text1: t("error"),
           text2: t("subcategory_required"),
-        });
-        return;
-      } else if (data.points == 0) {
-        Toast.show({
-          type: "error",
-          text1: t("error"),
-          text2: t("points_required"),
         });
         return;
       } else if (data.date === "") {

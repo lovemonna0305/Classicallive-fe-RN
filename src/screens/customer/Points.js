@@ -76,36 +76,66 @@ export default function CustomerPoints() {
 
   const coinsdata = [
     {
+    //   "points": 140,
+    //   "amount": Math.ceil(140 * 1.14),
+    // },
+    // {
+    //   "points": 430,
+    //   "amount": Math.ceil(430 * 1.12),
+    // },
+    // {
+    //   "points": 720,
+    //   "amount": Math.ceil(720 * 1.11),
+    // },
+    // {
+    //   "points": 1450,
+    //   "amount": Math.ceil(1450 * 1.1),
+    // },
+    // {
+    //   "points": 4360,
+    //   "amount": Math.ceil(4360 * 1.1),
+    // },
+    // {
+    //   "points": 7300,
+    //   "amount": Math.ceil(7300 * 1.1),
+    // },
+    // {
+    //   "points": 13500,
+    //   "amount": Math.ceil(13500 * 1.1),
+    // },
+    // {
+    //   "points": 25000,
+    //   "amount": Math.ceil(25000 * 1.1),
       "points": 140,
-      "amount": Math.floor(140 * 1.14),
+      "amount": 160,
     },
     {
       "points": 430,
-      "amount": Math.floor(430 * 1.12),
+      "amount": 480,
     },
     {
       "points": 720,
-      "amount": Math.floor(720 * 1.11),
+      "amount": 800,
     },
     {
       "points": 1450,
-      "amount": Math.floor(1450 * 1.1),
+      "amount": 1600,
     },
     {
       "points": 4360,
-      "amount": Math.floor(4360 * 1.1),
+      "amount": 4800,
     },
     {
       "points": 7300,
-      "amount": Math.floor(7300 * 1.1),
+      "amount": 8000,
     },
     {
       "points": 13500,
-      "amount": Math.floor(13500 * 1.1),
+      "amount": 14800,
     },
     {
       "points": 25000,
-      "amount": Math.floor(25000 * 1.1),
+      "amount": 27500,
     },
   ];
 
@@ -220,7 +250,7 @@ export default function CustomerPoints() {
               />
             </View>
             <View style={{ paddingLeft: 10 }}>
-              <Text style={style.activetext}>{Math.floor(item.points)}</Text>
+              <Text style={style.activetext}>{item.points}</Text>
             </View>
           </View>
           <TouchableOpacity style={{ backgroundColor: Colors.coins, borderColor: theme.txt, borderRadius: 5, borderWidth: 1, width: 120 }}

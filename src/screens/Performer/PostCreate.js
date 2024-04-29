@@ -34,7 +34,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import CheckBox from "../../components/CheckBox";
 import { useStore } from "../../store/store";
 import Video from 'react-native-video';
-import moment from "moment";
+const moment = require('moment-timezone');
 
 
 const width = Dimensions.get("screen").width;
@@ -57,13 +57,13 @@ export default function PerformerPostCreate() {
     email: "",
     category: 0,
     subcategory: 0,
-    points: "",
-    date: moment(new Date()).utcOffset('+0900').format('YYYY-MM-DD'), // Choose date
-    start_time: moment(new Date()).utcOffset('+0900').format('HH:mm'), // Choose time
-    end_time: moment(new Date()).utcOffset('+0900').format('HH:mm'), // Choose time,
-    d_date: new Date(moment(new Date()).utcOffset('+0900').format('YYYY-MM-DD HH:mm')), // Choose date
-    d_start_time: new Date(moment(new Date()).utcOffset('+0900')), // Choose time
-    d_end_time: new Date(moment(new Date()).utcOffset('+0900')), // Choose time
+    points: 0,
+    date: "", // Choose date
+    start_time: "", // Choose time
+    end_time: "", // Choose time,
+    d_date: new Date(), // Choose date
+    d_start_time: new Date(), // Choose time
+    d_end_time: new Date(), // Choose time
     is_chat: false,
     description: "", // Choose time
   });
@@ -160,7 +160,19 @@ export default function PerformerPostCreate() {
 
 
 
-  useEffect(() => { 
+  useEffect(() => {
+    const currentDate = new Date();
+    const currentDateTime = moment(currentDate).tz('Asia/Tokyo').format('YYYY-MM-DD hh:mm:ss');
+    setData({
+      ...data,
+      date: moment(currentDate).tz('Asia/Tokyo').format('YYYY-MM-DD'),
+      start_time: moment(currentDate).tz('Asia/Tokyo').format('hh:mm'),
+      end_time: moment(currentDate).tz('Asia/Tokyo').format('hh:mm'),
+      d_date: moment(currentDateTime).toDate(),
+      d_start_time: moment(currentDateTime).toDate(),
+      d_end_time: moment(currentDateTime).toDate(),
+    });
+
     changeStore({ ...store, isLoading: false });
   }, []);
 
@@ -230,7 +242,7 @@ export default function PerformerPostCreate() {
     const seconds = datetime.getSeconds(); // Get the second (0-59)
     setData({
       ...data,
-      start_time: padZero(hours + 1) + ":" + padZero(minutes),
+      start_time: padZero(hours) + ":" + padZero(minutes),
       d_start_time: datetime,
     });
     setFirsttime(time);
@@ -256,7 +268,7 @@ export default function PerformerPostCreate() {
 
       setData({
         ...data,
-        end_time: padZero(hours + 1) + ":" + padZero(minutes),
+        end_time: padZero(hours) + ":" + padZero(minutes),
         d_end_time: datetime,
       });
     } else {
@@ -369,13 +381,6 @@ export default function PerformerPostCreate() {
           text2: t("subcategory_required"),
         });
         return;
-      } else if (data.points == 0) {
-        Toast.show({
-          type: "error",
-          text1: t("error"),
-          text2: t("points_required"),
-        });
-        return;
       } else if (data.date === "") {
         Toast.show({
           type: "error",
@@ -410,7 +415,7 @@ export default function PerformerPostCreate() {
         formdata.append("description", data.description);
         formdata.append("is_chat", chat);
 
-        if(activeTab==1){
+        if (activeTab == 1) {
           if (image) {
             formdata.append("file", {
               name: image.assets?.[0].fileName,
@@ -430,13 +435,13 @@ export default function PerformerPostCreate() {
           }
           formdata.append("is_video", 1);
           formdata.append("is_changeVideo", isChangeVideo);
-          
+
         }
         changeStore({ ...store, isLoading: true });
         (async () => {
           createProgram(formdata)
             .then(res => {
-              if(res.data.success){
+              if (res.data.success) {
                 changeStore({ ...store, isLoading: false });
                 navigation.replace('Category');
               } else {
@@ -649,7 +654,7 @@ export default function PerformerPostCreate() {
                   <DateTimePickerModal
                     isVisible={isDatePickerVisible}
                     mode="date"
-                    locale="ja-JP"
+                    locale="ja_jp"
                     date={data.d_date}
                     onConfirm={handleConfirm}
                     onCancel={hideDatePicker}
@@ -691,7 +696,7 @@ export default function PerformerPostCreate() {
                   <DateTimePickerModal
                     isVisible={isStimePickerVisible}
                     mode="time"
-                    locale="ja-JP"
+                    locale="ja_jp"
                     date={data.d_start_time}
                     onConfirm={handleConfirmStime}
                     onCancel={hideStimePicker}
@@ -733,7 +738,7 @@ export default function PerformerPostCreate() {
                   <DateTimePickerModal
                     isVisible={isEtimePickerVisible}
                     mode="time"
-                    locale="ja-JP"
+                    locale="ja_jp-JP"
                     date={data.d_end_time}
                     onConfirm={handleConfirmEtime}
                     onCancel={hideEtimePicker}
@@ -777,7 +782,7 @@ export default function PerformerPostCreate() {
               </View>
             </View>
 
-             <View style={styles.tabBar}>
+            <View style={styles.tabBar}>
               <TouchableOpacity
                 style={[styles.tabButton,]}
                 onPress={() => handleTabChange(1)}
@@ -929,28 +934,28 @@ export default function PerformerPostCreate() {
                   }}
                 >
 
-                <View style={{ marginVertical: 20, marginBottom: 20, width: width / 2, height: width / 4 }}>
-                <Video
-                    ref={videoPlayer}
-                    source={{
-                      uri: selectedvideo,
-                    }} // Can be a URL or a local file.
-                    style={{
-                      flex: 1,
-                      backgroundColor: 'black',
-                    }}
-                    onError={e => console.log('error', e)}
-                    paused={pause}
-                    onProgress={({currentTime, playableDuration}) => {
-                      setProgrss(currentTime);
-                      setplayableDuration(playableDuration);
-                    }}
-                    onLoad={data => {
-                      const {duration} = data;
-                      setplayableDuration(duration);
-                    }}
-                  />
-                  {/* <ControlsOverlay
+                  <View style={{ marginVertical: 20, marginBottom: 20, width: width / 2, height: width / 4 }}>
+                    <Video
+                      ref={videoPlayer}
+                      source={{
+                        uri: selectedvideo,
+                      }} // Can be a URL or a local file.
+                      style={{
+                        flex: 1,
+                        backgroundColor: 'black',
+                      }}
+                      onError={e => console.log('error', e)}
+                      paused={pause}
+                      onProgress={({ currentTime, playableDuration }) => {
+                        setProgrss(currentTime);
+                        setplayableDuration(playableDuration);
+                      }}
+                      onLoad={data => {
+                        const { duration } = data;
+                        setplayableDuration(duration);
+                      }}
+                    />
+                    {/* <ControlsOverlay
                     playableDuration={playableDuration}
                     setPause={setPause}
                     pause={pause}
@@ -961,7 +966,7 @@ export default function PerformerPostCreate() {
                     isChatVisible={isChatVisible}
                     setisChatVisible={setisChatVisible}
                   /> */}
-                </View>
+                  </View>
                   <View
                     style={{
                       position: "absolute",

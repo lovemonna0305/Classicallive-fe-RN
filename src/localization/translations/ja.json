@@ -428,9 +428,9 @@
   "review":"レビュー",
   "delivery_schedule":"配信予定",
   "today_delivery":"本日の配信",
-  "deliveried":"配信済み",
+  "deliveried":"配信済",
   "popular_category":"人気カテゴリ",
-  "all_category":"すべてカテゴリ",
+  "all_category":"すべてのカテゴリ",
   "reserv_sure": "本当に予約しますか？",
   "cancel_sure": "プログラムをキャンセルしてもよろしいですか?",
   "request_cancel": "リクエストのキャンセル",
@@ -544,6 +544,7 @@
 
 
   "create_playing_room":"演奏の部屋作成",
+  "not_create_room":"出演者がルームを作成できませんでした。",
   "video_streaming":"ビデオストリーミング",
   "playing_is_running":"演奏は実行中です。",
   "go_live": "ライブ配信を開始する",
@@ -551,8 +552,7 @@
   "live_stopping": "ライブ配信が停止されます",
   "stop_live": "ライブ配信を停止する",
   "please_wait": "お待ちください...",
-  "waiting_for_performer": "出演者を待っています",
-  "to_start_live_streaming": "ライブ配信を開始するために",
+  "waiting_for_performer": "演奏開始まで少々お待ち下さい。",
   "host_has_stopped": "ホストが停止しました",
   "live_streaming": "ライブ配信",
   "performer_not_created_service":"パフォーマーはまだサービスを作成していません",
@@ -568,7 +568,7 @@
   "take_video":"ビデオを撮る",
 
   "select_category":"カテゴリーを選択",
-  "select_subcategory":"子カテゴリーを選択",
+  "select_subcategory":"サブカテゴリーを選択",
 
   "category_required":"カテゴリは必須です",
   "subcategory_required":"サブカテゴリが必要です",

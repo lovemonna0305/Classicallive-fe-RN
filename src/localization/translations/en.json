@@ -558,6 +558,7 @@
 
 
   "create_playing_room":"Create Playing room",
+  "not_create_room":"Performer was not created room.",
   "video_streaming":"Video Streaming",
   "playing_is_running":"Playing is running.",
   "go_live":"Go Live",
@@ -566,7 +567,6 @@
   "stop_live":"Stop Live",
   "please_wait":"Please Wait...",
   "waiting_for_performer":"Waiting for performer",
-  "to_start_live_streaming":"to start the live streaming",
   "host_has_stopped":"Host has stopped",
   "live_streaming":"the live streaming",
   "performer_not_created_service":"Performer not created service yet",

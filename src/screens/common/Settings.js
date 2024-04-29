@@ -20,6 +20,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { AppBar } from "@react-native-material/core";
 import { Avatar } from "react-native-paper";
 import Icons from "react-native-vector-icons/FontAwesome";
+import Icon6 from "react-native-vector-icons/FontAwesome6";
 import { List } from "react-native-paper";
 import IconMaterialIcon from "react-native-vector-icons/MaterialIcons";
 import IconEntypo from "react-native-vector-icons/Entypo";
@@ -62,8 +63,8 @@ export default function Settings() {
     await logout();
     await changeStore({
       ...store,
-      isLoggedin:false,
-      showSplashScreen:false,
+      isLoggedin: false,
+      showSplashScreen: false,
       role: ''
     });
     navigation.navigate("Login");
@@ -99,7 +100,7 @@ export default function Settings() {
               marginTop: 20,
               flexDirection: "row",
               alignItems: "center",
-              justifyContent:"space-between"
+              justifyContent: "space-between"
             }}
           >
             <Image
@@ -123,21 +124,21 @@ export default function Settings() {
               >
                 {currentUser.name}
               </Text>
-              <Text style={[style.subtxt, { width: width/2 }]}>
+              <Text style={[style.subtxt, { width: width / 2 }]}>
                 {currentUser.email}
               </Text>
             </View>
             <View
               style={{ marginRight: 20, alignSelf: "center", marginLeft: 50 }}
             >
-              <TouchableOpacity onPress={() => 
-                  navigation.navigate('AccountProfile')
-                  }>
+              <TouchableOpacity onPress={() =>
+                navigation.navigate('AccountProfile')
+              }>
                 <Icons name="edit" color={theme.txt} size={30}></Icons>
               </TouchableOpacity>
             </View>
           </View>
-          {currentUser&&currentUser.role_id==4 ? (
+          {currentUser && currentUser.role_id == 4 ? (
             <>
               <Text
                 style={{
@@ -179,7 +180,56 @@ export default function Settings() {
                 />
               </TouchableOpacity>
             </>
-          ) : null}
+          ) : (
+            <>
+              <Text
+                style={{
+                  color: theme.txt,
+                  marginVertical: 10,
+                  fontFamily: "Plus Jakarta Sans",
+                }}
+              >
+                {t("coins")}
+              </Text>
+
+              <TouchableOpacity
+                onPress={() => console.log(123)}
+              >
+                <List.Item
+                  title={t("acquired_coins")}
+                  titleStyle={{
+                    color: theme.txt,
+                    fontSize: 16,
+                    fontWeight: "600",
+                    fontFamily: "Plus Jakarta Sans",
+                  }}
+                  left={(props) => (
+                    <Icon6
+                      {...props}
+                      name="coins"
+                      color={theme.txt}
+                      size={26}
+                    ></Icon6>
+                  )}
+                  right={(props) => (
+                    <Text style={{
+                      color:Colors.btn,
+                      fontWeight:'bold',
+                      fontSize:20
+                    }}>
+                      {currentUser.points}
+                    </Text>
+                    // <Icon1
+                    //   {...props}
+                    //   name="chevron-right"
+                    //   color={Colors.disable}
+                    //   size={26}
+                    // ></Icon1>
+                  )}
+                />
+              </TouchableOpacity>
+            </>
+          )}
 
           <Text
             style={{
@@ -432,7 +482,7 @@ export default function Settings() {
               )}
             />
           </TouchableOpacity>
-          
+
           <TouchableOpacity onPress={() => navigation.navigate("Law")}>
             <List.Item
               title={t("law")}
@@ -460,8 +510,8 @@ export default function Settings() {
               )}
             />
           </TouchableOpacity>
-          
-          
+
+
           <TouchableOpacity onPress={() => navigation.navigate("ContactUs")}>
             <List.Item
               title={t("contactus")}

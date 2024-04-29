@@ -76,7 +76,7 @@ export default function CustomerHistoryList() {
   const [routes] = React.useState([
     { key: "first", title: t("contracted") },
     { key: "second", title: t("uncontracted") },
-    { key: "third", title: t("completed") },
+    { key: "third", title: t("deliveried") },
   ]);
 
   const renderTabBar = (props) => (

@@ -194,14 +194,6 @@ export default function ViewerContainer({
           }}>
           {t('waiting_for_performer')}
         </Text>
-        <Text
-          style={{
-            fontSize: convertRFValue(18),
-            color: colors.primary[100],
-            fontWeight: 'bold',
-          }}>
-            {t('to_start_live_streaming')}
-        </Text>
         <TouchableOpacity
           onPress={() => {
             leave();

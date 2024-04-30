@@ -33,18 +33,18 @@ export default function CustomerCategoryList() {
   const theme = useContext(themeContext);
 
   useEffect(() => {
-    changeStore({ ...store, isLoading: true , page:"CategoryList"});
+    changeStore({ ...store, isLoading: true, page: "CategoryList" });
     (async () => {
       await getAllParentCategories()
       await getPopularCategories()
       await getAllCategories()
       await getCategoryArray()
-      .then(res=>{
-        setPrograms(res);
-        changeStore({...store, isLoading:false});
-      }).catch(err=>{
-        changeStore({...store, isLoading:false});
-      });
+        .then(res => {
+          setPrograms(res);
+          changeStore({ ...store, isLoading: false });
+        }).catch(err => {
+          changeStore({ ...store, isLoading: false });
+        });
     })();
   }, []);
 
@@ -81,7 +81,6 @@ export default function CustomerCategoryList() {
   };
   const renderItem2 = ({ item, index }) => {
     const lastItem = index === allparentcategories.length - 1;
-    console.log(server.category_url + item.image_file);
     const selectCategory = async (item) => {
       let formdata = new FormData();
       formdata.append("category", item.id);
@@ -129,7 +128,7 @@ export default function CustomerCategoryList() {
             {t("popular_category")}
           </Text>
         </View>
-        <View style={{ marginTop: 10, height: height*0.3, marginHorizontal: 18 }}>
+        <View style={{ marginTop: 10, height: height * 0.3, marginHorizontal: 18 }}>
           {popularcategories && popularcategories != 0 ? (
             <>
               <FlatList
@@ -173,7 +172,7 @@ export default function CustomerCategoryList() {
             {t("all_category")}
           </Text>
         </View>
-        <View style={{ marginTop: 10, height: height*0.3, marginHorizontal: 18 }}>
+        <View style={{ marginTop: 10, height: height * 0.23, marginHorizontal: 18 }}>
           {allparentcategories && allparentcategories != 0 ? (
             <>
               <FlatList

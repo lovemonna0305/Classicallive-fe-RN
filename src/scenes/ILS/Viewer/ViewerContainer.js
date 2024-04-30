@@ -1,4 +1,4 @@
-import React, {useRef, useState, useEffect} from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
   View,
   KeyboardAvoidingView,
@@ -10,13 +10,13 @@ import {
 } from 'react-native';
 import Video from 'react-native-video';
 import ChatViewer from '../Components/ChatViewer';
-import {Cancel, HourGlass, Stop} from '../../../assets/icons';
-import {useOrientation} from '../../../utils/useOrientation';
+import { Cancel, HourGlass, Stop } from '../../../assets/icons';
+import { useOrientation } from '../../../utils/useOrientation';
 import colors from '../../../styles/colors';
-import {convertRFValue} from '../../../styles/spacing';
-import {usePubSub, useMeeting} from '@videosdk.live/react-native-sdk';
+import { convertRFValue } from '../../../styles/spacing';
+import { usePubSub, useMeeting } from '@videosdk.live/react-native-sdk';
 import ControlsOverlay from './ControlsOverlay';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { t } from 'i18next';
 
 export default function ViewerContainer({
@@ -24,7 +24,7 @@ export default function ViewerContainer({
   setlocalParticipantMode,
 }) {
   const navigation = useNavigation();
-  const {changeMode, leave, hlsState, hlsUrls} = useMeeting();
+  const { changeMode, leave, hlsState, hlsUrls } = useMeeting();
   const deviceOrientation = useOrientation();
   const [progress, setProgrss] = useState(0);
   const [playableDuration, setplayableDuration] = useState(0);
@@ -43,7 +43,7 @@ export default function ViewerContainer({
 
   usePubSub(`CHANGE_MODE_${localParticipantId}`, {
     onMessageReceived: data => {
-      const {message, senderName} = data;
+      const { message, senderName } = data;
       if (message.mode === 'CONFERENCE') {
         showAlert(senderName);
       }
@@ -79,7 +79,7 @@ export default function ViewerContainer({
           backgroundColor: '#2B3034',
           flexDirection: 'row',
         }}>
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
           <Video
             ref={videoPlayer}
             source={{
@@ -91,12 +91,12 @@ export default function ViewerContainer({
             }}
             onError={e => console.log('error', e)}
             paused={pause}
-            onProgress={({currentTime, playableDuration}) => {
+            onProgress={({ currentTime, playableDuration }) => {
               setProgrss(currentTime);
               setplayableDuration(playableDuration);
             }}
             onLoad={data => {
-              const {duration} = data;
+              const { duration } = data;
               setplayableDuration(duration);
             }}
           />
@@ -113,7 +113,7 @@ export default function ViewerContainer({
           />
         </View>
         {isChatVisible ? (
-          <View style={{flex: 0.8}}>
+          <View style={{ flex: 0.8 }}>
             <ChatViewer raiseHandVisible={false} />
           </View>
         ) : null}
@@ -144,12 +144,12 @@ export default function ViewerContainer({
             // controls
             onError={e => console.log('error', e)}
             paused={pause}
-            onProgress={({currentTime, playableDuration}) => {
+            onProgress={({ currentTime, playableDuration }) => {
               setProgrss(currentTime);
               setplayableDuration(playableDuration);
             }}
             onLoad={data => {
-              const {duration} = data;
+              const { duration } = data;
               setplayableDuration(duration);
             }}
           />

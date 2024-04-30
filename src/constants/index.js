@@ -120,17 +120,17 @@ export const tips = [
 ]
 
 export const server = {
-  // url:"https://classical613.xsrv.jp",
-  // member_url:"https://classical613.xsrv.jp/uploads/member/",
-  // media_url:"https://classical613.xsrv.jp/uploads/media/",
-  // default_url:"https://classical613.xsrv.jp/uploads/default/",
-  // category_url:"https://classical613.xsrv.jp/uploads/category/",
+  // url: "https://classical613.xsrv.jp",
+  // member_url: "https://classical613.xsrv.jp/uploads/member/",
+  // media_url: "https://classical613.xsrv.jp/uploads/media/",
+  // default_url: "https://classical613.xsrv.jp/uploads/default/",
+  // category_url: "https://classical613.xsrv.jp/uploads/category/",
 
-  url: "http://192.168.145.168:8000",
-  member_url: "http://192.168.145.168:8000/uploads/member/",
-  media_url: "http://192.168.145.168:8000/uploads/media/",
-  default_url: "http://192.168.145.168:8000/uploads/default/",
-  category_url: "http://192.168.145.168:8000/uploads/category/",
+  url: "http://192.168.144.107:8000",
+  member_url: "http://192.168.144.107:8000/uploads/member/",
+  media_url: "http://192.168.144.107:8000/uploads/media/",
+  default_url: "http://192.168.144.107:8000/uploads/default/",
+  category_url: "http://192.168.144.107:8000/uploads/category/",
 }
 
 export const _stripe = {

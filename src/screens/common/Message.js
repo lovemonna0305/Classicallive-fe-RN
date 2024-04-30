@@ -36,14 +36,14 @@ export default function Message() {
   const [chats, setChats] = useState(global.chats);
 
   useEffect(() => {
-    changeStore({...store, isLoading:true});
+    changeStore({ ...store, isLoading: true });
     (async () => {
-        await getChats()
-        .then(res=>{
+      await getChats()
+        .then(res => {
           setChats(res);
-          changeStore({...store, isLoading:false});
-        }).catch(err=>{
-          changeStore({...store, isLoading:false});
+          changeStore({ ...store, isLoading: false });
+        }).catch(err => {
+          changeStore({ ...store, isLoading: false });
         });
     })();
   }, []);
@@ -56,16 +56,16 @@ export default function Message() {
         titleStyle={{ color: theme.txt }}
         centerTitle={true}
         elevation={0}
-        // leading={
-        //   <TouchableOpacity onPress={() => navigation.goBack()}>
-        //     <Avatar.Icon
-        //       icon="arrow-left"
-        //       style={{ backgroundColor: theme.bg }}
-        //       color=theme.txt
-        //       size={40}
-        //     />
-        //   </TouchableOpacity>
-        // }
+      // leading={
+      //   <TouchableOpacity onPress={() => navigation.goBack()}>
+      //     <Avatar.Icon
+      //       icon="arrow-left"
+      //       style={{ backgroundColor: theme.bg }}
+      //       color=theme.txt
+      //       size={40}
+      //     />
+      //   </TouchableOpacity>
+      // }
       />
       <View style={{ flex: 1 }}>
         {store.isLoading && (
@@ -87,7 +87,7 @@ export default function Message() {
                   paddingTop: 20,
                 }}
                 onPress={() => {
-                  changeStore({...store, isLoading:true});
+                  changeStore({ ...store, isLoading: true });
                   navigation.navigate("LiveChat", {
                     id: item.chat.id,
                     member: item.member,
@@ -106,7 +106,7 @@ export default function Message() {
                     style={[
                       style.subtxt,
                       {
-                        width: 210,
+                        width: width * 0.4,
                         color: Colors.disable,
                         paddingTop: 8,
                         paddingRight: 5,
@@ -118,30 +118,35 @@ export default function Message() {
 
                 </View>
 
-                <View style={{ marginLeft: 10,width:width/4,justifyContent:'flex-end' }}>
-                  <View
-                    style={{
-                      backgroundColor: (item.chat.unreadMsg != 0) && "#FE970F",
-                      height: 20,
-                      width: 20,
-                      borderRadius: 20,
-                      alignSelf: "flex-end",
-                      marginTop: 8,
-                    }}
-                  >
-                    <View>
-                      <Text
-                        style={{
-                          textAlign: "center",
-                          color: Colors.secondary,
-                          fontSize: 12,
-                        }}
-                      >
-                        {(item.chat.unreadMsg != 0) ? item.chat.unreadMsg : ""}
-                      </Text>
+                <View style={{ marginLeft: 10, width: width / 4, justifyContent: 'flex-end' }}>
+
+                  {(item.chat.unreadMsg != 0) ? (
+                    <View
+                      style={{
+                        backgroundColor: "#FE970F",
+                        height: 20,
+                        width: 20,
+                        borderRadius: 20,
+                        alignSelf: "flex-end",
+                        marginTop: 8,
+                      }}
+                    >
+                      <View>
+                        <Text
+                          style={{
+                            textAlign: "center",
+                            color: Colors.secondary,
+                            fontSize: 12,
+                          }}
+                        >
+                          {item.chat.unreadMsg}
+                        </Text>
+                      </View>
                     </View>
-                  </View>
-                  <Text style={[style.subtxt, { color: Colors.disable, textAlign:'right' }]}>
+                  ) : (
+                    null
+                  )}
+                  <Text style={[style.subtxt, { color: Colors.disable, textAlign: 'right' }]}>
                     {item.chat.updated_at}
                   </Text>
                 </View>

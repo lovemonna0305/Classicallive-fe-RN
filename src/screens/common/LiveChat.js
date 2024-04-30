@@ -73,16 +73,16 @@ export default function CustomerLiveChat({ route }) {
   };
 
   const fetchMessages = async () => {
-    changeStore({...store, isLoading:true});
+    changeStore({ ...store, isLoading: true });
     try {
       const { data } = await api.getMessage(id);
       setMessages(data.data.messages);
-      changeStore({...store, isLoading:false});
+      changeStore({ ...store, isLoading: false });
       // socket.emit("join-chat", selectedChat);
 
     } catch (error) {
       console.log("error", error);
-      changeStore({...store, isLoading:false});
+      changeStore({ ...store, isLoading: false });
     }
   };
 
@@ -245,7 +245,7 @@ export default function CustomerLiveChat({ route }) {
                       <Text style={localstyle.senttextstyle}>
                         {item.message}
                       </Text>
-                      <Text style={{ textAlign: "right", fontSize: 12 }}>
+                      <Text style={{ textAlign: "right", fontSize: 10, color: Colors.bord, paddingTop: 5 }}>
                         {getTimeAgo(item.updated_at)}
                       </Text>
                     </TouchableOpacity>
@@ -254,7 +254,7 @@ export default function CustomerLiveChat({ route }) {
                       <Text style={localstyle.receviedtextstyle}>
                         {item.message}
                       </Text>
-                      <Text style={{ textAlign: "right", fontSize: 12 }}>
+                      <Text style={{ textAlign: "right", fontSize: 10, color: Colors.bord, paddingTop: 5 }}>
                         {getTimeAgo(item.updated_at)}
                       </Text>
                     </View>
@@ -288,7 +288,7 @@ export default function CustomerLiveChat({ route }) {
               position: "relative",
               color: theme.txt,
             }}
-            placeholderTextColor= {theme.txt}
+            placeholderTextColor={theme.txt}
             placeholder="Send messages ..."
             value={newMessage}
             onChangeText={(e) => setNewMessage(e)}

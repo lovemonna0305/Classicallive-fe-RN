@@ -33,6 +33,7 @@ import { launchCamera } from "react-native-image-picker";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { getPrograms, updateProgram } from "../../actions/performer";
 import { getPProgramsByCategory } from "../../actions/performer";
+import VideoPlayer from 'react-native-media-console';
 import Video from 'react-native-video';
 import moment from "moment";
 
@@ -55,7 +56,7 @@ export default function PerformerPostEdit() {
   const [isChangeImage, setIsChangeImage] = useState(0);
   const [isChangeVideo, setIsChangeVideo] = useState(0);
   const [video, setVideo] = useState('');
-  const [selectedvideo, setSelectedVideo] = useState('https://vjs.zencdn.net/v/oceans.mp4');
+
 
   const handleTabChange = (tabNumber) => {
     setActiveTab(tabNumber);
@@ -143,6 +144,9 @@ export default function PerformerPostEdit() {
   const [openCategory, setOpenCategory] = useState(false);
   const [categoryValue, setCategoryValue] = useState(0);
   const [categoryitems, setCategoryItems] = useState(categoryArray["category"]);
+  const [selectedvideo, setSelectedVideo] = useState(server.media_url + program.video_file);
+  console.log('program', program)
+  console.log('video uri', selectedvideo)
 
   const [openSubCategory, setOpenSubCategory] = useState(false);
   const [subcategoryValue, setSubCategoryValue] = useState(0);
@@ -173,8 +177,8 @@ export default function PerformerPostEdit() {
     let end_time = program.end_time.split(':').map(Number);
     setData({
       ...data,
-      d_start_time: new Date(program.date + "T" + padZero(start_time[0] ) + ":" + padZero(start_time[1]) + ":00"),
-      d_end_time: new Date(program.date + "T" + padZero(end_time[0] ) + ":" + padZero(end_time[1]) + ":00"),
+      d_start_time: new Date(program.date + "T" + padZero(start_time[0]) + ":" + padZero(start_time[1]) + ":00"),
+      d_end_time: new Date(program.date + "T" + padZero(end_time[0]) + ":" + padZero(end_time[1]) + ":00"),
     });
 
     const cateIndex = categoryArray["category"].findIndex(
@@ -418,7 +422,7 @@ export default function PerformerPostEdit() {
         formdata.append("points", data.points);
         formdata.append("description", data.description);
         formdata.append("is_chat", chat);
-        if(activeTab==1){
+        if (activeTab == 1) {
           if (image) {
             formdata.append("file", {
               name: image.assets?.[0].fileName,
@@ -438,7 +442,7 @@ export default function PerformerPostEdit() {
           }
           formdata.append("is_video", 1);
           formdata.append("is_changeVideo", isChangeVideo);
-          
+
         }
         changeStore({ ...store, isLoading: true });
         (async () => {
@@ -933,28 +937,24 @@ export default function PerformerPostEdit() {
                   }}
                 >
 
-                <View style={{ marginVertical: 20, marginBottom: 20, width: width / 2, height: width / 4 }}>
-                <Video
-                    ref={videoPlayer}
-                    source={{
-                      uri: selectedvideo,
-                    }} // Can be a URL or a local file.
-                    style={{
-                      flex: 1,
-                      backgroundColor: 'black',
-                    }}
-                    onError={e => console.log('error', e)}
-                    paused={pause}
-                    onProgress={({currentTime, playableDuration}) => {
-                      setProgrss(currentTime);
-                      setplayableDuration(playableDuration);
-                    }}
-                    onLoad={data => {
-                      const {duration} = data;
-                      setplayableDuration(duration);
-                    }}
-                  />
-                </View>
+                  <View style={{ marginVertical: 20, marginBottom: 20, width: width / 2, height: width / 4 }}>
+                    {/* <VideoPlayer source={{ uri: selectedvideo }}
+                      containerStyle={{ height: height * 0.5, borderRadius: 10 }}
+                      resizeMode={"cover"}
+                    /> */}
+                    <Video
+                      ref={videoPlayer}
+                      source={{ uri: selectedvideo }}
+                      autoplay={true}
+                      controls={false}
+                      disableFocus={true}
+                      resizeMode="cover"
+                      style={{
+                        flex: 1,
+                        backgroundColor: 'white',
+                      }}
+                    />
+                  </View>
                   <View
                     style={{
                       position: "absolute",

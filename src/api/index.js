@@ -8,14 +8,14 @@ const API_BASE_URL = 'https://api.videosdk.live/v2';
 
 const jwtInterceoptor = axios.create({});
 
-const createMeeting = async ({token}) => {
+const createMeeting = async ({ token }) => {
   const url = `${API_BASE_URL}/rooms`;
   const options = {
     method: 'POST',
-    headers: {Authorization: token, 'Content-Type': 'application/json'},
+    headers: { Authorization: token, 'Content-Type': 'application/json' },
   };
 
-  const {roomId} = await fetch(url, options)
+  const { roomId } = await fetch(url, options)
     .then(response => response.json())
     .catch(error => console.error('error', error));
 

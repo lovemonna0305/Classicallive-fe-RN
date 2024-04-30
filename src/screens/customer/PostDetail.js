@@ -57,8 +57,8 @@ export default function CustomerPostDetail() {
 
   const checkProgram = () => {
     if (currentUser.points > program.points) {
-      setModalVisible(true);
-      return;
+    setModalVisible(true);
+    return;
     }
     setModalReserve(true);
   };
@@ -448,7 +448,7 @@ export default function CustomerPostDetail() {
                 <TouchableOpacity
                   style={{ paddingRight: 5, paddingTop: 5 }}
                   onPress={async () => {
-                    await changeStore({ ...store, page:"CustomerPostDetail"});
+                    await changeStore({ ...store, page: "CustomerPostDetail" });
                     navigation.replace("CustomerPostList")
                   }
                   }
@@ -615,7 +615,7 @@ export default function CustomerPostDetail() {
             {program.is_chat.includes("yes") ? (
               <>
                 <Icon name="envelope" size={20} color={theme.txt} />
-                <Text style={[style.activetext,{color:theme.txt}]}>{t("message")}</Text>
+                <Text style={[style.activetext, { color: theme.txt }]}>{t("message")}</Text>
               </>
             ) : (
               <>
@@ -631,7 +631,7 @@ export default function CustomerPostDetail() {
             onPress={() => checkProgram()}
           >
             <Icon name="plus" size={20} color={theme.txt} />
-            <Text style={[style.activetext,{color:theme.txt}]}>{t("reservation")}</Text>
+            <Text style={[style.activetext, { color: theme.txt }]}>{t("reservation")}</Text>
           </TouchableOpacity>
         </View>
       </View>

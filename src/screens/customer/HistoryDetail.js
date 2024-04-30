@@ -232,14 +232,14 @@ export default function CustomerHistoryDetail({ route }) {
 
     var start_time = moment(program.date + " " + program.start_time);
     var end_time = moment(program.date + " " + program.end_time);
-    const five_diff = start_time.diff(currentdate,'minutes');
-    const end_diff = end_time.diff(currentdate,'minutes');
+    const five_diff = start_time.diff(currentdate, 'minutes');
+    const end_diff = end_time.diff(currentdate, 'minutes');
     if (five_diff < 6) {
-      if(end_diff>0) {
+      if (end_diff > 0) {
         //  Enter page
-        if(meetingId==null){
+        if (meetingId == null) {
           setModalWatch(true);
-          return ;
+          return;
         }
         naviagateToViewer();
       } else {
@@ -249,7 +249,7 @@ export default function CustomerHistoryDetail({ route }) {
           text2: t('program_completed_already'),
         });
       }
-     
+
     } else {
       setModalVisible(true);
     }
@@ -921,7 +921,7 @@ export default function CustomerHistoryDetail({ route }) {
               program.is_chat.includes("yes") ? (
               <>
                 <Icon name="envelope" size={20} color={theme.txt} />
-                <Text style={[style.activetext,{color:theme.txt}]}>{t("message")}</Text>
+                <Text style={[style.activetext, { color: theme.txt }]}>{t("message")}</Text>
               </>
             ) : (
               <>
@@ -949,7 +949,7 @@ export default function CustomerHistoryDetail({ route }) {
                 onPress={() => handleReview()}
               >
                 <Icon name="arrow-right" size={20} color={theme.txt} />
-                <Text style={[style.activetext,{color:theme.txt}]}>{t("review")}</Text>
+                <Text style={[style.activetext, { color: theme.txt }]}>{t("review")}</Text>
               </TouchableOpacity>
             </>
           )}

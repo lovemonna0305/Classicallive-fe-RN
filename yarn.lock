@@ -2311,10 +2311,8 @@
   resolved "https://registry.npmjs.org/@ungap/structured-clone/-/structured-clone-1.2.0.tgz"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
 
-"@videosdk.live/js-sdk@0.0.83":
-  version "0.0.83"
-  resolved "https://registry.npmjs.org/@videosdk.live/js-sdk/-/js-sdk-0.0.83.tgz"
-  integrity sha512-gXHpOxBXJxj1Ty/RVbluwaOsZCpsg6cFeUvJmDjkP5h1BNvnVsgukybgU4fOSm1NEx0T+LNAmUt+ml69zNPLMQ==
+"@videosdk.live/js-sdk@0.0.84":
+  version "0.0.84"
 
 "@videosdk.live/react-native-foreground-service@0.0.3":
   version "0.0.3"
@@ -2327,32 +2325,25 @@
   integrity sha512-3HDye8SyZFVuABxkY0bMjXGfTt3s6lmfeWgkp+Z6Le+SY1CqJ5ry/m92ILZB2Ie8q9yzbtSTVhymHi9XLz1JKA==
 
 "@videosdk.live/react-native-sdk@^0.1.6":
-  version "0.1.7"
-  resolved "https://registry.npmjs.org/@videosdk.live/react-native-sdk/-/react-native-sdk-0.1.7.tgz"
-  integrity sha512-y1JK4Tgri1Fuxb6Xf7Y8ogpOKHfiNyBVPmNZXoQOvUQb2KKarfGcEqiAf+Z3U2HnC0fvwdzaghHwVKAk94E1rA==
+  version "0.1.9"
   dependencies:
     "@videosdk.live/react-native-foreground-service" "0.0.3"
     "@videosdk.live/react-native-incallmanager" "0.1.1"
-    "@videosdk.live/react-native-webrtc" "0.0.10"
-    "@videosdk.live/react-sdk" "0.1.86"
+    "@videosdk.live/react-native-webrtc" "0.0.11"
+    "@videosdk.live/react-sdk" "0.1.88"
     axios "^1.6.2"
 
-"@videosdk.live/react-native-webrtc@0.0.10":
-  version "0.0.10"
-  resolved "https://registry.npmjs.org/@videosdk.live/react-native-webrtc/-/react-native-webrtc-0.0.10.tgz"
-  integrity sha512-6Mw3bkJNUj9uLADB10doZkBjEFPbP4iaTPJSDVujTlXg+AqvY3kgdc1cu6dhRsxNBKtmYWme/1Vm5EGTCGIqsw==
+"@videosdk.live/react-native-webrtc@0.0.11":
+  version "0.0.11"
   dependencies:
-    adm-zip "0.5.9"
     base64-js "1.5.1"
+    debug "4.3.4"
     event-target-shim "6.0.2"
-    tar "6.1.11"
 
-"@videosdk.live/react-sdk@0.1.86":
-  version "0.1.86"
-  resolved "https://registry.npmjs.org/@videosdk.live/react-sdk/-/react-sdk-0.1.86.tgz"
-  integrity sha512-WKsoCG1GMxFfvGwadw7MARmNHRtiLStW3g1ns6rAxrRaLmpjqtgFEmV/fiGCzIlABtkJSHNz5B59KV2OWUHlow==
+"@videosdk.live/react-sdk@0.1.88":
+  version "0.1.88"
   dependencies:
-    "@videosdk.live/js-sdk" "0.0.83"
+    "@videosdk.live/js-sdk" "0.0.84"
     events "^3.3.0"
 
 abort-controller@^3.0.0:
@@ -2384,11 +2375,6 @@ add@^2.0.6:
   version "2.0.6"
   resolved "https://registry.npmjs.org/add/-/add-2.0.6.tgz"
   integrity sha512-j5QzrmsokwWWp6kUcJQySpbG+xfOBqqKnup3OIk1pz+kB/80SLorZ9V8zHFLO92Lcd+hbvq8bT+zOGoPkmBV0Q==
-
-adm-zip@0.5.9:
-  version "0.5.9"
-  resolved "https://registry.npmjs.org/adm-zip/-/adm-zip-0.5.9.tgz"
-  integrity sha512-s+3fXLkeeLjZ2kLjCBwQufpI5fuN+kIGBxu6530nVQZGVol0d7Y/M88/xw9HGGUcJjKf8LutN3VPRUBq6N7Ajg==
 
 ajv@^6.12.4:
   version "6.12.6"
@@ -2859,11 +2845,6 @@ char-regex@^1.0.2:
   resolved "https://registry.npmjs.org/char-regex/-/char-regex-1.0.2.tgz"
   integrity sha512-kWWXztvZ5SBQV+eRgKFeh8q5sLuZY2+8WUIzlxWVTg+oGwY14qylx1KbKzHd8P6ZYkAg0xyIDU9JMHhyJMZ1jw==
 
-chownr@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/chownr/-/chownr-2.0.0.tgz"
-  integrity sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==
-
 chroma-js@^2.4.2:
   version "2.4.2"
   resolved "https://registry.npmjs.org/chroma-js/-/chroma-js-2.4.2.tgz"
@@ -3215,7 +3196,7 @@ debug@^2.6.9:
   dependencies:
     ms "2.0.0"
 
-debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2, debug@^4.3.4, debug@~4.3.1, debug@~4.3.2:
+debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2, debug@^4.3.4, debug@~4.3.1, debug@~4.3.2, debug@4.3.4:
   version "4.3.4"
   resolved "https://registry.npmjs.org/debug/-/debug-4.3.4.tgz"
   integrity sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==
@@ -4177,13 +4158,6 @@ fs-extra@^8.1.0:
     graceful-fs "^4.2.0"
     jsonfile "^4.0.0"
     universalify "^0.1.0"
-
-fs-minipass@^2.0.0:
-  version "2.1.0"
-  resolved "https://registry.npmjs.org/fs-minipass/-/fs-minipass-2.1.0.tgz"
-  integrity sha512-V/JgOLFCS+R6Vcq0slCuaeWEdNC3ouDlJMNIsacH2VtALiu9mV4LPrHc5cDl8k5aw6J8jwgWWpiTo5RYhmIzvg==
-  dependencies:
-    minipass "^3.0.0"
 
 fs.realpath@^1.0.0:
   version "1.0.0"
@@ -5767,32 +5741,12 @@ minimist@^1.2.6:
   resolved "https://registry.npmjs.org/minimist/-/minimist-1.2.8.tgz"
   integrity sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==
 
-minipass@^3.0.0:
-  version "3.3.6"
-  resolved "https://registry.npmjs.org/minipass/-/minipass-3.3.6.tgz"
-  integrity sha512-DxiNidxSEK+tHG6zOIklvNOwm3hvCrbUrdtzY74U6HKTJxvIDfOUL5W5P2Ghd3DTkhhKPYGqeNUIh5qcM4YBfw==
-  dependencies:
-    yallist "^4.0.0"
-
-minizlib@^2.1.1:
-  version "2.1.2"
-  resolved "https://registry.npmjs.org/minizlib/-/minizlib-2.1.2.tgz"
-  integrity sha512-bAxsR8BVfj60DWXHE3u30oHzfl4G7khkSuPW+qvpd7jFRHm7dLxOjUk1EHACJ/hxLY8phGJ0YhYHZo7jil7Qdg==
-  dependencies:
-    minipass "^3.0.0"
-    yallist "^4.0.0"
-
 mkdirp@^0.5.1:
   version "0.5.6"
   resolved "https://registry.npmjs.org/mkdirp/-/mkdirp-0.5.6.tgz"
   integrity sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==
   dependencies:
     minimist "^1.2.6"
-
-mkdirp@^1.0.3:
-  version "1.0.4"
-  resolved "https://registry.npmjs.org/mkdirp/-/mkdirp-1.0.4.tgz"
-  integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
 
 mkdirp@^1.0.4:
   version "1.0.4"
@@ -6584,10 +6538,10 @@ react-native-video@^5.2.1:
     prop-types "^15.7.2"
     shaka-player "^2.5.9"
 
-react-native-webview@^13.8.6:
-  version "13.8.6"
-  resolved "https://registry.npmjs.org/react-native-webview/-/react-native-webview-13.8.6.tgz"
-  integrity sha512-jtZ9OgB2AN6rhDwto6dNL3PtOtl/SI4VN93pZEPbMLvRjqHfxiUrilGllL5fKAXq5Ry5FJyfUi82A4Ii8olZ7A==
+react-native-webview@^13.8.7:
+  version "13.8.7"
+  resolved "https://registry.npmjs.org/react-native-webview/-/react-native-webview-13.8.7.tgz"
+  integrity sha512-r8y+qlyh2+mtuPhOvgPB9Ccn2itDXacvaVFuB61AYTfisz1YhJ57iFEE8j32DfDpvl6NhaaFIzzHsumwJk92bQ==
   dependencies:
     escape-string-regexp "2.0.0"
     invariant "2.2.4"
@@ -7327,18 +7281,6 @@ supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
-
-tar@6.1.11:
-  version "6.1.11"
-  resolved "https://registry.npmjs.org/tar/-/tar-6.1.11.tgz"
-  integrity sha512-an/KZQzQUkZCkuoAA64hM92X0Urb6VpRhAFllDzz44U2mcD5scmT3zBc4VgVpkugF580+DQn8eAFSyoQt0tznA==
-  dependencies:
-    chownr "^2.0.0"
-    fs-minipass "^2.0.0"
-    minipass "^3.0.0"
-    minizlib "^2.1.1"
-    mkdirp "^1.0.3"
-    yallist "^4.0.0"
 
 temp-dir@^2.0.0:
   version "2.0.0"

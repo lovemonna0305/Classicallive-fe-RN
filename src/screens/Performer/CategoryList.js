@@ -28,6 +28,7 @@ import { server } from "../../constants";
 import { getAllParentCategories, setCategory } from "../../actions/common";
 import Footer from "../../components/Footer";
 import { useStore } from "../../store/store";
+import Spinner from "../../components/Spinner";
 
 export default function PerformerCategoryList() {
   const { changeStore, store } = useStore();
@@ -56,7 +57,7 @@ export default function PerformerCategoryList() {
 
   const renderItem1 = ({ item, index }) => {
     const selectCategory = async (item) => {
-      changeStore({ ...store, category: item,page:'CategoryList' });
+      changeStore({ ...store, category: item, page: 'CategoryList' });
       navigation.replace("Category");
     };
     return (
@@ -71,7 +72,7 @@ export default function PerformerCategoryList() {
         height: height * 0.09,
         marginBottom: 10,
       }}
-      onPress={() => selectCategory(item)}
+        onPress={() => selectCategory(item)}
       >
         <View style={{ flexDirection: 'row' }}>
           <Image
@@ -93,7 +94,7 @@ export default function PerformerCategoryList() {
       </TouchableOpacity>
     );
   };
-  
+
   const renderItem2 = ({ item, index }) => {
     const selectProgram = (item) => {
       changeStore({ ...store, program: item });
@@ -102,28 +103,28 @@ export default function PerformerCategoryList() {
       <TouchableOpacity style={{
         marginBottom: 10,
         paddingRight: 10,
-    }}>
+      }}>
 
         <View style={{
-            paddingVertical: 10,
-            paddingHorizontal: 15,
-            backgroundColor: theme.itembackground,
-            borderRadius: 20,
-            // alignItems: "center",
-            justifyContent: "space-evenly",
-            width: width / 2 - 25,
-            height: height * 0.16,
+          paddingVertical: 10,
+          paddingHorizontal: 15,
+          backgroundColor: theme.itembackground,
+          borderRadius: 20,
+          // alignItems: "center",
+          justifyContent: "space-evenly",
+          width: width / 2 - 25,
+          height: height * 0.16,
         }}>
-            <Text style={[style.text2, { color: theme.txt, fontWeight: 'bold', paddingBottom: 5, }]}>  {item.num} </Text>
-            <Image
-                source={{ uri: server.category_url + item.image_file }}
-                resizeMode="stretch"
-                style={{ width: 25, height: 25, alignContent: "center", }}
-                tintColor={Colors.disable}
-            />
-            <Text style={[style.text2, { color: theme.txt, }]} > {t(item.slug)} </Text>
+          <Text style={[style.text2, { color: theme.txt, fontWeight: 'bold', paddingBottom: 5, }]}>  {item.num} </Text>
+          <Image
+            source={{ uri: server.category_url + item.image_file }}
+            resizeMode="stretch"
+            style={{ width: 25, height: 25, alignContent: "center", }}
+            tintColor={Colors.disable}
+          />
+          <Text style={[style.text2, { color: theme.txt, }]} > {t(item.slug)} </Text>
         </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
     );
   };
 
@@ -168,7 +169,8 @@ export default function PerformerCategoryList() {
             {t("all_category")}
           </Text>
         </View>
-        <View style={{ marginTop: 10, height: height * 0.7, marginHorizontal: 18 }}>
+        <View style={{ marginTop: 10, height: height * 0.6, marginHorizontal: 18 }}>
+          {store.isLoading && <Spinner />}
           <FlatList
             key={'performer-categoryList'}
             data={allparentcategories}

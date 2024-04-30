@@ -172,6 +172,7 @@ export default function PerformerPostCreate() {
       d_start_time: moment(currentDateTime).toDate(),
       d_end_time: moment(currentDateTime).toDate(),
     });
+    setFirsttime(data.d_start_time);
 
     changeStore({ ...store, isLoading: false });
   }, []);
@@ -319,7 +320,6 @@ export default function PerformerPostCreate() {
     };
 
     launchCamera(options, (response) => {
-      console.log("Response = ", response);
       if (response.didCancel) {
         console.log("User cancelled camera");
       } else if (response.error) {
@@ -554,7 +554,7 @@ export default function PerformerPostCreate() {
                     // setSubCategoryItems(subcategoryArrary[e]);
                     setData({ ...data, category: e });
                   }}
-                  onPress={(e) => console.log("category", e)}
+                  // onPress={(e) => console.log("category", e)}
                   onSelectItem={(e) => {
                     // setSubCategoryItems(subcategoryArrary[e.value])
                   }}
@@ -937,35 +937,17 @@ export default function PerformerPostCreate() {
                   <View style={{ marginVertical: 20, marginBottom: 20, width: width / 2, height: width / 4 }}>
                     <Video
                       ref={videoPlayer}
-                      source={{
-                        uri: selectedvideo,
-                      }} // Can be a URL or a local file.
+                      source={{ uri: selectedvideo }}
+                      // source={{ uri: 'http://192.168.144.107:8000/uploads/media/1714435516_VID_20240430_070858.mp4' }}
+                      autoplay={true}
+                      controls={false}
+                      disableFocus={true}
+                      resizeMode="cover"
                       style={{
                         flex: 1,
                         backgroundColor: 'black',
                       }}
-                      onError={e => console.log('error', e)}
-                      paused={pause}
-                      onProgress={({ currentTime, playableDuration }) => {
-                        setProgrss(currentTime);
-                        setplayableDuration(playableDuration);
-                      }}
-                      onLoad={data => {
-                        const { duration } = data;
-                        setplayableDuration(duration);
-                      }}
                     />
-                    {/* <ControlsOverlay
-                    playableDuration={playableDuration}
-                    setPause={setPause}
-                    pause={pause}
-                    progress={progress}
-                    seekTo={sec => {
-                      seekTo(sec);
-                    }}
-                    isChatVisible={isChatVisible}
-                    setisChatVisible={setisChatVisible}
-                  /> */}
                   </View>
                   <View
                     style={{

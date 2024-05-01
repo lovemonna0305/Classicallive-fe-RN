@@ -95,7 +95,7 @@ export default function Message() {
                   });
                 }}
               >
-                <Avatar.Image source={{ uri: server.media_url + item.member.image_file }} />
+                <Avatar.Image source={{ uri: server.member_url + item.member.image_file }} />
                 <View style={{ paddingLeft: 10 }}>
                   <Text
                     style={[style.subtitle, { width: width*0.4, color: theme.txt, fontSize: 16 }]}

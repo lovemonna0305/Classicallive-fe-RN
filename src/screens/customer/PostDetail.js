@@ -422,7 +422,7 @@ export default function CustomerPostDetail() {
                 <View style={style.row}>
                   <View style={{}}>
                     <Image
-                      source={{ uri: server.media_url + program.member.image_file }}
+                      source={{ uri: server.member_url + program.member.image_file }}
                       style={{ width: 70, height: 70, borderRadius: 5 }}
                     />
                   </View>

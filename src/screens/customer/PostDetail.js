@@ -56,7 +56,7 @@ export default function CustomerPostDetail() {
 
 
   const checkProgram = () => {
-    if (currentUser.points > program.points) {
+    if (currentUser.points < program.points) {
     setModalVisible(true);
     return;
     }

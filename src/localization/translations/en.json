@@ -586,6 +586,21 @@
   "category_required":"Category required",
   "subcategory_required":"Subcategory required",
   "points_required":"Points required",
+  
+  "your_balance":"Your Balance",
+  "withdraw":"Withdraw",
+  "greater_than_0":"It must be greater than 0",
+  "smaller_than_balance":"It should be smaller than your balance.",
+  "withdraw_sure":"Are you Sure Withdraw?",
+  "withdraw_now":"Withdraw Now",
+  
+  "acc_holder_name_required":"acc_holder_name_required",
+  "bank_num_required":"bank_num_required",
+  "routing_number_required":"routing_number_required",
+  "email_addr_required":"email_addr_required",
+  "birthday_required":"birthday_required",
+  "phone_number_required":"phone_number_required",
+
 
 
   "amount":"Amount"

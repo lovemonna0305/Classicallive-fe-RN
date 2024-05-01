@@ -169,7 +169,7 @@ export default function PerformerCategoryList() {
             {t("all_category")}
           </Text>
         </View>
-        <View style={{ marginTop: 10, height: height * 0.6, marginHorizontal: 18 }}>
+        <View style={{ marginTop: 10, height: height * 0.55, marginHorizontal: 18 }}>
           {store.isLoading && <Spinner />}
           <FlatList
             key={'performer-categoryList'}

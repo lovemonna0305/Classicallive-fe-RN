@@ -11,21 +11,17 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { EventRegister } from "react-native-event-listeners";
 import theme from "../theme/theme";
 import themeContext from "../theme/themeContex";
-import Introduction from "../Introduction";
 
+import Introduction from "../Introduction";
 import Splash from "../screens/loginscreens/Splash";
 import Login from "../screens/loginscreens/Login";
 import Signup from "../screens/loginscreens/Signup";
-
-
 import Forgot from "../screens/loginscreens/Forgot";
-
 import Forgotpass from "../screens/loginscreens/Forgotpass";
 import NewPassword from "../screens/loginscreens/NewPassword";
 import Otp from "../screens/loginscreens/Otp";
 
 // Customer
-
 import CustomerHomepage from "../screens/customer/Homepage";
 import CustomerPoints from "../screens/customer/Points";
 import CustomerCategory from "../screens/customer/Category";
@@ -39,18 +35,21 @@ import CustomerProgramEnter from "../screens/customer/ProgramEnter";
 import CustomerHistoryList from "../screens/customer/HistoryList";
 import CustomerCategoryList from "../screens/customer/CategoryList";
 
-// // Performer
+// Performer
 import PerformerCategory from "../screens/Performer/Category";
 import PerformerHistoryDetail from "../screens/Performer/HistoryDetail";
-
 import PerformerPostCreate from "../screens/Performer/PostCreate";
 import PerformerPostEdit from "../screens/Performer/PostEdit";
 import PerformerProgramEnter from "../screens/Performer/ProgramEnter";
 import PerformerCustomerList from "../screens/Performer/CustomerList";
+import PerformerHomepage from "../screens/Performer/Homepage";
+import PerformerCategoryList from "../screens/Performer/CategoryList";
+import PerformerHistoryList from "../screens/Performer/HistoryList";
+
+// Common
 import ViewerHome from '../scenes/home/viewer'
 import SpeakerHome from '../scenes/home/speaker';
 import Meeting from '../scenes/ILS';
-
 import Profile from "../screens/common/Settings";
 import Language from "../screens/common/Language";
 import Privacy from "../screens/common/Privacy";
@@ -61,19 +60,14 @@ import Terms from "../screens/common/Terms";
 import Law from "../screens/common/Law";
 import ContactUs from "../screens/common/ContactUs";
 import Report from "../screens/common/Report";
+import UpdatePassword from "../screens/common/UpdatePassword";
+import RegisterBank from "../screens/common/RegisterBank";
+import Message from "../screens/common/Message";
 
 import { Colors } from "../theme/color";
 import { storage } from "../utils/storage";
-
-import UpdatePassword from "../screens/common/UpdatePassword";
-import '../utils/global';
 import { useStore } from "../store/store";
-import PerformerHomepage from "../screens/Performer/Homepage";
-import Message from "../screens/common/Message";
-
-import PerformerCategoryList from "../screens/Performer/CategoryList";
-import PerformerHistoryList from "../screens/Performer/HistoryList";
-
+import Withdraw from "../screens/common/Withdraw";
 
 const Stack = createNativeStackNavigator();
 
@@ -285,6 +279,11 @@ export default function StackNavigator() {
                     component={PerformerCustomerList}
                     options={{ headerShown: false }}
                   />
+                  <Stack.Screen
+                    name="RegisterBank"
+                    component={RegisterBank}
+                    options={{ headerShown: false }}
+                  />
                 </>
               )}
               <Stack.Screen
@@ -347,6 +346,11 @@ export default function StackNavigator() {
               <Stack.Screen
                 name="UpdatePassword"
                 component={UpdatePassword}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Withdraw"
+                component={Withdraw}
                 options={{ headerShown: false }}
               />
             </>

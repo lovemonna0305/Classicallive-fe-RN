@@ -260,8 +260,26 @@ const rejectionReservation = (id) => {
   return jwtInterceoptor.get(`${SERVER_URL}/performer/cancel/${id}`);
 }
 
+const getBank = () => {
+  return jwtInterceoptor.get(`${SERVER_URL}/performer/getBank`);
+}
 
 
+const createBank = (data) => {
+  return jwtInterceoptor.post(`${SERVER_URL}/performer/createBank`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
+const requestWithdraw = (data) => {
+  return jwtInterceoptor.post(`${SERVER_URL}/performer/requestWithdraw`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
 
 const sendcontactus = (data) => {
   return jwtInterceoptor.post(`${SERVER_URL}/sendcontactus`, data, {
@@ -457,4 +475,8 @@ export const api = {
   getMessage,
   sendMessage,
   unreadNumMessage,
+
+  getBank,
+  createBank,
+  requestWithdraw,
 };

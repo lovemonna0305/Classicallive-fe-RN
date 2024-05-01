@@ -182,7 +182,7 @@ export default function Settings() {
             </>
           ) : (
             <>
-              <Text
+            <Text
                 style={{
                   color: theme.txt,
                   marginVertical: 10,
@@ -193,7 +193,7 @@ export default function Settings() {
               </Text>
 
               <TouchableOpacity
-                onPress={() => console.log(123)}
+                onPress={() => navigation.navigate("Withdraw")}
               >
                 <List.Item
                   title={t("acquired_coins")}
@@ -219,12 +219,33 @@ export default function Settings() {
                     }}>
                       {currentUser.points}
                     </Text>
-                    // <Icon1
-                    //   {...props}
-                    //   name="chevron-right"
-                    //   color={Colors.disable}
-                    //   size={26}
-                    // ></Icon1>
+                  )}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate("RegisterBank")}>
+                <List.Item
+                  title={t("register_account")}
+                  titleStyle={{
+                    color: theme.txt,
+                    fontSize: 16,
+                    fontWeight: "600",
+                    fontFamily: "Plus Jakarta Sans",
+                  }}
+                  left={(props) => (
+                    <Icons
+                      {...props}
+                      name="bank"
+                      color={theme.txt}
+                      size={26}
+                    ></Icons>
+                  )}
+                  right={(props) => (
+                    <Icon1
+                      {...props}
+                      name="chevron-right"
+                      color={Colors.disable}
+                      size={26}
+                    ></Icon1>
                   )}
                 />
               </TouchableOpacity>
@@ -390,15 +411,7 @@ export default function Settings() {
             />
           </TouchableOpacity> */}
 
-          <Text
-            style={{
-              color: theme.txt,
-              marginVertical: 10,
-              fontFamily: "Plus Jakarta Sans",
-            }}
-          >
-            {t("about")}
-          </Text>
+          
 
           <TouchableOpacity onPress={() => navigation.navigate("Report")}>
             <List.Item
@@ -427,6 +440,44 @@ export default function Settings() {
               )}
             />
           </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => navigation.navigate("ContactUs")}>
+            <List.Item
+              title={t("contactus")}
+              titleStyle={{
+                color: theme.txt,
+                fontSize: 16,
+                fontWeight: "600",
+                fontFamily: "Plus Jakarta Sans",
+              }}
+              left={(props) => (
+                <Icon1
+                  {...props}
+                  name="help-circle-outline"
+                  color={theme.txt}
+                  size={26}
+                ></Icon1>
+              )}
+              right={(props) => (
+                <Icon1
+                  {...props}
+                  name="chevron-right"
+                  color={Colors.disable}
+                  size={26}
+                ></Icon1>
+              )}
+            />
+          </TouchableOpacity>
+
+          <Text
+            style={{
+              color: theme.txt,
+              marginVertical: 10,
+              fontFamily: "Plus Jakarta Sans",
+            }}
+          >
+            {t("about")}
+          </Text>
           <TouchableOpacity onPress={() => navigation.navigate("Terms")}>
             <List.Item
               title={t("terms_use")}
@@ -512,33 +563,7 @@ export default function Settings() {
           </TouchableOpacity>
 
 
-          <TouchableOpacity onPress={() => navigation.navigate("ContactUs")}>
-            <List.Item
-              title={t("contactus")}
-              titleStyle={{
-                color: theme.txt,
-                fontSize: 16,
-                fontWeight: "600",
-                fontFamily: "Plus Jakarta Sans",
-              }}
-              left={(props) => (
-                <Icon1
-                  {...props}
-                  name="help-circle-outline"
-                  color={theme.txt}
-                  size={26}
-                ></Icon1>
-              )}
-              right={(props) => (
-                <Icon1
-                  {...props}
-                  name="chevron-right"
-                  color={Colors.disable}
-                  size={26}
-                ></Icon1>
-              )}
-            />
-          </TouchableOpacity>
+          
 
           <List.Item
             title={t("dark_mode")}

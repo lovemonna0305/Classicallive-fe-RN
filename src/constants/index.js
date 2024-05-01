@@ -131,6 +131,7 @@ export const server = {
   media_url: "http://192.168.144.107:8000/uploads/media/",
   default_url: "http://192.168.144.107:8000/uploads/default/",
   category_url: "http://192.168.144.107:8000/uploads/category/",
+  bank_url: "http://192.168.144.107:8000/uploads/bank/",
 }
 
 export const _stripe = {

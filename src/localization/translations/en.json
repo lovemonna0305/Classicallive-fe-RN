@@ -586,6 +586,10 @@
   "category_required":"Category required",
   "subcategory_required":"Subcategory required",
   "points_required":"Points required",
+
+
+
+  "-no_japanese-":"--",
   
   "your_balance":"Your Balance",
   "withdraw":"Withdraw",
@@ -600,6 +604,11 @@
   "email_addr_required":"email_addr_required",
   "birthday_required":"birthday_required",
   "phone_number_required":"phone_number_required",
+  
+  
+  "address":"Address",
+
+  "-end-":"-end-",
 
 
 

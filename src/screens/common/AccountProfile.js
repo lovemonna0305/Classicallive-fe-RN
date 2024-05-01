@@ -132,14 +132,15 @@ export default function AccountProfile() {
     } else {
       let formdata = new FormData();
       // formdata.append("role_id", data.role_id);
-      // formdata.append("name", data.name);
+      formdata.append("name", data.name);
       // formdata.append("email", data.email);
       formdata.append("age", data.age);
-      formdata.append("address", data.address);
-      formdata.append("phone_number", data.phone_number);
+      // formdata.append("address", data.address);
+      // formdata.append("phone_number", data.phone_number);
       let is_changeImage = 0;
       if (image) {
-        let is_changeImage = 1;
+        console.log(image);
+        is_changeImage = 1;
         formdata.append("photo", {
           name: image.assets?.[0].fileName,
           uri: image.assets?.[0]?.uri,
@@ -147,14 +148,15 @@ export default function AccountProfile() {
         });
       }
       formdata.append("is_changeImage", is_changeImage);
-      console.log(formdata);
       changeStore({ ...store, isLoading: true });
       (async () => {
         api.updateUser(formdata)
           .then(res => {
             changeStore({ ...store, isLoading: false });
-            changeStore({...store, currentUser:res.data.data.user})
-            console.log(res.data.data.user,);
+            currentUser.name = res.data.data.user.name;
+            currentUser.age = res.data.data.user.age;
+            currentUser.image_file = res.data.data.user.image_file;
+            changeStore({...store, currentUser:currentUser})
             Toast.show({
               type: "success",
               text1: t('success'),
@@ -194,7 +196,7 @@ export default function AccountProfile() {
         centerTitle={true}
         elevation={0}
         leading={
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
@@ -350,7 +352,6 @@ export default function AccountProfile() {
           <View style={{ paddingTop: 8 }}>
             <TextInput
               value={data.name}
-              editable={false}
               placeholder={t("enter_name")}
               selectionColor={Colors.primary}
               placeholderTextColor={Colors.disable}
@@ -381,7 +382,7 @@ export default function AccountProfile() {
             </View>
           </View>
 
-          <View style={{ paddingTop: 5, zIndex: 999 }}>
+          {/* <View style={{ paddingTop: 5, zIndex: 999 }}>
             <Text
               style={{
                 color: theme.txt,
@@ -416,7 +417,7 @@ export default function AccountProfile() {
                 }}
               />
             </View>
-          </View>
+          </View> */}
 
           <View style={{ paddingTop: 15 }}>
             <Text
@@ -442,7 +443,7 @@ export default function AccountProfile() {
             </View>
           </View>
 
-          <View style={{ paddingTop: 15 }}>
+          {/* <View style={{ paddingTop: 15 }}>
             <Text
               style={{
                 color: theme.txt,
@@ -450,12 +451,12 @@ export default function AccountProfile() {
                 fontFamily: "Plus Jakarta Sans",
               }}
             >
-              {t("addr_kana")}
+              {t("address")}
             </Text>
             <View style={{ paddingTop: 8 }}>
               <TextInput
                 value={data.address}
-                placeholder={t("addr_kana")}
+                placeholder={t("address")}
                 selectionColor={Colors.primary}
                 placeholderTextColor={Colors.disable}
                 style={[style.txtinput, { backgroundColor: theme.bg }]}
@@ -475,6 +476,7 @@ export default function AccountProfile() {
             </Text>
             <View style={{ paddingTop: 8 }}>
               <TextInput
+                inputMode="tel"
                 value={data.phone_number}
                 selectionColor={Colors.primary}
                 placeholderTextColor={Colors.disable}
@@ -482,7 +484,7 @@ export default function AccountProfile() {
                 onChangeText={(e) => setData({ ...data, phone_number: e })}
               />
             </View>
-          </View>
+          </View> */}
 
           <View style={{ paddingVertical: 30 }}>
             <TouchableOpacity onPress={handleUpdateAccount} style={style.btn}>

@@ -598,13 +598,15 @@
   "withdraw_sure":"Are you Sure Withdraw?",
   "withdraw_now":"Withdraw Now",
   
-  "acc_holder_name_required":"acc_holder_name_required",
-  "bank_num_required":"bank_num_required",
-  "routing_number_required":"routing_number_required",
-  "email_addr_required":"email_addr_required",
-  "birthday_required":"birthday_required",
-  "phone_number_required":"phone_number_required",
-  
+  "acc_holder_name_required":"Account holder name required",
+  "bank_num_required":"Bank number required",
+  "routing_number_required":"Routing number required",
+  "email_addr_required":"Email required",
+  "birthday_required":"Birthday required",
+  "phone_number_required":"Phone Number required",
+
+  "created_post_successfully":"The Post Created Successfully",
+  "updated_post_successfully":"The Post Updated Successfully",
   
   "address":"Address",
 

@@ -22,6 +22,7 @@ import { Avatar } from "react-native-paper";
 import { useTranslation } from "react-i18next";
 import { color } from "@rneui/base";
 import Icon from "react-native-vector-icons/FontAwesome";
+import Video from 'react-native-video';
 
 import {
   likepost,
@@ -392,11 +393,26 @@ export default function CustomerPostDetail() {
               </View>
             </Modal>
             <View style={{ paddingTop: 10 }}>
+              {program.is_video?
+              <View style={{ flex:1,marginVertical: 20, marginBottom: 20, height: width * 0.5, justifyContent:'center', }}>
+                <Video
+                source={{ uri: server.media_url + program.video_file }}
+                autoplay={true}
+                controls={false}
+                disableFocus={true}
+                resizeMode="cover"
+                style={{
+                  flex: 1,
+                  backgroundColor: 'black',
+                }}
+              />
+            </View>:
               <Image
                 source={{ uri: server.media_url + program.image_file }}
                 resizeMode="cover"
                 style={[style.img, { height: 200 }]}
               />
+            }
             </View>
             <View style={{ paddingVertical: 5 }}>
               <Text style={style.activetext}>{t("performer")}</Text>

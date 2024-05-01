@@ -26,13 +26,13 @@ import { useTranslation } from "react-i18next";
 import { color } from "@rneui/base";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { getReviewsByPost } from "../../actions/common";
-import VideoPlayer from 'react-native-media-console';
 
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
 import { server } from "../../constants";
 import Spinner from "../../components/Spinner";
 import { useStore } from "../../store/store";
+import Video from 'react-native-video';
 
 export default function PerformerHistoryDetail() {
   const { changeStore, store } = useStore();
@@ -108,11 +108,25 @@ export default function PerformerHistoryDetail() {
               </View>
             )} */}
             <View style={{ paddingTop: 10 }}>
+              {program.is_video?
+                <View style={{ flex:1,marginVertical: 20, marginBottom: 20, height: width * 0.5, justifyContent:'center', }}>
+                  <Video
+                  source={{ uri: server.media_url + program.video_file }}
+                  autoplay={true}
+                  controls={false}
+                  disableFocus={true}
+                  resizeMode="cover"
+                  style={{
+                    flex: 1,
+                    backgroundColor: 'black',
+                  }}
+                />
+              </View>:
                 <Image
                   source={{ uri: server.media_url + program.image_file }}
-                  resizeMode="contain"
+                  resizeMode="cover"
                   style={[style.img, { height: 200 }]}
-                />
+                />}
               </View>
             <View style={{ paddingTop: 25 }}>
               <Text style={[style.activetext, {}]}>{program.title}</Text>

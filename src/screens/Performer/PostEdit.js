@@ -124,8 +124,8 @@ export default function PerformerPostEdit() {
   const [data, setData] = useState({
     photo: "",
     title: program.title,
-    category: 0,
-    subcategory: 0,
+    category: program.category.parent_id,
+    subcategory: program.category.id,
     points: program.points,
     date: program.date, // Choose date
     start_time: program.start_time, // Choose time
@@ -145,8 +145,6 @@ export default function PerformerPostEdit() {
   const [categoryValue, setCategoryValue] = useState(0);
   const [categoryitems, setCategoryItems] = useState(categoryArray["category"]);
   const [selectedvideo, setSelectedVideo] = useState(server.media_url + program.video_file);
-  console.log('program', program)
-  console.log('video uri', selectedvideo)
 
   const [openSubCategory, setOpenSubCategory] = useState(false);
   const [subcategoryValue, setSubCategoryValue] = useState(0);
@@ -450,6 +448,11 @@ export default function PerformerPostEdit() {
             .then(res => {
               if (res.data.success) {
                 changeStore({ ...store, isLoading: false });
+                Toast.show({
+                  type: "success",
+                  text1: t("error"),
+                  text2: t('updated_post_successfully'),
+                });
                 navigation.replace('Category');
               } else {
                 changeStore({ ...store, isLoading: false });

@@ -120,18 +120,19 @@ export const tips = [
 ]
 
 export const server = {
-  // url: "https://classical613.xsrv.jp",
-  // member_url: "https://classical613.xsrv.jp/uploads/member/",
-  // media_url: "https://classical613.xsrv.jp/uploads/media/",
-  // default_url: "https://classical613.xsrv.jp/uploads/default/",
-  // category_url: "https://classical613.xsrv.jp/uploads/category/",
+  url: "https://classical613.xsrv.jp",
+  member_url: "https://classical613.xsrv.jp/uploads/member/",
+  media_url: "https://classical613.xsrv.jp/uploads/media/",
+  default_url: "https://classical613.xsrv.jp/uploads/default/",
+  category_url: "https://classical613.xsrv.jp/uploads/category/",
+  bank_url: "https://classical613.xsrv.jp/uploads/bank/",
 
-  url: "http://192.168.144.107:8000",
-  member_url: "http://192.168.144.107:8000/uploads/member/",
-  media_url: "http://192.168.144.107:8000/uploads/media/",
-  default_url: "http://192.168.144.107:8000/uploads/default/",
-  category_url: "http://192.168.144.107:8000/uploads/category/",
-  bank_url: "http://192.168.144.107:8000/uploads/bank/",
+  // url: "http://192.168.144.107:8000",
+  // member_url: "http://192.168.144.107:8000/uploads/member/",
+  // media_url: "http://192.168.144.107:8000/uploads/media/",
+  // default_url: "http://192.168.144.107:8000/uploads/default/",
+  // category_url: "http://192.168.144.107:8000/uploads/category/",
+  // bank_url: "http://192.168.144.107:8000/uploads/bank/",
 }
 
 export const _stripe = {

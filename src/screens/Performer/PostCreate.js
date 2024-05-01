@@ -172,7 +172,7 @@ export default function PerformerPostCreate() {
       d_start_time: moment(currentDateTime).toDate(),
       d_end_time: moment(currentDateTime).toDate(),
     });
-    setFirsttime(data.d_start_time);
+    setFirsttime(data.start_time);
 
     changeStore({ ...store, isLoading: false });
   }, []);
@@ -443,6 +443,11 @@ export default function PerformerPostCreate() {
             .then(res => {
               if (res.data.success) {
                 changeStore({ ...store, isLoading: false });
+                Toast.show({
+                  type: "success",
+                  text1: t("error"),
+                  text2: t('created_post_successfully'),
+                });
                 navigation.replace('Category');
               } else {
                 changeStore({ ...store, isLoading: false });

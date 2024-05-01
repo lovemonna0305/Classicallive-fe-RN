@@ -45,6 +45,7 @@ import Spinner from "../../components/Spinner";
 import { useStore } from "../../store/store";
 import { api } from "../../api";
 import moment from "moment";
+import Video from 'react-native-video';
 
 export default function CustomerHistoryDetail({ route }) {
   const { changeStore, store } = useStore();
@@ -624,10 +625,27 @@ export default function CustomerHistoryDetail({ route }) {
               >
                 <View style={style.row}>
                   <View style={{}}>
-                    <Image
-                      source={{ uri: server.member_url + program.member.image_file }}
-                      style={{ width: 70, height: 70, borderRadius: 5 }}
+
+                  {program.is_video?
+                    <View style={{ flex:1,marginVertical: 20, marginBottom: 20, height: width * 0.5, justifyContent:'center', }}>
+                      <Video
+                      source={{ uri: server.media_url + program.video_file }}
+                      autoplay={true}
+                      controls={false}
+                      disableFocus={true}
+                      resizeMode="cover"
+                      style={{
+                        flex: 1,
+                        backgroundColor: 'black',
+                      }}
                     />
+                  </View>:
+                    <Image
+                      source={{ uri: server.media_url + program.image_file }}
+                      resizeMode="cover"
+                      style={[style.img, { height: 200 }]}
+                    />
+                  }
                   </View>
                   <View style={{ paddingLeft: 10 }}>
                     <Text style={style.activetext}>

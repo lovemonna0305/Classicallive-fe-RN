@@ -85,6 +85,7 @@ export default function Message() {
                   justifyContent: "center",
                   alignContent: "center",
                   paddingTop: 20,
+                  width:width*0.9
                 }}
                 onPress={() => {
                   changeStore({ ...store, isLoading: true });
@@ -97,7 +98,7 @@ export default function Message() {
                 <Avatar.Image source={{ uri: server.media_url + item.member.image_file }} />
                 <View style={{ paddingLeft: 10 }}>
                   <Text
-                    style={[style.subtitle, { width: 180, color: theme.txt, fontSize: 16 }]}
+                    style={[style.subtitle, { width: width*0.4, color: theme.txt, fontSize: 16 }]}
                   >
                     {item.member.name}
                   </Text>

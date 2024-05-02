@@ -59,7 +59,7 @@ export default function CustomerPoints() {
   const [cardNumber, setCardNumber] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [cvv, setCVV] = useState('');
-  const [selectitem, setSelectitem] = useState({});
+  const [selectitem, setSelectitem] = useState();
 
   const [modalVisible, setModalVisible] = useState(false);
   const [modalPayment, setModalPayment] = useState(false);
@@ -236,33 +236,7 @@ export default function CustomerPoints() {
   const renderItem = ({ item, index }) => {
     const selectcoins = async (item) => {
       setSelectitem(item);
-
-        let formdata = new FormData();
-        formdata.append("amount", selectitem.amount);
-        formdata.append("points", selectitem.points);
-        formdata.append("cardNumber", cardNumber);
-        formdata.append("expiryDate", expiryDate);
-        formdata.append("cvv", cvv);
-        await buycoins(formdata)
-          .then(res => {
-            currentUser.points += selectitem.points;
-            changeStore({ ...store, currentUser: currentUser });
-            Toast.show({
-              type: "success",
-              text1: "Success",
-              text2: t("buy_coins_success"),
-            });
-            changeStore({ ...store, isLoading: false });
-          }).catch(err => {
-            Toast.show({
-              type: "error",
-              text1: t('error'),
-              text2: t("buy_coins_error"),
-            });
-            changeStore({ ...store, isLoading: false });
-          });
-
-      // setModalPayment(true);
+      setModalPayment(true);
     }
     return (
       <View key={`post-point${index}`} style={{ height: 60, padding: 5, backgroundColor: theme.box, borderRadius: 5, marginBottom: 10 }}>
@@ -290,7 +264,7 @@ export default function CustomerPoints() {
 
   return (
     <SafeAreaView
-      style={[style.area, { backgroundColor: theme.bg,paddingTop: 30, }]}
+      style={[style.area, { backgroundColor: theme.bg, paddingTop: 40, position: 'relative' }]}
     >
       {/* <StatusBar backgroundColor={darkMode === true ? '#000':'#fff'} barStyle={darkMode === true  ? 'light-content' : 'dark-content'} translucent={false}/> */}
       <AppBar

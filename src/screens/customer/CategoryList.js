@@ -73,7 +73,7 @@ export default function CustomerCategoryList() {
         </View>
         <View style={{ marginLeft: 5 }}>
           <Text style={[style.activetext, { fontSize: 12 }]}>
-            {t(item.slug)}
+            {item.ja_name}
           </Text>
         </View>
       </TouchableOpacity>
@@ -102,7 +102,7 @@ export default function CustomerCategoryList() {
         </View>
         <View style={{ marginLeft: 5 }}>
           <Text style={[style.activetext, { fontSize: 12 }]}>
-            {t(item.slug)}
+            {item.ja_name}
           </Text>
           {/* <Text style={[style.activetext,{fontSize:9}]}>{item.date} {item.start_time}</Text> */}
         </View>
@@ -110,7 +110,7 @@ export default function CustomerCategoryList() {
     );
   };
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.bg }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.bg,paddingTop: 30, }}>
       {/* <StatusBar backgroundColor="transparent" translucent={true} /> */}
       <View style={{ flex: 1 }}>
         {store.isLoading && <Spinner />}
@@ -128,7 +128,7 @@ export default function CustomerCategoryList() {
             {t("popular_category")}
           </Text>
         </View>
-        <View style={{ marginTop: 10, height: height * 0.25, marginHorizontal: 18 }}>
+        <View style={{ marginTop: 10, height: height * 0.25, marginHorizontal: 10 }}>
           {popularcategories && popularcategories != 0 ? (
             <>
               <FlatList
@@ -172,7 +172,7 @@ export default function CustomerCategoryList() {
             {t("all_category")}
           </Text>
         </View>
-        <View style={{ marginTop: 10, height: height * 0.2, marginHorizontal: 18 }}>
+        <View style={{ marginTop: 10, height: height * 0.2, marginHorizontal: 10 }}>
           {allparentcategories && allparentcategories != 0 ? (
             <>
               <FlatList

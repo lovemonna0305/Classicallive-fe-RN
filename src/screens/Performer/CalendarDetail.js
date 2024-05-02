@@ -75,7 +75,7 @@ export default function PerformerCalendarDetail() {
 
   return (
     <SafeAreaView
-      style={[style.area, { backgroundColor: theme.bg, paddingTop: 40 }]}
+      style={[style.area, { backgroundColor: theme.bg,  paddingTop: 30, }]}
     >
       {/* <StatusBar backgroundColor={darkMode === true ? '#000':'#fff'} barStyle={darkMode === true  ? 'light-content' : 'dark-content'} translucent={false}/> */}
       <AppBar

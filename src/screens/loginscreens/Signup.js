@@ -646,7 +646,6 @@ export default function Signup() {
 
   useEffect(()=>{
     setHtmlContent(performerhtmlContent);
-    console.log(theme.txt);
   },[]);
   
   useEffect(()=>{
@@ -655,7 +654,6 @@ export default function Signup() {
     } else {
       setHtmlContent(customerhtmlContent);
     }
-    console.log(value);
   },[value]);
   const openImagePicker = () => {
     setVisible(false);
@@ -802,7 +800,7 @@ export default function Signup() {
               Toast.show({
                 type: "success",
                 text1: t("success"),
-                text2: t('register_success'),
+                text2: t(res.data.message),
               });
               changeStore({ ...store, isLoading: false });
               navigation.navigate("Otp", { email: data.email, isforgot: false });
@@ -810,7 +808,7 @@ export default function Signup() {
               Toast.show({
                 type: "error",
                 text1: t("error"),
-                text2: t('register_failed'),
+                text2: t(res.data.message),
               });
             }
             changeStore({ ...store, isLoading: false });
@@ -827,8 +825,7 @@ export default function Signup() {
       style={[
         style.area,
         {
-          backgroundColor: theme.bg,
-          paddingTop: 40,
+          backgroundColor: theme.bg,paddingTop: 30,
           fontFamily: "Plus Jakarta Sans",
         },
       ]}
@@ -886,7 +883,7 @@ export default function Signup() {
                 style={{ paddingHorizontal: 20, alignSelf: "flex-end" }}
               >
                 <TouchableOpacity onPress={() => setVisible(false)}>
-                  <Icon name="close-sharp" color="black" size={20} />
+                  <Icon name="close-sharp" color={theme.txt} size={20} />
                 </TouchableOpacity>
               </View>
               <Text
@@ -963,7 +960,6 @@ export default function Signup() {
           visible={termsvisible}
           onRequestClose={() => {
             Alert.alert("Modal has been closed.");
-            setModalReserve(!termsvisible);
           }}
         >
           <View
@@ -983,7 +979,7 @@ export default function Signup() {
                 },
               ]}
             >
-              <View style={{ paddingHorizontal: 20, marginBottom: 10, height:height*0.7 }}>
+              <View style={{ marginBottom: 10, height:height*0.7 }}>
                 <View style={{ flex: 1, height:height }}>
                   <WebView originWhitelist={['*']} source={{ html: htmlContent }} style={{ backgroundColor: theme.bg,}} />
                 </View>
@@ -1009,9 +1005,6 @@ export default function Signup() {
             </View>
           </View>
         </Modal>
-        
-        
-
           <View
             style={{
               paddingTop: 30,

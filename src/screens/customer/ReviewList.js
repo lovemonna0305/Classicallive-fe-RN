@@ -38,8 +38,9 @@ export default function CustomerReviewList() {
   const theme = useContext(themeContext);
   const navigation = useNavigation();
   const program = store.program;
+  const currentUser = store.currentUser;
   const [reviews, setReviews] = useState({});
-
+  const [commitReview, setCommitReview] = useState(true);
 
   useEffect(() => {
     changeStore({ ...store, isLoading: true });
@@ -47,6 +48,10 @@ export default function CustomerReviewList() {
       await getReviewsByPost(program.id)
         .then(res => {
           setReviews(res)
+          const found = res.find((element) => element.customer.id = currentUser.id);
+          if(found){
+            setCommitReview(false);
+          }
           changeStore({ ...store, isLoading: false });
         }).catch(err => {
           changeStore({ ...store, isLoading: false });
@@ -70,12 +75,12 @@ export default function CustomerReviewList() {
     return (
       <>
         <TouchableOpacity key={`customer-review-${item.id}`}
-          style={{ height: 90, padding: 5, backgroundColor: theme.box, borderRadius: 5, marginBottom: 5 }}
+          style={{ height: 90, padding: 5, backgroundColor: theme.itembackground, borderRadius: 5, marginBottom: 5 }}
           onPress={() => selectReview(item)}>
-          <View style={[style.row, { paddingTop: 5, paddingHorizontal: 10 }]}>
+          <View style={[style.row, { paddingTop: 5, paddingHorizontal: 2 }]}>
             <View style={{ flex: 1 }}>
               <Image
-                source={{ uri: server.media_url + item.customer.image_file }}
+                source={{ uri: server.member_url + item.customer.image_file }}
                 style={{ width: 70, height: 70, borderRadius: 5 }}
               />
             </View>
@@ -107,7 +112,7 @@ export default function CustomerReviewList() {
 
   return (
     <SafeAreaView
-      style={[style.area, { backgroundColor: theme.bg, paddingTop: 40 }]}
+      style={[style.area, { backgroundColor: theme.bg, paddingTop: 30,  }]}
     >
       <AppBar
         color={theme.bg}
@@ -116,7 +121,7 @@ export default function CustomerReviewList() {
         centerTitle={true}
         elevation={0}
         leading={
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => navigation.replace('HistoryList')}>
             <Avatar.Icon
               icon="arrow-left"
               style={{ backgroundColor: theme.bg }}
@@ -129,7 +134,7 @@ export default function CustomerReviewList() {
       {store.isLoading && <Spinner />}
       
         {reviews && (reviews.length > 0) ? (
-          <ScrollView style={{ flex: 1, marginHorizontal: 20, marginBottom: 5 }}>
+          <ScrollView style={{ flex: 1, marginHorizontal: 10, marginBottom: 5 }}>
             <FlatList
               key={"review-list"}
               data={reviews}
@@ -157,24 +162,26 @@ export default function CustomerReviewList() {
             </Text>
           </View>
         )}
-      <View
-        style={{
-          backgroundColor: "transparent",
-          position: "absolute",
-          bottom: 0,
-          right: 0,
-        }}
-      >
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Review")}
+      {commitReview&&
+        <View
+          style={{
+            backgroundColor: "transparent",
+            position: "absolute",
+            bottom: 0,
+            right: 0,
+          }}
         >
-          <Avatar.Image
-            source={images.plus}
-            style={{ backgroundColor: "" }}
-            size={130}
-          ></Avatar.Image>
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Review")}
+          >
+            <Avatar.Image
+              source={images.plus}
+              style={{ backgroundColor: "" }}
+              size={130}
+            ></Avatar.Image>
+          </TouchableOpacity>
+        </View>
+      }
     </SafeAreaView>
   );
 }

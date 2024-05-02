@@ -78,10 +78,11 @@ export default function FlatPerformerPage2({ items, title }) {
     setModalVisible(false);
   };
 
-  const handleRejectionProgram = async () => {
+  const handleRejectionProgram = async (id) => {
     setEdit(0);
+    setModalVisible1(false);
     try {
-      await rejectionReservation(item.id)
+      await rejectionReservation(id)
       .then((res) =>{
         if(res.data.success){
           Toast.show({
@@ -104,7 +105,7 @@ export default function FlatPerformerPage2({ items, title }) {
     } catch (err) {
       console.log(err)
     }
-    setModalVisible1(false);
+    
   };
 
   const renderItem = ({ item, index }) => {
@@ -123,12 +124,12 @@ export default function FlatPerformerPage2({ items, title }) {
         }}
         onPress={() => selectProgram(item)}
       >
-        <View style={[style.row, { paddingTop: 5, paddingHorizontal: 10 }]}>
+        <View style={[style.row, { paddingTop: 5, paddingHorizontal: 2 }]}>
           <View style={{ flex: 1 }}>
             <Image
               source={{
                 uri:
-                  server.media_url + item.customer.image_file,
+                  server.member_url + item.customer.image_file,
               }}
               style={{ width: 70, height: 70, borderRadius: 5 }}
             />
@@ -242,8 +243,7 @@ export default function FlatPerformerPage2({ items, title }) {
               <TouchableOpacity
                 onPress={() => {
                   setEdit(0);
-                  setItem(item);
-                  handleRejectionProgram();
+                  handleRejectionProgram(item.id);
                   // setModalVisible(true);
                 }}
               >
@@ -292,7 +292,7 @@ export default function FlatPerformerPage2({ items, title }) {
   return (
     <>
       {store.isLoading && <Spinner />}
-      <View style={{ flex: 1, marginHorizontal: 20, marginBottom: 60 }}>
+      <View style={{ flex: 1, marginHorizontal: 10, marginBottom: 60 }}>
         <Modal
           animationType="fade"
           transparent={true}

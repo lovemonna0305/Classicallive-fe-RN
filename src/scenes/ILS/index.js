@@ -80,7 +80,7 @@ export default function Meeting() {
                 (async () => {
                   completeProgram(program.id)
                     .then(points => {
-                      currentUser.points += points;
+                      currentUser.points = Number(currentUser.points) + Number(points);
                       changeStore({ ...store, isLoading: false, currentUser: currentUser, pPendingPoints: points });
                     }).catch(err => {
                       changeStore({ ...store, isLoading: false });

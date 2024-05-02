@@ -32,8 +32,8 @@ export default function NewPassword({ route }) {
   const { email } = route.params;
 
   const [data, setData] = useState({
-    password: "123123",
-    confirmPassword: "123123",
+    password: "",
+    confirmPassword: "",
   });
   useEffect(() => {
     changeStore({ ...store, isLoading: false });
@@ -87,7 +87,7 @@ export default function NewPassword({ route }) {
 
   return (
     <SafeAreaView
-      style={[style.area, { backgroundColor: theme.bg, paddingTop: 30 }]}
+      style={[style.area, { backgroundColor: theme.bg, paddingTop: 30,}]}
     >
       {/* <StatusBar backgroundColor={darkMode === true ? '#000':'#fff'} barStyle={darkMode === true ? 'light-content' : 'dark-content'} translucent={false}/> */}
       <AppBar

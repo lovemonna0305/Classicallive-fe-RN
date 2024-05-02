@@ -181,8 +181,7 @@ export default function AccountProfile() {
       style={[
         style.area,
         {
-          backgroundColor: theme.bg,
-          paddingTop: 40,
+          backgroundColor: theme.bg,paddingTop: 30,
           fontFamily: "Plus Jakarta Sans",
         },
       ]}
@@ -264,10 +263,10 @@ export default function AccountProfile() {
                       ]}
                     >
                       <View
-                        style={{ paddingHorizontal: 20, alignSelf: "flex-end" }}
+                        style={{ paddingHorizontal: 10, alignSelf: "flex-end" }}
                       >
                         <TouchableOpacity onPress={() => setVisible(false)}>
-                          <Icon name="close-sharp" color="black" size={20} />
+                          <Icon name="close-sharp" color={theme.txt} size={20} />
                         </TouchableOpacity>
                       </View>
                       <Text
@@ -287,8 +286,7 @@ export default function AccountProfile() {
                       <TouchableOpacity
                         onPress={handleCameraLaunch}
                         style={{
-                          // paddingTop: 15 ,
-                          paddingVertical: 15,
+                          paddingTop: 15 ,
                           backgroundColor: theme.bg,
                           // theme == "dark" ? "#434E58" : "#E3E7EC",
                           borderRadius: 10,
@@ -310,8 +308,7 @@ export default function AccountProfile() {
                         <TouchableOpacity
                           onPress={openImagePicker}
                           style={{
-                            //  paddingTop: 15 ,
-                            paddingVertical: 15,
+                            paddingVertical: 10,
                             backgroundColor: theme.bg,
                             // theme == "light" ? "#4A4A65" : "#E3E7EC",
                             borderRadius: 10,

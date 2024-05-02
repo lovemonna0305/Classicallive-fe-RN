@@ -57,7 +57,7 @@ export default function CustomerPostDetail() {
 
 
   const checkProgram = () => {
-    if (currentUser.points < program.points) {
+    if (currentUser.points > program.points) {
     setModalVisible(true);
     return;
     }
@@ -203,7 +203,7 @@ export default function CustomerPostDetail() {
 
   return (
     <SafeAreaView
-      style={[style.area, { backgroundColor: theme.bg, paddingTop: 40 }]}
+      style={[style.area, { backgroundColor: theme.bg, paddingTop: 30,  }]}
     >
       {/* <StatusBar backgroundColor={darkMode === true ? '#000':'#fff'} barStyle={darkMode === true  ? 'light-content' : 'dark-content'} translucent={false}/> */}
       <AppBar

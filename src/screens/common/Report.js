@@ -64,7 +64,7 @@ export default function Report() {
           }
         />
         <View style={{ flex: 1 }}>
-          {/* {store.isLoading && <Spinner />} */}
+          {store.isLoading && <Spinner />}
           <View style={{ paddingTop: 15 }}>
             <View style={[style.row, { alignItems: "center" }]}>
               <View>
@@ -171,10 +171,10 @@ export default function Report() {
                       });
                       changeStore({ ...store, isLoading: false });
                     }).catch(err => {
+                      console.log(err);
                       changeStore({ ...store, isLoading: false });
                     });
                 })();
-                navigation.replace('Profile');
               }}
             >
               <Text style={style.btntxt}>{t("send")}</Text>

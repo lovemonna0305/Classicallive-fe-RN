@@ -244,7 +244,7 @@ export default function CustomerHomepage() {
                 </Text>
               </View>
               <View
-                style={{ marginTop: 10, height: 200, marginHorizontal: 18 }}
+                style={{ marginTop: 10, height: 200, marginHorizontal: 10 }}
               >
                 {Programs["after"] && Programs["after"].length != 0 ? (
                   <View>
@@ -279,7 +279,7 @@ export default function CustomerHomepage() {
               </View>
             </View>
             <View>
-              <View style={{ marginTop: 10, marginHorizontal: 20 }}>
+              <View style={{ marginTop: 10, marginHorizontal: 10 }}>
                 <Text
                   style={{
                     marginVertical: 8,
@@ -326,7 +326,7 @@ export default function CustomerHomepage() {
               </View>
             </View>
             <View>
-              <View style={{ marginTop: 10, marginHorizontal: 20 }}>
+              <View style={{ marginTop: 10, marginHorizontal: 10 }}>
                 <Text
                   style={{
                     marginVertical: 8,

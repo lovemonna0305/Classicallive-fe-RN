@@ -91,7 +91,7 @@ export default function Login() {
   };
 
   useEffect(() => {
-    setEmail("customer@gmail.com");
+    setEmail("performer@gmail.com");
     setPassword("123123");
     // console.log("global.isRemember",global.isRemember);
     // console.log("global.tokens",global.tokens);
@@ -149,7 +149,7 @@ export default function Login() {
 
   return (
     <SafeAreaView
-      style={[style.area, { backgroundColor: theme.bg, paddingTop: 40 }]}
+      style={[style.area, { backgroundColor: theme.bg, paddingTop: 30 }]}
     >
       {/* <StatusBar backgroundColor={darkMode === true ? '#000':'#fff'} barStyle={darkMode === true  ? 'light-content' : 'dark-content'} translucent={false}/> */}
 

@@ -96,7 +96,7 @@ export default function Law() {
 
   return (
     <SafeAreaView
-      style={[style.area, { backgroundColor: theme.bg, paddingTop: 30 }]}
+      style={[style.area, { backgroundColor: theme.bg,paddingTop: 30, }]}
     >
       <View style={[style.main, { backgroundColor: theme.bg }]}>
         <AppBar

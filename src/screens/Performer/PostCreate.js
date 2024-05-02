@@ -172,7 +172,7 @@ export default function PerformerPostCreate() {
       d_start_time: moment(currentDateTime).toDate(),
       d_end_time: moment(currentDateTime).toDate(),
     });
-    setFirsttime(data.start_time);
+    setFirsttime(currentDateTime);
 
     changeStore({ ...store, isLoading: false });
   }, []);
@@ -283,7 +283,7 @@ export default function PerformerPostCreate() {
   };
 
   const [selectedImage, setSelectedImage] = useState(
-    server.default_url + 'media.png'
+    server.media_url + 'default-image.jpg'
   );
   const [image, setImage] = useState(null);
 
@@ -474,9 +474,7 @@ export default function PerformerPostCreate() {
       style={[
         style.area,
         {
-          backgroundColor: theme.bg,
-          paddingTop: 40,
-          fontFamily: "Plus Jakarta Sans",
+          backgroundColor: theme.bg,paddingTop: 30,          fontFamily: "Plus Jakarta Sans",
         },
       ]}
     >
@@ -855,7 +853,7 @@ export default function PerformerPostCreate() {
                               }}
                             >
                               <TouchableOpacity onPress={() => setVisible(false)}>
-                                <Icon name="close-sharp" color="black" size={20} />
+                                <Icon name="close-sharp" color={theme.txt} size={20} />
                               </TouchableOpacity>
                             </View>
                             <Text
@@ -875,8 +873,7 @@ export default function PerformerPostCreate() {
                             <TouchableOpacity
                               onPress={handleCameraLaunch}
                               style={{
-                                // paddingTop: 15 ,
-                                paddingVertical: 15,
+                                paddingTop: 10 ,
                                 backgroundColor: theme.bg,
                                 // theme == "dark" ? "#434E58" : "#E3E7EC",
                                 borderRadius: 10,
@@ -898,8 +895,7 @@ export default function PerformerPostCreate() {
                               <TouchableOpacity
                                 onPress={openImagePicker}
                                 style={{
-                                  //  paddingTop: 15 ,
-                                  paddingVertical: 15,
+                                  paddingVertical: 10,
                                   backgroundColor: theme.bg,
                                   // theme == "light" ? "#4A4A65" : "#E3E7EC",
                                   borderRadius: 10,
@@ -990,7 +986,7 @@ export default function PerformerPostCreate() {
                               }}
                             >
                               <TouchableOpacity onPress={() => setVideoVisible(false)}>
-                                <Icon name="close-sharp" color="black" size={20} />
+                                <Icon name="close-sharp" color={theme.txt} size={20} />
                               </TouchableOpacity>
                             </View>
                             <Text
@@ -1010,8 +1006,7 @@ export default function PerformerPostCreate() {
                             <TouchableOpacity
                               onPress={handleCamera}
                               style={{
-                                // paddingTop: 15 ,
-                                paddingVertical: 15,
+                                paddingTop: 10 ,
                                 backgroundColor: theme.bg,
                                 // theme == "dark" ? "#434E58" : "#E3E7EC",
                                 borderRadius: 10,
@@ -1033,8 +1028,7 @@ export default function PerformerPostCreate() {
                               <TouchableOpacity
                                 onPress={handleLibrary}
                                 style={{
-                                  //  paddingTop: 15 ,
-                                  paddingVertical: 15,
+                                  paddingVertical: 10,
                                   backgroundColor: theme.bg,
                                   // theme == "light" ? "#4A4A65" : "#E3E7EC",
                                   borderRadius: 10,

@@ -26,6 +26,7 @@ import { Avatar } from "react-native-paper";
 import { useTranslation } from "react-i18next";
 import { color } from "@rneui/base";
 import Icon from "react-native-vector-icons/FontAwesome";
+import IconMaterial from "react-native-vector-icons/MaterialIcons";
 import {
   likepost,
   uppost,
@@ -63,6 +64,7 @@ export default function CustomerHistoryDetail({ route }) {
   const [modalReserve, setModalReserve] = useState(false);
   const [modalWatch, setModalWatch] = useState(false);
   // const { status } = route.params;
+  console.log(server.member_url + program.member.image_file)
 
   useEffect(() => {
     changeStore({ ...store, isLoading: true });
@@ -289,7 +291,7 @@ export default function CustomerHistoryDetail({ route }) {
 
   return (
     <SafeAreaView
-      style={[style.area, { backgroundColor: theme.bg, paddingTop: 40 }]}
+      style={[style.area, { backgroundColor: theme.bg,paddingTop: 30, }]}
     >
       {/* <StatusBar backgroundColor={darkMode === true ? '#000':'#fff'} barStyle={darkMode === true  ? 'light-content' : 'dark-content'} translucent={false}/> */}
       <AppBar
@@ -647,6 +649,12 @@ export default function CustomerHistoryDetail({ route }) {
                     />
                   }
                   </View>
+                  <View style={{}}>
+                    <Image
+                      source={{ uri: server.member_url + program.member.image_file }}
+                      style={{ width: 70, height: 70, borderRadius: 5 }}
+                    />
+                  </View>
                   <View style={{ paddingLeft: 10 }}>
                     <Text style={style.activetext}>
                       {program.member.name}
@@ -931,7 +939,7 @@ export default function CustomerHistoryDetail({ route }) {
         </ScrollView>
         <View style={[style.row, style.bottompage_container]}>
           <TouchableOpacity
-            disabled={!program.is_chat.includes("yes") ? true : false}
+            disabled={!status.includes("complete") &&!program.is_chat.includes("yes") ? true : false}
             style={{ alignItems: "center", justifyContent: "center" }}
             onPress={() => handlechat()}
           >
@@ -966,7 +974,7 @@ export default function CustomerHistoryDetail({ route }) {
                 style={{ alignItems: "center", justifyContent: "center" }}
                 onPress={() => handleReview()}
               >
-                <Icon name="arrow-right" size={20} color={theme.txt} />
+                <IconMaterial name="reviews" size={20} color={theme.txt} />
                 <Text style={[style.activetext, { color: theme.txt }]}>{t("review")}</Text>
               </TouchableOpacity>
             </>

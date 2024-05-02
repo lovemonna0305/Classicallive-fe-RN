@@ -75,13 +75,18 @@ export default function Withdraw() {
     }
     let formdata = new FormData();
     formdata.append("amount", points);
+    changeStore({ ...store, isLoading: true });
     (async () => {
       api.requestWithdraw(formdata)
         .then(res => {
           if (res.data.success) {
             currentUser.points -= points;
             changeStore({ ...store, isLoading: false, currentUser: currentUser });
-            console.log('success');
+            Toast.show({
+              type: "success",
+              text1: t("success"),
+              text2: t("request_withdraw_successfully"),
+            });
           } else {
             changeStore({ ...store, isLoading: false });
             return;
@@ -96,7 +101,7 @@ export default function Withdraw() {
 
   return (
     <SafeAreaView
-      style={[style.area, { backgroundColor: theme.bg, paddingTop: 40, position: 'relative' }]}
+      style={[style.area, { backgroundColor: theme.bg, paddingTop: 30, }]}
     >
       {/* <StatusBar backgroundColor={darkMode === true ? '#000':'#fff'} barStyle={darkMode === true  ? 'light-content' : 'dark-content'} translucent={false}/> */}
       <AppBar

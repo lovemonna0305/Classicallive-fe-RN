@@ -79,7 +79,7 @@ export default function Forgotpass() {
   }
   return (
     <SafeAreaView
-      style={[style.area, { backgroundColor: theme.bg, paddingTop: 40 }]}
+      style={[style.area, { backgroundColor: theme.bg,  paddingTop: 30, }]}
     >
       <AppBar
         color={theme.bg}

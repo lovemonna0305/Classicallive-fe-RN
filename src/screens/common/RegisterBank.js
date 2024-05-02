@@ -42,11 +42,10 @@ export default function PerformerPostCreate() {
   const theme = useContext(themeContext);
   const navigation = useNavigation();
   const currentUser = store.currentUser;
-  let categoryArray = global.categoryArray;
 
   const [data, setData] = useState({
     acc_holder_name: "",
-    bank_num: '8976-789',
+    bank_num: '',
     routing_number: '',
     kana_first:"",
     kana_last:"",
@@ -93,7 +92,10 @@ export default function PerformerPostCreate() {
       await api.getBank()
         .then(res => {
           if(res.data.success){
-            setData(res.data.data[0]);
+            if(res.data.data.length!=0) {
+              setData(res.data.data[0]);
+              setSelectedImage(server.bank_url + res.data.data[0].file);
+            }
           } else {
             console.log('false');
           } 
@@ -114,7 +116,7 @@ export default function PerformerPostCreate() {
   }, []);
 
   const [selectedImage, setSelectedImage] = useState(
-    server.bank_url + 'media.png'
+    server.bank_url + 'default-bank.jpg'
   );
   const [image, setImage] = useState(null);
 
@@ -256,6 +258,12 @@ export default function PerformerPostCreate() {
             .then(res => {
               if (res.data.success) {
                 changeStore({ ...store, isLoading: false });
+                Toast.show({
+                  type: "success",
+                  text1: t("success"),
+                  text2: t('register_bank_account_successfully'),
+                });
+                return;
               } else {
                 changeStore({ ...store, isLoading: false });
                 Toast.show({
@@ -281,9 +289,7 @@ export default function PerformerPostCreate() {
       style={[
         style.area,
         {
-          backgroundColor: theme.bg,
-          paddingTop: 40,
-          fontFamily: "Plus Jakarta Sans",
+          backgroundColor: theme.bg,paddingTop: 30,
         },
       ]}
     >
@@ -339,7 +345,6 @@ export default function PerformerPostCreate() {
             <View style={{ paddingTop: 8 }}>
               <TextInput
                 value={data.acc_holder_name}
-                placeholder={t("bank_acc_holder_name")}
                 selectionColor={Colors.primary}
                 placeholderTextColor={Colors.disable}
                 style={[style.txtinput, { backgroundColor: theme.bg }]}
@@ -379,7 +384,6 @@ export default function PerformerPostCreate() {
               </Text>
               <View style={{ paddingTop: 8 }}>
                 <TextInput
-                  placeholder={t('routing_number')}
                   selectionColor={Colors.primary}
                   placeholderTextColor={Colors.disable}
                   style={[style.txtinput, { backgroundColor: theme.bg }]}
@@ -437,7 +441,7 @@ export default function PerformerPostCreate() {
                               }}
                             >
                               <TouchableOpacity onPress={() => setVisible(false)}>
-                                <Icon name="close-sharp" color="black" size={20} />
+                                <Icon name="close-sharp" color={theme.txt} size={20} />
                               </TouchableOpacity>
                             </View>
                             <Text
@@ -457,8 +461,7 @@ export default function PerformerPostCreate() {
                             <TouchableOpacity
                               onPress={handleCameraLaunch}
                               style={{
-                                // paddingTop: 15 ,
-                                paddingVertical: 15,
+                                paddingTop: 10 ,
                                 backgroundColor: theme.bg,
                                 // theme == "dark" ? "#434E58" : "#E3E7EC",
                                 borderRadius: 10,
@@ -480,8 +483,7 @@ export default function PerformerPostCreate() {
                               <TouchableOpacity
                                 onPress={openImagePicker}
                                 style={{
-                                  //  paddingTop: 15 ,
-                                  paddingVertical: 15,
+                                  paddingVertical: 10,
                                   backgroundColor: theme.bg,
                                   // theme == "light" ? "#4A4A65" : "#E3E7EC",
                                   borderRadius: 10,

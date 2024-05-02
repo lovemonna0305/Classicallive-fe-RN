@@ -575,5 +575,32 @@
   "points_required":"必要なポイント",
 
   "default":"デフォルト",
+
+  "-no_japanese-":"--",
+  
+   "your_balance":"あなたの残高",
+   "withdraw":"撤回",
+   "greater_than_0":"0 より大きくなければなりません",
+   "smaller_than_balance":"残高より小さい必要があります。",
+   "withdraw_sure":"撤退してもよろしいですか?",
+   "withdraw_now":"今すぐ撤退",
+  
+   "acc_holder_name_required":"アカウント所有者名が必要です",
+   "bank_num_required":"銀行番号が必要です",
+   "routing_number_required":"ルーティング番号が必要です",
+   "email_addr_required":"電子メールが必要です",
+   "birthday_required":"誕生日は必須です",
+   "phone_number_required":"電話番号が必要です",
+
+   "created_post_ successly":"投稿は正常に作成されました",
+   "updated_post_ successly":"投稿は正常に更新されました",
+   "register_bank_account_ successly":"銀行口座の登録に成功しました",
+   "review_created_successly":"レビューが正常に作成されました",
+   "request_withdraw_successly":"引き出しリクエストが正常に完了しました",
+  
+   "address":"住所",
+
+   "-end-":"-終了-",
+
   "amount":"総額"
 }

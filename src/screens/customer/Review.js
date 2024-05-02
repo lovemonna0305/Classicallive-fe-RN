@@ -23,6 +23,7 @@ import { getReviewsByPost } from "../../actions/common";
 import { server } from "../../constants";
 import { useStore } from "../../store/store";
 import Spinner from "../../components/Spinner";
+import Toast from "react-native-toast-message";
 
 export default function CustomerReview() {
   const { changeStore, store } = useStore();
@@ -36,7 +37,7 @@ export default function CustomerReview() {
 
   return (
     <SafeAreaView
-      style={[style.area, { backgroundColor: theme.bg, paddingTop: 30 }]}
+      style={[style.area, { backgroundColor: theme.bg, paddingTop: 30,}]}
     >
       {/* <StatusBar backgroundColor={darkMode === true ? '#000':'#fff'} barStyle={darkMode === true ? 'light-content' : 'dark-content'} translucent={false}/> */}
       <View style={[style.main, { backgroundColor: theme.bg }]}>
@@ -126,8 +127,18 @@ export default function CustomerReview() {
                 (async () => {
                   await commitReview(formdata, program)
                     .then(res => {
+                      Toast.show({
+                        type: "success",
+                        text1: t('success'),
+                        text2: t('review_created_successfully'),
+                      });
                       changeStore({ ...store, isLoading: false });
                     }).catch(err => {
+                      Toast.show({
+                        type: "error",
+                        text1: t('error'),
+                        text2: err,
+                      });
                       changeStore({ ...store, isLoading: false });
                     });
                 })();

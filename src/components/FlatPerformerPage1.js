@@ -103,7 +103,7 @@ export default function FlatPerformerPage1({ id, items, title }) {
         }}
         onPress={() => selectProgram(item)}
       >
-        <View style={[style.row, { paddingTop: 5, paddingHorizontal: 10 }]}>
+        <View style={[style.row, { paddingTop: 5, paddingHorizontal: 2 }]}>
           <View style={{ flex: 1 }}>
             <Image
               source={{ uri: server.media_url + item.image_file }}
@@ -303,7 +303,7 @@ export default function FlatPerformerPage1({ id, items, title }) {
   };
 
   return (
-    <View style={{ flex: 1, marginHorizontal: 20, marginBottom: 60 }}>
+    <View style={{ flex: 1, marginHorizontal: 10, marginBottom: 60 }}>
       {store.isLoading && <Spinner />}
       <Modal
         animationType="fade"

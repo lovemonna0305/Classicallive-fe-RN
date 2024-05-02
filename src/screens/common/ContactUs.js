@@ -41,7 +41,7 @@ export default function ContactUs() {
 
   return (
     <SafeAreaView
-      style={[style.area, { backgroundColor: theme.bg, paddingTop: 30 }]}
+      style={[style.area, { backgroundColor: theme.bg,paddingTop: 30, }]}
     >
       {/* <StatusBar backgroundColor={darkMode === true ? '#000':'#fff'} barStyle={darkMode === true ? 'light-content' : 'dark-content'} translucent={false}/> */}
       <View style={[style.main, { backgroundColor: theme.bg }]}>
@@ -63,7 +63,7 @@ export default function ContactUs() {
           }
         />
         <View style={{ flex: 1 }}>
-          {/* {store.isLoading && <Spinner />} */}
+          {store.isLoading && <Spinner />}
           <View style={{ paddingTop: 15 }}>
             {/* <View style={{ paddingTop: 10 }}>
               <Text

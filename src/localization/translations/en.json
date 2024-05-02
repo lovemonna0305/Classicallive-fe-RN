@@ -606,7 +606,10 @@
   "phone_number_required":"Phone Number required",
 
   "created_post_successfully":"The Post Created Successfully",
-  "updated_post_successfully":"The Post Updated Successfully",
+  "updated_post_successfully":"The Post Updated Successfully", 
+  "register_bank_account_successfully":"Register bank account Successfully", 
+  "review_created_successfully":"Review created Successfully", 
+  "request_withdraw_successfully":"Withdraw requested Successfully", 
   
   "address":"Address",
 

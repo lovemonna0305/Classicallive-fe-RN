@@ -24,7 +24,7 @@ export default function Legal() {
 
   return (
     <SafeAreaView
-      style={[style.area, { backgroundColor: theme.bg, paddingTop: 30 }]}
+      style={[style.area, { backgroundColor: theme.bg,paddingTop: 30, }]}
     >
       {/* <StatusBar backgroundColor={darkMode === true ? '#000':'#fff'} barStyle={darkMode === true  ? 'light-content' : 'dark-content'} translucent={false}/> */}
       <View style={[style.main, { backgroundColor: theme.bg }]}>

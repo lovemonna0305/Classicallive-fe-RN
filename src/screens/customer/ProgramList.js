@@ -18,10 +18,6 @@ import themeContext from "../../theme/themeContex";
 import { Colors } from "../../theme/color";
 import style from "../../theme/style";
 import {
-  getPrograms,
-  getCProgramsByCategory,
-} from "../../actions/customer";
-import {
   setLoading,
   setProgram,
 } from "../../actions/common";
@@ -56,7 +52,7 @@ export default function CustomerProgramList() {
       formdata.append("role", "customer");
       formdata.append("category", pCategory.id);
       formdata.append("subcategory", 0);
-      dispatch(getCProgramsByCategory(formdata));
+      
     })();
     dispatch(setLoading(false));
   }, []);
@@ -297,7 +293,7 @@ export default function CustomerProgramList() {
 
   return (
     <SafeAreaView
-      style={[style.area, { backgroundColor: theme.bg, paddingTop: 40 }]}
+      style={[style.area, { backgroundColor: theme.bg, paddingTop: 30,  }]}
     >
       {/* <StatusBar backgroundColor={darkMode === true ? '#000':'#fff'} barStyle={darkMode === true  ? 'light-content' : 'dark-content'} translucent={false}/> */}
       <AppBar

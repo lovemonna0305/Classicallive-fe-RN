@@ -33,7 +33,7 @@ import { api } from "../../api";
 import { deleteProgram } from "../../actions/performer";
 import { useStore } from "../../store/store";
 import Toast from "react-native-toast-message";
-import moment from "moment";
+const moment = require('moment-timezone');
 
 export default function PerformerCustomerList() {
   const { changeStore, store } = useStore();
@@ -74,11 +74,14 @@ export default function PerformerCustomerList() {
   };
 
   const enterProgram = () => {
-    const currentdate = moment(moment(new Date()).utcOffset('+0900').format('YYYY-MM-DD HH:mm'))
+    const currentDate = new Date();
+    const currentDateTime = moment(currentDate).tz('Asia/Tokyo').format('YYYY-MM-DD hh:mm:ss');
+    console.log(currentDateTime);
+
     var start_time = moment(program.date + " " + program.start_time);
     var end_time = moment(program.date + " " + program.end_time);
     // const five_diff = start_time.diff(currentdate,'minutes');
-    const end_diff = end_time.diff(currentdate,'minutes');
+    const end_diff = end_time.diff(currentDateTime,'minutes');
     if(end_diff>0) {
       navigation.navigate("PerformerProgramEnter");
     } else {
@@ -91,7 +94,7 @@ export default function PerformerCustomerList() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.bg }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.bg,paddingTop: 30, }}>
       {/* <StatusBar backgroundColor="transparent" translucent={true} /> */}
       <View style={{ flex: 1 }}>
         <AppBar

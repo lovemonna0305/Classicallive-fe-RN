@@ -71,7 +71,7 @@ export default function Settings() {
   };
 
   return (
-    <SafeAreaView style={[style.area, { backgroundColor: theme.bg }]}>
+    <SafeAreaView style={[style.area, { backgroundColor: theme.bg ,paddingTop: 30,}]}>
       <AppBar
         color={theme.bg}
         title={t("settings")}
@@ -134,7 +134,7 @@ export default function Settings() {
               <TouchableOpacity onPress={() =>
                 navigation.navigate('AccountProfile')
               }>
-                <Icons name="edit" color={theme.txt} size={30}></Icons>
+                <Icons name="edit" color={theme.txt} size={25}></Icons>
               </TouchableOpacity>
             </View>
           </View>

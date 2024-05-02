@@ -43,14 +43,14 @@ export default function FlatPage({ items, title = "default" }) {
         key={`${title}-${index}`}
         style={{
           height: 90,
-          padding: 5,
+          padding: 2,
           backgroundColor: theme.box,
           borderRadius: 5,
           marginBottom: 5,
         }}
         onPress={() => selectProgram(item)}
       >
-        <View style={[style.row, { paddingTop: 5, paddingHorizontal: 10 }]}>
+        <View style={[style.row, { paddingTop: 5, paddingHorizontal: 2 }]}>
           <View style={{ flex: 1 }}>
             <Image
               source={{ uri: server.media_url + item.image_file }}
@@ -214,7 +214,7 @@ export default function FlatPage({ items, title = "default" }) {
   };
 
   return (
-    <View style={{ flex: 1, marginHorizontal: 20, }}>
+    <View style={{ flex: 1, marginHorizontal: 10, }}>
       {items && items.length > 0 ? (
         <>
           <FlatList

@@ -249,7 +249,7 @@ export default StyleSheet.create({
     fontFamily: "Plus Jakarta Sans",
     fontStyle: "normal",
     fontWeight: 700,
-    fontSize: 24,
+    fontSize: 20,
     lineHeight: 32,
     alignItems: "center",
     letterSpacing: 0.08,
